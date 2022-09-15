@@ -1,6 +1,6 @@
 \name{writeslimraster}
 \alias{writeslimraster}
-\title{optimized export-function for spatialraster}
+\title{optimized export for spatialraster}
 \usage{
 writeslimraster()
 }

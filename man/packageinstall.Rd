@@ -1,6 +1,6 @@
 \name{package.install}
 \alias{package.install}
-\title{Check if package is installed. If not, do so}
+\title{check if packages are installed. If not, do so}
 \usage{
 package.install()
 }

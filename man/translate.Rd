@@ -1,6 +1,6 @@
 \name{translate}
 \alias{translate}
-\title{to translate the column of a data.frame}
+\title{to translate the values of a data.frames colums}
 \usage{
 translate()
 }

@@ -1,6 +1,6 @@
 \name{plot.rstshp}
 \alias{plot.rstshp}
-\title{to plot a spatialraster with overlaid spatialvecor in one command}
+\title{to plot a spatialraster with superimposed spatialvecor in one command}
 \usage{
 plot.rstshp()
 }
