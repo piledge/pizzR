@@ -1,5 +1,5 @@
-\name{hello}
-\alias{hello}
+\name{change.rasterOptions}
+\alias{hessllo}
 \title{Hello, World!}
 \usage{
 hello()
