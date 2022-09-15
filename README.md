@@ -12,8 +12,7 @@ The `pizzR`-package does not solve any large problem, but it can help to save ti
 
 ## Installation
 
-`pizzR` is currently only available through GitHub and can be downloaded
-easily using devtools.
+`pizzR` is currently only available through GitHub and can be downloaded easily using devtools:
 
 ```
 # install.packages("devtools")
