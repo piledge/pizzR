@@ -1,11 +1,11 @@
 \name{change.rasterOptions}
-\alias{hessllo}
-\title{Hello, World!}
+\alias{change.rasterOptions}
+\title{12354}
 \usage{
 hello()
 }
 \description{
-Prints 'Hello, world!'.
+Prints '32113!'.
 }
 \examples{
 hello()
