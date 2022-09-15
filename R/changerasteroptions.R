@@ -1,13 +1,5 @@
-#' change.rasterOptions() ##################################################################
-#' to adjust raster-parameters
-#' @example change.rasterOptions(TRUE, "Y:/tempfiles", 4)
-#' @example change.rasterOptions(FALSE, "", 4)
-#' BOOLEAN if tempfolder should be changed or not
-#' new temporary folder for raster-operations
-#' OSRAM.remaining for operating system in GByte
+change.rasterOptions <- function(changetmpdir = FALSE, tmpdir = "", OSRAM.remaining = 3, progress = "", ...){
 
-change.rasterOptions <- function(changetempfolder = FALSE, tempfolder = "", OSRAM.remaining = 3){
-  
   package.install <- function(packages) {
     to_install <- !packages %in% installed.packages()
     if (any(to_install)){
@@ -17,22 +9,28 @@ change.rasterOptions <- function(changetempfolder = FALSE, tempfolder = "", OSRA
     }
   }
   package.install(c("memuse", "raster"))
-  
-  
+
+
   require(raster)
 
-  if (changetempfolder == TRUE && dir.exists(tempfolder) == FALSE) {
-    base::dir.create(tempfolder, recursive = TRUE)
-    base::cat(paste("\n", Sys.time(), tempfolder, "created"))
-  }
-  
-  sys.memory <- memuse::Sys.meminfo()$totalram@size
-  if (((sys.memory-OSRAM.remaining) / sys.memory) > 0.9){
-    raster.memfrac <-  0.9
-  }else{
-    raster.memfrac  <-  ((sys.memory-OSRAM.remaining) / sys.memory)
+  if (changetmpdir == TRUE && dir.exists(tmpdir) == FALSE) {
+    base::dir.create(tmpdir, recursive = TRUE)
+    base::cat(paste("\n", Sys.time(), tmpdir, "created"))
   }
 
-  raster::rasterOptions(tmpdir = tempfolder, memfrac = raster.memfrac, maxmemory = sys.memory * 1024^3, progress = "text")
+  maxmemory <- memuse::Sys.meminfo()$totalram@size
+  if (((maxmemory-OSRAM.remaining) / maxmemory) > 0.9){
+    memfrac <-  0.9
+  }else{
+    memfrac <- ((maxmemory - OSRAM.remaining) / maxmemory)
+  }
+
+                         fparameters                  <- list(...)
+  if (changetmpdir == T) fparameters$tmpdir           <- tmpdir
+                         fparameters$memfrac          <- memfrac
+                         fparameters$maxmemory        <- maxmemory * 1024^3
+                         fparameters$progress         <- progress
+
+  do.call(raster::rasterOptions, fparameters)
   raster::rasterOptions()
 }

@@ -1,13 +1,5 @@
-#' change.terraOptions() ##################################################################
-#' to adjust terra-parameters
-#' @example change.terraOptions(TRUE, "Y:/tempfiles", 4)
-#' @example change.terraOptions(FALSE, "", 4)
-#' BOOLEAN if tempfolder should be changed or not
-#' new temporary folder for terra-operations
-#' OSRAM.remaining for operating system in GByte
+change.terraOptions <- function(changetempdir = FALSE, tempdir = "", OSRAM.remaining = 3, progress = 0, ...){
 
-change.terraOptions <- function(changetempfolder = FALSE, tempfolder = "", OSRAM.remaining = 3){
-  
   package.install <- function(packages) {
     to_install <- !packages %in% installed.packages()
     if (any(to_install)){
@@ -17,22 +9,28 @@ change.terraOptions <- function(changetempfolder = FALSE, tempfolder = "", OSRAM
     }
   }
   package.install(c("memuse", "terra"))
-  
-  
+
+
   require(terra)
 
-  if (changetempfolder == TRUE && dir.exists(tempfolder) == FALSE) {
-    base::dir.create(tempfolder, recursive = TRUE)
-    base::cat(paste("\n", Sys.time(), tempfolder, "created"))
+  if (changetempdir == TRUE && dir.exists(tempdir) == FALSE) {
+    base::dir.create(tempdir, recursive = TRUE)
+    base::cat(paste("\n", Sys.time(), tempdir, "created"))
   }
-  
-  sys.memory <- memuse::Sys.meminfo()$totalram@size
-  if (((sys.memory-OSRAM.remaining) / sys.memory) > 0.9){
-    terra.memfrac  <-  0.9
+
+  memmax <- memuse::Sys.meminfo()$totalram@size
+  if (((memmax-OSRAM.remaining) / memmax) > 0.9){
+    memfrac  <-  0.9
   }else{
-    terra.memfrac <- ((sys.memory-OSRAM.remaining) / sys.memory)
+    memfrac <- ((memmax - OSRAM.remaining) / memmax)
   }
-  
-  terra::terraOptions(tempdir = tempfolder, memfrac = terra.memfrac, memmax = sys.memory, progress = 1)
+
+                          fparameters                  <- list(...)
+  if (changetempdir == T) fparameters$tempdir          <- tempdir
+                          fparameters$memfrac          <- memfrac
+                          fparameters$memmax           <- memmax
+                          fparameters$progress         <- progress
+
+  do.call(terra::terraOptions, fparameters)
   terra::terraOptions()
 }
