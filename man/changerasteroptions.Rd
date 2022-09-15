@@ -1,12 +1,12 @@
 \name{change.rasterOptions}
 \alias{change.rasterOptions}
-\title{simple modification of package parameters}
+\title{simple modification of 'raster'-package parameters}
 \usage{
-hello()
+change.rasterOptions()
 }
 \description{
 Prints '32113!'.
 }
 \examples{
-hello()
+change.rasterOptions()
 }
