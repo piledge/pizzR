@@ -1,12 +1,12 @@
-\name{hello}
-\alias{hello}
-\title{Hello, World!}
+\name{package.install}
+\alias{package.install}
+\title{Check if package is installed. If not, do so}
 \usage{
-hello()
+package.install()
 }
 \description{
 Prints 'Hello, world!'.
 }
 \examples{
-hello()
+package.install()
 }
