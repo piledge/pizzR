@@ -1,6 +1,6 @@
 \name{change.rasterOptions}
 \alias{change.rasterOptions}
-\title{12354}
+\title{simple modification of package parameters}
 \usage{
 hello()
 }
