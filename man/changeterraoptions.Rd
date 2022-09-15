@@ -1,12 +1,12 @@
-\name{hello}
-\alias{hello}
-\title{Hello, World!}
+\name{change.terraOptions}
+\alias{change.terraOptions}
+\title{simple modification of 'terra'-package parameters}
 \usage{
-hello()
+change.terraOptions()
 }
 \description{
-Prints 'Hello, world!'.
+Prints '32113!'.
 }
 \examples{
-hello()
+change.terraOptions()
 }

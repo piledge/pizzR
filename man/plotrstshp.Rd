@@ -1,12 +1,12 @@
-\name{hello}
-\alias{hello}
-\title{Hello, World!}
+\name{plot.rstshp}
+\alias{plot.rstshp}
+\title{to plot a spatialraster with overlaid spatialvecor in one command}
 \usage{
-hello()
+plot.rstshp()
 }
 \description{
-Prints 'Hello, world!'.
+Prints '32113!'.
 }
 \examples{
-hello()
+plot.rstshp()
 }

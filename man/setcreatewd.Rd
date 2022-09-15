@@ -1,12 +1,12 @@
-\name{hello}
-\alias{hello}
-\title{Hello, World!}
+\name{setcreate.wd}
+\alias{setcreate.wd}
+\title{a useful combination of setwd() and dir.create()}
 \usage{
-hello()
+setcreate.wd()
 }
 \description{
-Prints 'Hello, world!'.
+Prints '32113!'.
 }
 \examples{
-hello()
+setcreate.wd()
 }

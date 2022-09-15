@@ -1,12 +1,12 @@
-\name{hello}
-\alias{hello}
-\title{Hello, World!}
+\name{translate}
+\alias{translate}
+\title{to translate the column of a data.frame}
 \usage{
-hello()
+translate()
 }
 \description{
-Prints 'Hello, world!'.
+Prints '32113!'.
 }
 \examples{
-hello()
+translate()
 }

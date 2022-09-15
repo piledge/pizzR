@@ -1,12 +1,12 @@
-\name{hello}
-\alias{hello}
-\title{Hello, World!}
+\name{opt.datatype}
+\alias{opt.datatype}
+\title{returns the optimal datatype for a spatial raster}
 \usage{
-hello()
+opt.datatype()
 }
 \description{
-Prints 'Hello, world!'.
+Prints '32113!'.
 }
 \examples{
-hello()
+opt.datatype()
 }

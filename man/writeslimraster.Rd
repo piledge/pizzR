@@ -1,12 +1,12 @@
-\name{hello}
-\alias{hello}
-\title{Hello, World!}
+\name{writeslimraster}
+\alias{writeslimraster}
+\title{optimized export-function for spatialraster}
 \usage{
-hello()
+writeslimraster()
 }
 \description{
-Prints 'Hello, world!'.
+Prints '32113!'.
 }
 \examples{
-hello()
+writeslimraster()
 }
