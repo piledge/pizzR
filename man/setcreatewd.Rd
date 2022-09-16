@@ -4,7 +4,6 @@
 \usage{
 setcreate.wd(x)
 }
-
 \arguments{
   \item{x}{path}
 }
@@ -21,5 +20,4 @@ setcreate.wd(paste0(getwd(),"/samplefolder"))
 
 # change working directory if exist
 setcreate.wd(currend.wd)
-
 }
