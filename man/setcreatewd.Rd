@@ -6,9 +6,6 @@ setcreate.wd(x)
 }
 \arguments{
   \item{x}{SpatRaster}
-  \item{filename}{character. Output filename. Can be a single filename, or as many filenames as \code{nlyr(x)} to write a file for each layer}
-  \item{overwrite}{logical. If \code{TRUE}, \code{filename} is overwritten}
-  \item{...}{additional arguments for for writing files. See Details }
 }
 \description{
 Can be used instead of setwd(). Creates recursive path prior to change of working directory.
