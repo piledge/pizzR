@@ -36,5 +36,5 @@ f <- file.path(tempdir(), "test.tif")
 writeslimRaster(r, f)
 
 # export a uncompressed raster
-writeslimRaster(r, f, overwrite=FALSE)
+writeslimRaster(r, f, compression=FALSE)
 }
