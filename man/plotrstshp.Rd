@@ -5,7 +5,7 @@
 plot.rstshp()
 }
 \arguments{
-\item{x}{SpatRaster or SpatVector}
+\item{x}{SpatRaster or SpatVector. Defines if raster- or terra-package is used for plot.}
 \item{y}{SpatRaster or SpatVector}
 }
 \description{
