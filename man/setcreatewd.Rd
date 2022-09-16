@@ -1,11 +1,11 @@
 \name{setcreate.wd}
 \alias{setcreate.wd}
-\title{a useful combination of setwd() and dir.create()}
+\title{A useful combination of setwd() and dir.create()}
 \usage{
 setcreate.wd(x)
 }
 \arguments{
-  \item{x}{path}
+\item{x}{path}
 }
 \description{
 Can be used instead of setwd(). Creates recursive path prior to change of working directory.
