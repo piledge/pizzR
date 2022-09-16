@@ -12,5 +12,3 @@ package.install <- function(packages) {
     cat(paste0("\n", Sys.time(), ": all packages installed\n\n"))
   }
 }
-
-package.install(packages)
