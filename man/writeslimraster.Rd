@@ -4,8 +4,7 @@
 \usage{
 writeslimRaster(x, filename, compression=TRUE, overwrite=TRUE, ...)
 }
-
-\Arguments{
+\arguments{
 x
 SpatRaster
 
@@ -21,7 +20,6 @@ logical. If TRUE, filename is overwritten
 ...	
 additional arguments for for writing files. See writeRaster() of raster- or terra-package
 }
-
 \description{
 Write a raster object of both, terra- and raster-package, to a file.
 }
