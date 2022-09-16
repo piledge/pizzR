@@ -13,5 +13,5 @@ Check if packages are installed. If not, do so.
 \examples{
 library(pizzR)
   
-package.install(pizzR)
+package.install("pizzR")
 }
