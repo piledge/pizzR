@@ -5,7 +5,7 @@
 setcreate.wd(x)
 }
 \arguments{
-  \item{x}{SpatRaster}
+  \item{x}{Path}
 }
 \description{
 Can be used instead of setwd(). Creates recursive path prior to change of working directory.
