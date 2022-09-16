@@ -12,6 +12,10 @@ Check if packages are installed. If not, do so.
 }
 \examples{
 library(pizzR)
-  
+
+# check/install one package
 package.install("pizzR")
+
+# check/install multiple packages
+package.install(c("pizzR","pizzR"))
 }
