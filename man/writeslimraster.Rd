@@ -21,7 +21,7 @@ change.terraOptions()
 r <- rast(nrows=5, ncols=5, vals=1:25)
 
 # create a temporary filename for the example
-f <- file.path(tempdir(), "test.tif")
+f <- file.path(tempdir(), "example.tif")
 
 # export a compressed raster
 writeslimRaster(r, f)
