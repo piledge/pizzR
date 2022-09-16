@@ -4,5 +4,5 @@ packages <- c("caret", "e1071", "feather", "foreach", "gdata", "ggplot2", "lidR"
 to_install <- !packages %in% installed.packages()
 if (any(to_install)){
   cat("\n\n\nPackages missing:", paste0(packages[to_install], sep=""), "\n")
-  cat("use 'pizzR::mypackage.install()' to add\n\n\n\n")
+  cat("use 'pizzR::package.install(pizzR::packages)' to install\n\n\n\n")
 }
