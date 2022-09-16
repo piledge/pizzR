@@ -5,8 +5,7 @@
 setcreate.wd(x)
 }
 \arguments{
-x
-  Path
+  \item{x}{Path}
 }
 \description{
 Can be used instead of setwd(). Creates recursive path prior to change of working directory.
