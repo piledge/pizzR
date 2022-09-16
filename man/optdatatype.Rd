@@ -1,6 +1,6 @@
 \name{opt.datatype}
 \alias{opt.datatype}
-\title{returns the optimal datatype for a spatial raster}
+\title{Returns the optimal export-datatype for raster- or terra-spatialraster}
 \usage{
 opt.datatype(x)
 }
@@ -8,7 +8,7 @@ opt.datatype(x)
   \item{x}{SpatRaster}
 }
 \description{
-Returns the optimal datatype for raster- or terra-spatialraster for export.
+Returns the optimal export-datatype for raster- or terra-spatialraster.
 }
 \examples{
 library(pizzR)
