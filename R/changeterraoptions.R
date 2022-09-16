@@ -8,7 +8,7 @@ change.terraOptions <- function(changetempdir=FALSE, tempdir="", OSRAM.remaining
       cat(paste0(Sys.time(), ": missing packages '", paste(packages[to_install], collapse=", "), "' installed\n\n"))
     }
   }
-  package.install(c("memuse", "terra"))
+  package.install(c("memuse", "raster", "terra"))
 
 
   require(terra)
