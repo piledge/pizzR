@@ -1,4 +1,4 @@
 plot.rstshp <- function(x, y){
-  plot(x)
-  plot(y, add = TRUE)
+  terra::plot(x)
+  terra::plot(y, add = TRUE)
 }
