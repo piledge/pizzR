@@ -13,10 +13,10 @@ Can be used instead of setwd(). Creates recursive path prior to change of workin
 \examples{
 library(pizzR)
 
-currend.wd <- getwd()
+currend.wd <- tempdir()
 
 # create new folder if not exist and change working directory
-setcreate.wd(paste0(getwd(),"/samplefolder"))
+setcreate.wd(paste0(currend.wd,"/samplefolder"))
 
 # change working directory if exist
 setcreate.wd(currend.wd)
