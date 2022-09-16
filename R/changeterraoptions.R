@@ -1,11 +1,11 @@
 change.terraOptions <- function(changetempdir=FALSE, tempdir="", OSRAM.remaining=3, progress=0, verbose=FALSE, ...){
 
-  package.install <- function(c) {
-    to_install <- !c %in% installed.packages()
+  package.install <- function(x) {
+    to_install <- !x %in% installed.packages()
     if (any(to_install)){
-      cat(paste0(Sys.time(), ": install missing packages '", paste(c[to_install], collapse=", "), "'\n"))
-      install.packages(c[to_install], dependencies = T)
-      cat(paste0(Sys.time(), ": missing packages '", paste(c[to_install], collapse=", "), "' installed\n\n"))
+      cat(paste0(Sys.time(), ": install missing packages '", paste(x[to_install], collapse=", "), "'\n"))
+      install.packages(x[to_install], dependencies = T)
+      cat(paste0(Sys.time(), ": missing packages '", paste(x[to_install], collapse=", "), "' installed\n\n"))
     }
   }
   package.install(c("memuse", "raster", "terra"))
