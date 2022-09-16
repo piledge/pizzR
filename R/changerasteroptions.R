@@ -1,4 +1,4 @@
-change.rasterOptions <- function(changetmpdir = FALSE, tmpdir = "", OSRAM.remaining = 3, progress = "", ...){
+change.rasterOptions <- function(changetmpdir=FALSE, tmpdir="", OSRAM.remaining=3, progress="", verbose=FALSE, ...){
 
   package.install <- function(packages) {
     to_install <- !packages %in% installed.packages()
@@ -32,5 +32,5 @@ change.rasterOptions <- function(changetmpdir = FALSE, tmpdir = "", OSRAM.remain
                          fparameters$progress         <- progress
 
   do.call(raster::rasterOptions, fparameters)
-  raster::rasterOptions()
+  if (verbose == TRUE) raster::rasterOptions()
 }
