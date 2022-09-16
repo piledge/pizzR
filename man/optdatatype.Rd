@@ -5,7 +5,7 @@
 opt.datatype(x)
 }
 \arguments{
-  \item{x}{SpatRaster}
+\item{x}{SpatRaster}
 }
 \description{
 Returns the optimal export-datatype for raster- or terra-spatialraster.
