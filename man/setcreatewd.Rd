@@ -2,11 +2,20 @@
 \alias{setcreate.wd}
 \title{a useful combination of setwd() and dir.create()}
 \usage{
-setcreate.wd()
+setcreate.wd(x)
+Arguments
+x
+Path
 }
 \description{
-Prints '32113!'.
+Can be used instead of setwd(). Creates recursive path prior to change of working directory.
 }
 \examples{
-setcreate.wd()
+library(pizzR)
+
+# create new folder if not exist and change working directory
+setcreate.wd(paste0(getwd(),"/samplefolder"))
+
+# change working directory if exist
+setcreate.wd(paste0(getwd(),"/samplefolder"))
 }
