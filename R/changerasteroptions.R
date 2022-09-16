@@ -1,13 +1,13 @@
 change.rasterOptions <- function(changetmpdir=FALSE, tmpdir="", OSRAM.remaining=3, progress="", verbose=FALSE, ...){
 
-  package.install <- function(packages) {
-    to_install <- !packages %in% installed.packages()
-    if (any(to_install)){
-      cat(paste0(Sys.time(), ": install missing packages '", paste(packages[to_install], collapse=", "), "'\n"))
-      install.packages(packages[to_install], dependencies = T)
-      cat(paste0(Sys.time(), ": missing packages '", paste(packages[to_install], collapse=", "), "' installed\n\n"))
-    }
+package.install <- function(c) {
+  to_install <- !c %in% installed.packages()
+  if (any(to_install)){
+    cat(paste0(Sys.time(), ": install missing packages '", paste(c[to_install], collapse=", "), "'\n"))
+    install.packages(c[to_install], dependencies = T)
+    cat(paste0(Sys.time(), ": missing packages '", paste(c[to_install], collapse=", "), "' installed\n\n"))
   }
+}
   package.install(c("memuse", "raster", "terra"))
 
 
