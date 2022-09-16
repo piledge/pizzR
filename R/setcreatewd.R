@@ -1,18 +1,12 @@
-#' setcreate.wd() ##########################################################################
-#' combines 'setwd()' and 'getwd()'-functions; creates working directory if not exist
-#' @param      setcreate.wd.folder directory to create/set
-#' @example    setcreate.wd("D:/working directory")
-
-
-setcreate.wd <- function(setcreate.wd.folder){
-  if (dir.exists(setcreate.wd.folder) == FALSE){
-    base::dir.create(setcreate.wd.folder, recursive = TRUE)
-    base::cat(paste0("\n", Sys.time(),": '", setcreate.wd.folder, "' created and set as working directory"))
-    base::setwd(setcreate.wd.folder)
+setcreate.wd <- function(x){
+  if (dir.exists(x) == FALSE){
+    base::dir.create(x, recursive = TRUE)
+    base::cat(paste0("\n", Sys.time(),": '", x, "' created and set as working directory"))
+    base::setwd(x)
   } else{
-    if (base::getwd() != setcreate.wd.folder){
-      base::cat(paste0("\n", Sys.time(),": '", setcreate.wd.folder, "' set as working directory"))
-      base::setwd(setcreate.wd.folder)
+    if (base::getwd() != x){
+      base::cat(paste0("\n", Sys.time(),": '", x, "' set as working directory"))
+      base::setwd(x)
     }
   }
 }
