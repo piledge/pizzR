@@ -16,7 +16,7 @@ Can also be used to superimpose two spatialvecors.
 library(pizzR)
 change.terraOptions()
 
-r <- raster(nrows=10, ncols=10, vals=sqrt(sample(100, 100)))
+r <- rast(nrows=10, ncols=10, vals=sqrt(sample(100, 100)))
 
 v1 <- vect("POLYGON ((-90 50, 40 60, 60 -50, -30 -80))")
 v2 <- vect("POLYGON ((-80 40, 30 50, 50 -40, -20 -70))")
