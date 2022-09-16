@@ -14,17 +14,16 @@ Can also be used to superimpose two spatialvecors.
 }
 \examples{
 library(pizzR)
-change.terraOptions()
+change.rasterOptions()
 
-r <- rast(nrows=10, ncols=10, vals=sqrt(sample(100, 100)))
+r <- raster(nrows=10, ncols=10, vals=sqrt(sample(100, 100)))
 
-e <- ext(r)
-v1 <- e-10
-v2 <- e-20
+v1 <- vect("POLYGON ((-90 50, 40 60, 60 -50, -30 -80))")
+v2 <- vect("POLYGON ((-80 40, 30 50, 50 -40, -20 -70))")
 
 # plot raster with superimposed vector
 plot.rstshp(r, v1)
 
-# plot vector with superimposed vector
-plot.rstshp(r, v2)
+# plot raster with superimposed vector
+plot.rstshp(v1, v2)
 }
