@@ -14,7 +14,7 @@ Can also be used to superimpose two spatialvecors.
 }
 \examples{
 library(pizzR)
-change.rasterOptions()
+change.terraOptions()
 
 r <- raster(nrows=10, ncols=10, vals=sqrt(sample(100, 100)))
 
