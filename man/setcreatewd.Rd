@@ -5,7 +5,7 @@
 setcreate.wd(x)
 }
 
-/Arguments{
+\Arguments{
 x
 Path
 }
