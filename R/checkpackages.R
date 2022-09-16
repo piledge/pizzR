@@ -4,5 +4,5 @@ packages <- c("feather", "raster", "terra", "caret", "tidyverse", "ranger", "ran
 to_install <- !packages %in% installed.packages()
 if (any(to_install)){
   cat("\n\n\nPackages missing:",paste0(packages[to_install],sep=""),"\n")
-  cat("use 'mypackage.install()' to add\n\n\n")
+  cat("use 'pizzR::mypackage.install()' to add\n\n\n")
 }
