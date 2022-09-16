@@ -1,4 +1,4 @@
-writeslimraster <- function(x, filename, compression = T, overwrite = T, BIGTIFF = "IF_NEEDED", filetype = "GTiff", ...){
+writeslimRaster <- function(x, filename, compression = T, overwrite = T, BIGTIFF = "IF_NEEDED", filetype = "GTiff", ...){
 
   opt.datatype <- function(spatialraster){
     sample.size <- function(cellnumber, k1 = 0.5, d1 = 15000, k2 = 0.25, d2 = 40000, maxsample = 50000){
