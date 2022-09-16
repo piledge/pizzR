@@ -3,9 +3,7 @@
 \title{a useful combination of setwd() and dir.create()}
 \usage{
 setcreate.wd(x)
-}
-
-\Arguments{
+Arguments
 x
 Path
 }
@@ -15,11 +13,9 @@ Can be used instead of setwd(). Creates recursive path prior to change of workin
 \examples{
 library(pizzR)
 
-currend.wd <- getwd()
-
 # create new folder if not exist and change working directory
 setcreate.wd(paste0(getwd(),"/samplefolder"))
 
 # change working directory if exist
-setcreate.wd(currend.wd)
+setcreate.wd(paste0(getwd(),"/samplefolder"))
 }
