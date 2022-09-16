@@ -2,7 +2,6 @@
 \alias{writeslimRaster}
 \title{wrapper-function for optimized export of spatialraster}
 \usage{
-
 writeslimRaster(x, filename, compression=TRUE, overwrite=TRUE, ...)
 Arguments
 x
@@ -25,10 +24,6 @@ additional arguments for for writing files. See writeRaster() of raster- or terr
 Write a raster object of both, terra- and raster-package, to a file.
 }
 \examples{
-Examples
-Run examples
-
-
 library(pizzR)
 r <- rast(nrows=5, ncols=5, vals=1:25)
 
