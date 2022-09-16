@@ -1,4 +1,4 @@
-change.terraOptions <- function(changetempdir = FALSE, tempdir = "", OSRAM.remaining = 3, progress = 0, ...){
+change.terraOptions <- function(changetempdir=FALSE, tempdir="", OSRAM.remaining=3, progress=0, verbose=FALSE, ...){
 
   package.install <- function(packages) {
     to_install <- !packages %in% installed.packages()
@@ -32,5 +32,5 @@ change.terraOptions <- function(changetempdir = FALSE, tempdir = "", OSRAM.remai
                           fparameters$progress         <- progress
 
   do.call(terra::terraOptions, fparameters)
-  terra::terraOptions()
+  if (verbose == TRUE) terra::terraOptions()
 }
