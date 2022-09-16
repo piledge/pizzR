@@ -17,7 +17,7 @@ overwrite
 logical. If TRUE, filename is overwritten
 
 ...	
-additional arguments for for writing files. See writeRaster() of raster- or terra-package
+additional arguments for writing files. See writeRaster()-function of raster- or terra-package
 }
 
 \description{
