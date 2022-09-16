@@ -3,9 +3,7 @@
 \title{wrapper-function for optimized export of spatialraster}
 \usage{
 writeslimRaster(x, filename, compression=TRUE, overwrite=TRUE, ...)
-}
-
-\Arguments{
+Arguments
 x
 SpatRaster
 
