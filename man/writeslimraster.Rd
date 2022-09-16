@@ -9,7 +9,7 @@ writeslimRaster(x, filename, compression=TRUE, overwrite=TRUE, ...)
   \item{filename}{character. Output filename. Can be a single filename, or as many filenames as \code{nlyr(x)} to write a file for each layer}
   \item{compression}{logical. If \code{TRUE}, turns loss-free compression to maximum. Calculated by a random-sample of pixels}
   \item{overwrite}{logical. If \code{TRUE}, \code{filename} is overwritten}
-  \item{...}{additional arguments for writing files. See Details }
+  \item{...}{additional arguments for writing files. See writeRaster() of raster- or terra-package}
 }
 \description{
 Write a raster object of both, terra- and raster-package, to a file.
