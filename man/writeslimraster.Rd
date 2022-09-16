@@ -25,6 +25,8 @@ Write a raster object of both, terra- and raster-package, to a file.
 }
 \examples{
 library(pizzR)
+change.terraOptions()
+
 r <- rast(nrows=5, ncols=5, vals=1:25)
 
 # create a temporary filename for the example
