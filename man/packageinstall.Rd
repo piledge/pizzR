@@ -2,11 +2,16 @@
 \alias{package.install}
 \title{check if packages are installed. If not, do so}
 \usage{
-package.install()
+package.install(x)
+}
+\arguments{
+\item{x}{Package}
 }
 \description{
-Prints 'Hello, world!'.
+Check if packages are installed. If not, do so.
 }
 \examples{
-package.install()
+library(pizzR)
+  
+package.install(pizzR)
 }
