@@ -3,5 +3,5 @@ packages <- c("feather", "raster", "terra", "caret", "tidyverse", "ranger", "ran
 
 to_install <- !packages %in% installed.packages()
 if (any(to_install)){
-print("\n\n\npakete fehlen du Binf\n\n\n")
+  cat("\n\n\npakete fehlen du Binf\n\n\n")
 }
