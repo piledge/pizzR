@@ -27,5 +27,5 @@ rasterOptions()
 change.rasterOptions(verbose=TRUE)
 
 # further options passed to change.rasterOptions()
-change.rasterOptions(changetmpdir=TRUE,tmpdir=tempdir(), OSRAM.remaining=3,verbose=TRUE)
+change.rasterOptions(changetmpdir=TRUE,tmpdir=tempdir(),OSRAM.remaining=3,verbose=TRUE)
 }
