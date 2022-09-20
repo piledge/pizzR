@@ -9,5 +9,5 @@ plot.rstshp <- function(x, y){
     raster::plot(x)
     raster::plot(y, add = TRUE)
   }
-  if(rsttype != "SpatRaster" && rsttype != "SpatVector" && rsttype != "RasterLayer" && rsttype != "RasterBrick" && rsttype != "RasterStack") cat("\nNot a suitable rasterfile!\n")
+  if(rsttype != "SpatRaster" && rsttype != "SpatVector" && rsttype != "RasterLayer" && rsttype != "RasterBrick" && rsttype != "RasterStack") warning("\nNot a suitable rasterfile!\n")
 }

@@ -17,7 +17,7 @@ opt.datatype <- function(spatialraster){
 
   if(rsttype == "SpatRaster") rst_sample_cells <- terra::spatSample(spatialraster, sample.size(ncell(spatialraster)), "random", values = TRUE, na.rm = TRUE, warn = FALSE)
   if(rsttype == "RasterLayer" || rsttype == "RasterBrick" || rsttype == "RasterStack") rst_sample_cells <- raster::sampleRandom(spatialraster, sample.size(ncell(spatialraster)), na.rm = TRUE)
-  if(rsttype != "SpatRaster" && rsttype != "RasterLayer" && rsttype != "RasterBrick" && rsttype != "RasterStack") cat("\nNot a suitable rasterfile!\n")
+  if(rsttype != "SpatRaster" && rsttype != "RasterLayer" && rsttype != "RasterBrick" && rsttype != "RasterStack") warning("\nNot a suitable rasterfile!\n")
 
   rst_sample_cells[rst_sample_cells==Inf] <- NA
 
