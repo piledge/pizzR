@@ -4,8 +4,9 @@ Title: Small but useful collection of R-Functions
 Version: 0.1.0
 Author: pi-ledge
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: pizzR is a small collection of R-Functions created by a Pizza-enthusiast.
+    Although there is no specific topic, most of the functions have a background in forestry,
+    raster data as well as tree species classification
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
