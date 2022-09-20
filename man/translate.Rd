@@ -11,7 +11,7 @@ translate()
 erra-package}
 }
 \description{
-Translates the values of a dataframes colum by use of a dictionary-dataframe
+Translates the values of a dataframes colum by use of a dictionary-dataframe.
 }
 \examples{
 library(pizzR)
