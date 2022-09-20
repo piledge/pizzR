@@ -8,7 +8,6 @@ translate()
 \item{x}{dataframe's column}
 \item{y}{dataframe including column named 'old' and 'new'}
 \item{verbose}{logical. console output}
-erra-package}
 }
 \description{
 Translates the values of a dataframes colum by use of a dictionary-dataframe.
