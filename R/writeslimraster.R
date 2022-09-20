@@ -96,5 +96,5 @@ writeslimRaster <- function(x, filename, compression = T, overwrite = T, BIGTIFF
     do.call(raster::writeRaster, fparameters)
   }
 
-  if(rsttype != "SpatRaster" && rsttype != "RasterLayer" && rsttype != "RasterBrick" && rsttype != "RasterStack") warning("\nNot a suitable rasterfile!\n")
+  if(rsttype != "SpatRaster" && rsttype != "RasterLayer" && rsttype != "RasterBrick" && rsttype != "RasterStack") return(warning("Not a suitable rasterfile!\n"))
 }
