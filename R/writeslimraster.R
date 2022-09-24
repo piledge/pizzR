@@ -81,7 +81,7 @@ writeslimRaster <- function(x, filename, compression = T, overwrite = T, BIGTIFF
 
                              fparameters$filetype  <- filetype
     if(compression == TRUE)  fparameters$datatype  <- opt.datatype(x)
-    if(compression == TRUE)  fparameters$gdal      <- c(paste0("BIGTIFF = ", BIGTIFF), "COMPRESS = DEFLATE", "ZLEVEL = 9", "")
+    if(compression == TRUE)  fparameters$gdal      <- c(paste0("BIGTIFF = ", BIGTIFF), "COMPRESS = DEFLATE", "ZLEVEL = 9", "PREDICTOR = 2")
     if(compression == FALSE) fparameters$gdal      <- c(paste0("BIGTIFF = ", BIGTIFF))
 
     do.call(terra::writeRaster, fparameters)
