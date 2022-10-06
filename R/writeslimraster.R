@@ -44,7 +44,7 @@ writeslimRaster <- function(x, filename, compression = T, overwrite = T, BIGTIFF
     if (rst_float == FALSE){                            #INT
       if (rst_signed == TRUE){                             #INTS
         if (rst_significant_value <= 127){
-          return("INT1S")
+          return("INT2S")
         }
         if (rst_significant_value <= 32767){
           return("INT2S")
@@ -55,7 +55,7 @@ writeslimRaster <- function(x, filename, compression = T, overwrite = T, BIGTIFF
       }
       if (rst_signed == FALSE){                             #INTU
         if (rst_significant_value <= 254){
-          return("INT1U")
+          return("INT2U")
         }
         if (rst_significant_value <= 65534){
           return("INT2U")
