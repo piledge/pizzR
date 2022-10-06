@@ -1,7 +1,7 @@
 writeslimRaster <- function(x, filename, compression = T, overwrite = T, BIGTIFF = "IF_NEEDED", filetype = "GTiff", ...){
 
   opt.datatype <- function(spatialraster){
-    sample.size <- function(cellnumber, k1 = 0.5, d1 = 15000, k2 = 0.25, d2 = 40000, maxsample = 50000){
+    sample.size <- function(cellnumber, k1 = 0.5, d1 = 5000, k2 = 0.25, d2 = 10000, maxsample = 15000){
       if (k2 * (cellnumber - d2) + k1*(d2-d1)+d1 > maxsample){
         return(maxsample)
       }
