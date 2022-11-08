@@ -10,6 +10,7 @@ writeslimRaster(x, filename, compression=TRUE, overwrite=TRUE, ...)
 \item{compression}{logical. If \code{TRUE}, turns loss-free compression to maximum. Calculated by a random-sample of pixels}
 \item{overwrite}{logical. If \code{TRUE}, \code{filename} is overwritten}
 \item{samplesize}{integer. Number of pixels used of each bands to estimate the optimized datatype for the output raster}
+\item{datatype}{Could be either ESTIMATE do appreciate the optimal datatype for a given \code{x} or one of the following options: LOG1S/INT1S/INT1U/INT2S/INT2U/INT4S/INT4U/FLT4S/FLT8S!}
 \item{...}{additional arguments for writing files. See writeRaster() of raster- or terra-package}
 }
 \description{
