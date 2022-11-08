@@ -5,7 +5,8 @@
 opt.datatype(x)
 }
 \arguments{
-\item{x}{SpatRaster}
+\item{x}{SpatRaster, RasterLayer, RasterBrick, RasterStack}
+\item{samplesize}{integer. Number of pixels used of each bands to estimate the optimized datatype for the output raster}
 }
 \description{
 Returns the optimal export-datatype for raster- or terra-spatialraster.
