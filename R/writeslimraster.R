@@ -41,4 +41,5 @@ writeslimRaster <- function(x, filename, compression=T, overwrite=T, BIGTIFF="YE
     if (compression == FALSE) cat(paste0("\n", Sys.time(), ": Write rasterfile ...\n"))
     do.call(raster::writeRaster, fparameters)
   }
+  cat(paste0("\n", Sys.time(), ": Done ...\n"))
 }
