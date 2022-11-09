@@ -10,13 +10,36 @@ opt.datatype <- function(x, samplesize=25){
   
   rst_sample_cells[rst_sample_cells==Inf] <- NA
   
-  if (rsttype == "SpatRaster"){
+  if (rsttype == "SpatRaster"){         
     rst_min <- min(x@ptr[["range_min"]])
     rst_max <- max(x@ptr[["range_max"]])
+    
+    if (rst_min == NA || rst_max == NA){                                        #slower; if ptr not available
+      rst.summary <- terra::summary(x, warn = F)
+      
+      rst_min <- rst.summary[1,]
+      rst_min <- unlist(strsplit(rst_min, ":"))
+      rst_min <- rst_min[-grep("Min", rst_min)]
+      rst_min <- min(as.numeric(rst_min))
+      
+      rst_max <- rst.summary[6,]
+      rst_max <- unlist(strsplit(rst_max, ":"))
+      rst_max <- rst_max[-grep("Max", rst_max)]
+      rst_max <- min(as.numeric(rst_max))
+    }
   }
   if (rsttype == "RasterLayer" || rsttype == "RasterBrick" || rsttype == "RasterStack"){
     rst_min <- min(minValue(x))
     rst_max <- max(maxValue(x))
+    
+    if (rst_min == NA || rst_max == NA){                                        #slower; if ptr not available
+      rst.summary <- raster::summary(x, maxsamp = 10000)
+      min <- rst.summary[1,]
+      max <- rst.summary[1,]
+      
+      min(rst.summary[rownames(rst.summary) == "Min.", ])
+      max(rst.summary[rownames(rst.summary) == "Max.", ])
+    }
   }
   
   rst_significant_value <- max(abs(c(rst_min, rst_max)))
