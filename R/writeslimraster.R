@@ -22,7 +22,7 @@ writeslimRaster <- function(x, filename, compression=T, overwrite=T, BIGTIFF="YE
     if (compression == TRUE)  fparameters$gdal                                  <- c(paste0("BIGTIFF = ", BIGTIFF), "COMPRESS = DEFLATE", "ZLEVEL = 9", "PREDICTOR = 2")
     if (compression == FALSE) fparameters$gdal                                  <- c(paste0("BIGTIFF = ", BIGTIFF))
     
-    if (compression == TRUE)  cat(paste0("\n", Sys.time(), ": Write slim rasterfile as ", fparameters$datatype," ...\n"))
+    if (compression == TRUE)  cat(paste0("\n", Sys.time(), ": Write slim rasterfile as '", fparameters$datatype,"' ...\n"))
     if (compression == FALSE) cat(paste0("\n", Sys.time(), ": Write rasterfile ...\n"))
     do.call(terra::writeRaster, fparameters)
   }
@@ -37,7 +37,7 @@ writeslimRaster <- function(x, filename, compression=T, overwrite=T, BIGTIFF="YE
     if (compression == TRUE && datatype != "ESTIMATE") fparameters$datatype     <- datatype
     if (compression == TRUE) fparameters$options                                <- c("COMPRESS=DEFLATE", "PREDICTOR=2", "ZLEVEL=9")
     
-    if (compression == TRUE)  cat(paste0("\n", Sys.time(), ": Write slim rasterfile as ", fparameters$datatype," ...\n"))
+    if (compression == TRUE)  cat(paste0("\n", Sys.time(), ": Write slim rasterfile as '", fparameters$datatype,"' ...\n"))
     if (compression == FALSE) cat(paste0("\n", Sys.time(), ": Write rasterfile ...\n"))
     do.call(raster::writeRaster, fparameters)
   }
