@@ -14,7 +14,7 @@ opt.datatype <- function(x, samplesize=25){
     rst_min <- min(x@ptr[["range_min"]])
     rst_max <- max(x@ptr[["range_max"]])
     
-    if (rst_min == NA || rst_max == NA){                                        #slower; if ptr not available
+    if (is.na(rst_min) || is.na(rst_max)){                                        #slower; if ptr not available
       rst.summary <- terra::summary(x, warn = F)
       
       rst_min <- rst.summary[1,]
@@ -32,7 +32,7 @@ opt.datatype <- function(x, samplesize=25){
     rst_min <- min(minValue(x))
     rst_max <- max(maxValue(x))
     
-    if (rst_min == NA || rst_max == NA){                                        #slower; if ptr not available
+    if (is.na(rst_min) || is.na(rst_max)){                                        #slower; if ptr not available
       rst.summary <- raster::summary(x, maxsamp = 10000)
       min <- rst.summary[1,]
       max <- rst.summary[1,]
