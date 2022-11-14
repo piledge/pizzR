@@ -1,24 +1,3 @@
-####################################################################################################
-#'                                 Ranger MDA Feature selection v1                        # pi.ledge
-####################################################################################################
-
-#' ranFeatsel() #########################################################################
-#' ranger (randomForest) classification recursive feature removal
-#' provides two resulting models: best model after feature removal + fittest model (model using least variables of all models passing the given threshold)
-#' @example1          ranFeatsel(data,"classes")
-#' @example2          ranFeatsel(data,"classes",ntree=1000,nthreads=11,savename="feature_sel",savedir="C:/output",keep.files=TRUE)
-#' @param data        data set given to ranger randomForest
-#' @param classes     colname of sample-column as character
-#' @param ntree       number of trees built in a forest
-#' @param nthreads    number of CPU-threads to be used; default is number of available threads-1
-#' @param savename    character prefix for saving the models
-#' @param savedir     character location to save results to, is created if it does not exist.
-#' @param keep.files  if F: only best model will be kept; if T: all models incl. submodels will be kept
-#' @param best_thr    quantile-threshold for selection of fittest model
-#' @param nimpplot    number of variables to be plotted on importance plot
-#' @param ...         additional arguments passed to ranger()
-#' @return            list containing OOB-OA of all submodels as well as ranger-models, classificationMatrix, metrics and importance plots for both, fittest and best model
-
 ranFeatsel <- function(data,classes,ntree=1000,nthreads=parallel::detectCores()-1,savename="ranFeatsel",savedir=getwd(),keep.files=TRUE,best_thr=.975,nimpplot=20,...){
 
 package.install <- function(package.name){
