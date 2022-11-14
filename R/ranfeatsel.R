@@ -1,17 +1,14 @@
 ranFeatsel <- function(data,classes,ntree=1000,nthreads=parallel::detectCores()-1,savename="ranFeatsel",savedir=getwd(),keep.files=TRUE,best_thr=.975,nimpplot=20,...){
 
-package.install <- function(package.name){
-  if(length(grep(package.name,installed.packages()[,"Package"][nchar(installed.packages())==nchar(package.name)]))==0){
-    cat("\n",paste0(Sys.time(),": installing package '",package.name,"'\n\n"))
-    install.packages(package.name,dependencies=TRUE)
+  package.install <- function(x) {
+    to_install <- !x %in% installed.packages()
+    if (any(to_install)){
+      cat(paste0(Sys.time(), ": install missing packages '", paste(x[to_install], collapse=", "), "'\n"))
+      install.packages(x[to_install], dependencies = T)
+      cat(paste0(Sys.time(), ": missing packages '", paste(x[to_install], collapse=", "), "' installed\n\n"))
+    }
   }
-}
-
-  ### install required packages if necessary
-  package.install("caret")
-  package.install("parallel")
-  package.install("ranger")
-  package.install("vip")
+  package.install(c("caret", "parallel", "ranger", "vip"))
 
   st.featsel <- as.integer(format(Sys.time(),"%s"))
   cat("\n")
