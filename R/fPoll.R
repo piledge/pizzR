@@ -1,5 +1,3 @@
-# Formzahl nach Pollanschuetz
-
 fPoll <- function(species,dbh_cm,height_m) {
   BHD = dbh_cm / 10
   Hoehe = height_m * 10
