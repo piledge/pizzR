@@ -2,7 +2,7 @@ opt.datatype <- function(x, samplesize=25){
   rsttype <- class(x)[1]
   
   if (samplesize <= 0) return(warning("Samplesize must be >0!\n"))
-  if (ncell(x) < samplesize) size <- ncell(x) else size <- samplesize
+  if (terra::ncell(x) < samplesize) size <- terra::ncell(x) else size <- samplesize
   
   if (rsttype == "SpatRaster") rst_sample_cells <- terra::spatSample(x, size, "random", values = TRUE, na.rm = TRUE, warn = FALSE)
   if (rsttype == "RasterLayer" || rsttype == "RasterBrick" || rsttype == "RasterStack") rst_sample_cells <- as.data.frame(raster::sampleRandom(x, size, na.rm = TRUE))
