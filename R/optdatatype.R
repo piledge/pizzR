@@ -1,4 +1,15 @@
 opt.datatype <- function(x, samplesize=25){
+
+    package.install <- function(x) {
+    to_install <- !x %in% installed.packages()
+    if (any(to_install)){
+      cat(paste0(Sys.time(), ": install missing packages '", paste(x[to_install], collapse=", "), "'\n"))
+      install.packages(x[to_install], dependencies = T)
+      cat(paste0(Sys.time(), ": missing packages '", paste(x[to_install], collapse=", "), "' installed\n\n"))
+    }
+  }
+  package.install(c("memuse", "raster", "terra"))
+  
   rsttype <- class(x)[1]
   
   if (samplesize <= 0) return(warning("Samplesize must be >0!\n"))
