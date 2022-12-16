@@ -41,5 +41,3 @@ tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=F,attri
   terra::writeVector(shp, paste0("points_", crs.export, ".shp"), filetype=NULL, layer=NULL,
                      overwrite=T, options="ENCODING=UTF-8")
 }
-
-?pizzR::change.terraOptions
