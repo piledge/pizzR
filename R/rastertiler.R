@@ -9,11 +9,10 @@ rastertiler <- function(x, nslices_h=2, nslices_v=2, overlap_h=0, overlap_v=0, v
     }
   }
   package.install(c("memuse", "raster", "terra"))
-  
-  
+
   if (class(x)[1] != "SpatRaster") return(warning("Only Objects of class 'SpatRaster' are allowed!\n"))
-  
-  
+  if ((overlap_h %% 2 != 1) || (overlap_v %% 2 != 1)) return(warning("Overlaps have to be odd numbers!\n"))
+ 
   res_h.rst <- terra::res(x)[1]
   res_v.rst <- terra::res(x)[2]
   base_v.rst <- terra::ncol(x)
@@ -133,7 +132,6 @@ rastertiler <- function(x, nslices_h=2, nslices_v=2, overlap_h=0, overlap_v=0, v
       if (overlap_h != 0 || overlap_v != 0){
         oversize <- oversizer(tiles[[counter]], overlap_h_units, overlap_v_units, i_x, i_y, nslices_v, nslices_h)
         oversized[[counter]] <- oversize
-        terra::plot(oversized[[counter]], add=T, col='red')
       }
       
       if (verbose==T) terra::plot(tiles[[counter]], add=T, col='yellow')
