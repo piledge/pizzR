@@ -25,7 +25,7 @@ r <- rast(nrows=10, ncols=10, vals=sqrt(sample(100, 100)))
 
 
 # slice the SpatialRaster tiles
-tiles <- rastertiler(r, nslices_x = 3, nslices_y = 4, verbose=T))
+tiles <- rastertiler(r, nslices_x = 3, nslices_y = 4, verbose=T)
 tiles
 
 # slice the SpatialRaster tiles with 3 pixels larger in size
