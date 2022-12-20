@@ -1,4 +1,4 @@
-rastertiler <- function(x, nslices_x=2, nslices_y=2, overlap_x=0, overlap_y=0, verbose=F){
+rastertiler <- function(x, nslices_h=2, nslices_v=2, overlap_h=0, overlap_v=0, verbose=F){
   
   package.install <- function(x) {
     to_install <- !x %in% installed.packages()
@@ -14,45 +14,44 @@ rastertiler <- function(x, nslices_x=2, nslices_y=2, overlap_x=0, overlap_y=0, v
   if (class(x)[1] != "SpatRaster") return(warning("Only Objects of class 'SpatRaster' are allowed!\n"))
   
   
-  res_x.rst <- terra::res(x)[1]
-  res_y.rst <- terra::res(x)[2]
-  base_x.rst <- terra::ncol(x)
-  base_y.rst <- terra::nrow(x)
+  res_h.rst <- terra::res(x)[1]
+  res_v.rst <- terra::res(x)[2]
+  base_v.rst <- terra::ncol(x)
+  base_h.rst <- terra::nrow(x)
   ext.rst <- terra::ext(x)
   
-  normal.slice_x <- floor(base_x.rst / (nslices_x))
-  normal.slice_y <- floor(base_y.rst / (nslices_y))
+  normal.slice_v <- floor(base_v.rst / (nslices_v))
+  normal.slice_h <- floor(base_h.rst / (nslices_h))
   
-  last.slice_x <- base_x.rst - (nslices_x * normal.slice_x) + normal.slice_x
-  last.slice_y <- base_y.rst - (nslices_y * normal.slice_y) + normal.slice_y
-  
-  
-  if (nslices_x == 1) last.slice_x <- 0
-  if (nslices_y == 1) last.slice_y <- 0
-  if ((base_x.rst / (nslices_x * normal.slice_x)) == 1) last.slice_x <- 0
-  if ((base_y.rst / (nslices_y * normal.slice_y)) == 1) last.slice_y <- 0
+  last.slice_v <- base_v.rst - (nslices_v * normal.slice_v) + normal.slice_v
+  last.slice_h <- base_h.rst - (nslices_h * normal.slice_h) + normal.slice_h
   
   
-  normal.cropsize_x <- normal.slice_x / res_x.rst
-  normal.cropsize_y <- normal.slice_y / res_y.rst
-  last.cropsize_x <- last.slice_x / res_x.rst
-  last.cropsize_y <- last.slice_y / res_y.rst
+  if (nslices_v == 1) last.slice_v <- 0
+  if (nslices_h == 1) last.slice_h <- 0
+  if ((base_v.rst / (nslices_v * normal.slice_v)) == 1) last.slice_v <- 0
+  if ((base_h.rst / (nslices_h * normal.slice_h)) == 1) last.slice_h <- 0
   
-  if (last.cropsize_x == 0) last.cropsize_x = normal.cropsize_x
-  if (last.cropsize_y == 0) last.cropsize_y = normal.cropsize_y
-  last.cropsize_y <- last.slice_y / res_y.rst
-  overlap_x_units <- overlap_x / res_x.rst
-  overlap_y_units <- overlap_y / res_y.rst
+  
+  normal.cropsize_v <- normal.slice_v / res_h.rst
+  normal.cropsize_h <- normal.slice_h / res_v.rst
+  last.cropsize_v <- last.slice_v / res_h.rst
+  last.cropsize_h <- last.slice_h / res_v.rst
+  
+  if (last.cropsize_v == 0) last.cropsize_v = normal.cropsize_v
+  if (last.cropsize_h == 0) last.cropsize_h = normal.cropsize_h
+  overlap_h_units <- overlap_h / res_h.rst
+  overlap_v_units <- overlap_v / res_v.rst
   
   
   normal_slice <- function(ext.rst, i_x, i_y){
-    extent <- terra::ext(ext.rst[1] + (i_x - 1) * normal.cropsize_x, ext.rst[1] + (i_x) * normal.cropsize_x,
-                         ext.rst[4] - (i_y) * normal.cropsize_y, ext.rst[4] - (i_y - 1) * normal.cropsize_y)
-    if (nslices_x == 1){
+    extent <- terra::ext(ext.rst[1] + (i_x - 1) * normal.cropsize_v, ext.rst[1] + (i_x) * normal.cropsize_v,
+                         ext.rst[4] - (i_y) * normal.cropsize_h, ext.rst[4] - (i_y - 1) * normal.cropsize_h)
+    if (nslices_v == 1){
       extent[1] <- ext.rst[1]
       extent[2] <- ext.rst[2]
     }
-    if (nslices_y == 1){
+    if (nslices_h == 1){
       extent[3] <- ext.rst[3]
       extent[4] <- ext.rst[4]
     }
@@ -61,13 +60,13 @@ rastertiler <- function(x, nslices_x=2, nslices_y=2, overlap_x=0, overlap_y=0, v
   
   
   x_max_slice <- function(ext.rst, i_x, i_y){
-    extent <- terra::ext(ext.rst[2] - last.cropsize_x, ext.rst[2],
-                         ext.rst[4] - (i_y) * normal.cropsize_y, ext.rst[4] - (i_y - 1) * normal.cropsize_y)
-    if (nslices_x == 1){
+    extent <- terra::ext(ext.rst[2] - last.cropsize_v, ext.rst[2],
+                         ext.rst[4] - (i_y) * normal.cropsize_h, ext.rst[4] - (i_y - 1) * normal.cropsize_h)
+    if (nslices_v == 1){
       extent[1] <- ext.rst[1]
       extent[2] <- ext.rst[2]
     }
-    if (nslices_y == 1){
+    if (nslices_h == 1){
       extent[3] <- ext.rst[3]
       extent[4] <- ext.rst[4]
     }
@@ -76,13 +75,13 @@ rastertiler <- function(x, nslices_x=2, nslices_y=2, overlap_x=0, overlap_y=0, v
   
   
   y_max_slice <- function(ext.rst, i_x, i_y){
-    extent <- terra::ext(ext.rst[1] + (i_x - 1) * normal.cropsize_x, ext.rst[1] + (i_x) * normal.cropsize_x,
-                         ext.rst[3], ext.rst[3] + last.cropsize_y)
-    if (nslices_x == 1){
+    extent <- terra::ext(ext.rst[1] + (i_x - 1) * normal.cropsize_v, ext.rst[1] + (i_x) * normal.cropsize_v,
+                         ext.rst[3], ext.rst[3] + last.cropsize_h)
+    if (nslices_v == 1){
       extent[1] <- ext.rst[1]
       extent[2] <- ext.rst[2]
     }
-    if (nslices_y == 1){
+    if (nslices_h == 1){
       extent[3] <- ext.rst[3]
       extent[4] <- ext.rst[4]
     }
@@ -91,13 +90,13 @@ rastertiler <- function(x, nslices_x=2, nslices_y=2, overlap_x=0, overlap_y=0, v
   
   
   max_slice <- function(ext.rst, i_x, i_y){
-    extent <- terra::ext(ext.rst[2] - last.cropsize_x, ext.rst[2],
-                         ext.rst[3], ext.rst[3] + last.cropsize_y)
-    if (nslices_x == 1){
+    extent <- terra::ext(ext.rst[2] - last.cropsize_v, ext.rst[2],
+                         ext.rst[3], ext.rst[3] + last.cropsize_h)
+    if (nslices_v == 1){
       extent[1] <- ext.rst[1]
       extent[2] <- ext.rst[2]
     }
-    if (nslices_y == 1){
+    if (nslices_h == 1){
       extent[3] <- ext.rst[3]
       extent[4] <- ext.rst[4]
     }
@@ -106,19 +105,19 @@ rastertiler <- function(x, nslices_x=2, nslices_y=2, overlap_x=0, overlap_y=0, v
   
   
   tiler <- function(ext.rst, i_x, i_y){
-    if (i_x != nslices_x && i_y != nslices_y) return(normal_slice(ext.rst, i_x, i_y))
-    if (i_x == nslices_x && i_y != nslices_y) return(x_max_slice(ext.rst, i_x, i_y))
-    if (i_x != nslices_x && i_y == nslices_y) return(y_max_slice(ext.rst, i_x, i_y))
-    if (i_x == nslices_x && i_y == nslices_y) return(max_slice(ext.rst, i_x, i_y))
+    if (i_x != nslices_v && i_y != nslices_h) return(normal_slice(ext.rst, i_x, i_y))
+    if (i_x == nslices_v && i_y != nslices_h) return(x_max_slice(ext.rst, i_x, i_y))
+    if (i_x != nslices_v && i_y == nslices_h) return(y_max_slice(ext.rst, i_x, i_y))
+    if (i_x == nslices_v && i_y == nslices_h) return(max_slice(ext.rst, i_x, i_y))
   }
   
   
-  oversizer <- function(tile, overlap_x_units, overlap_y_units, i_x, i_y, nslices_x, nslices_y){
-    oversized <- terra::ext(tile[1] - overlap_x_units, tile[2] + overlap_x_units, tile[3] - overlap_y_units, tile[4] + overlap_y_units)
+  oversizer <- function(tile, overlap_h_units, overlap_v_units, i_x, i_y, nslices_v, nslices_h){
+    oversized <- terra::ext(tile[1] - overlap_h_units, tile[2] + overlap_h_units, tile[3] - overlap_v_units, tile[4] + overlap_v_units)
     if (i_x == 1) oversized[1] <- tile[1]
-    if (i_x == nslices_x) oversized[2] <- tile[2]
+    if (i_x == nslices_v) oversized[2] <- tile[2]
     if (i_y == 1) oversized[4] <- tile[4]
-    if (i_y == nslices_y) oversized[3] <- tile[3]
+    if (i_y == nslices_h) oversized[3] <- tile[3]
     return(terra::ext(oversized))
   }
   
@@ -127,19 +126,20 @@ rastertiler <- function(x, nslices_x=2, nslices_y=2, overlap_x=0, overlap_y=0, v
   oversized <- list()
   counter <- 1
   
-  for (i_y in 1:nslices_y){
-    for (i_x in 1:nslices_x){
+  for (i_y in 1:nslices_h){
+    for (i_x in 1:nslices_v){
       tiles[[counter]] <- tiler(ext.rst, i_x, i_y)
-
-      if (overlap_x != 0 || overlap_y != 0){
-        oversize <- oversizer(tiles[[counter]], overlap_x_units, overlap_y_units, i_x, i_y, nslices_x, nslices_y)
+      
+      if (overlap_h != 0 || overlap_v != 0){
+        oversize <- oversizer(tiles[[counter]], overlap_h_units, overlap_v_units, i_x, i_y, nslices_v, nslices_h)
         oversized[[counter]] <- oversize
+        terra::plot(oversized[[counter]], add=T, col='red')
       }
       
       if (verbose==T) terra::plot(tiles[[counter]], add=T, col='yellow')
       counter <- counter + 1
     }
   }
-  if (overlap_x != 0 || overlap_y != 0) return(list(tiles=tiles, oversized=oversized))
-  if (overlap_x == 0 || overlap_y == 0) return(tiles)
+  if (overlap_h != 0 || overlap_v != 0) return(list(tiles=tiles, oversized=oversized))
+  if (overlap_h == 0 || overlap_v == 0) return(tiles)
 }
