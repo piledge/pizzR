@@ -6,10 +6,10 @@ rastertiler()
 }
 \arguments{
 \item{x}{SpatialRaster.}
-\item{nslices_x}{integer. Horizontal number of slices}
-\item{nslices_y}{integer. Vertical number of slices}
-\item{overlap_x}{integer. Number of overlapping pixels in horizontal direction}
-\item{overlap_y}{integer. Number of overlapping pixels in vertical direction}
+\item{nslices_h}{integer. Horizontal number of slices}
+\item{nslices_v}{integer. Vertical number of slices}
+\item{overlap_h}{integer. Number of overlapping pixels in horizontal direction}
+\item{overlap_v}{integer. Number of overlapping pixels in vertical direction}
 \item{verbose}{logical. Plot additional output}
 }
 \description{
@@ -21,7 +21,8 @@ library(terra)
 library(pizzR)
 
 # define a SpatialRaster
-r <- rast(nrows=10, ncols=10, vals=sqrt(sample(100, 100)))
+size <- 1000
+r <- rast(nrows=size, ncols=size, ext=ext(c(0,size,0,size)), vals=sample(size, size^2, replace = T))
 
 
 # slice the SpatialRaster tiles
