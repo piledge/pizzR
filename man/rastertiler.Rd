@@ -1,35 +1,143 @@
-\name{rastertiler}
-\alias{rastertiler}
-\title{Split extent of a SpatialRaster in n tiles}
-\usage{
-rastertiler()
+rastertiler <- function(x, nslices_h=2, nslices_v=2, overlap_h=0, overlap_v=0, verbose=F){
+  
+  package.install <- function(x) {
+    to_install <- !x %in% installed.packages()
+    if (any(to_install)){
+      cat(paste0(Sys.time(), ": install missing packages '", paste(x[to_install], collapse=", "), "'\n"))
+      install.packages(x[to_install], dependencies = T)
+      cat(paste0(Sys.time(), ": missing packages '", paste(x[to_install], collapse=", "), "' installed\n\n"))
+    }
+  }
+  package.install(c("memuse", "raster", "terra"))
+
+  if (class(x)[1] != "SpatRaster") return(warning("Only Objects of class 'SpatRaster' are allowed!\n"))
+  if ((overlap_h %% 2 != 1) || (overlap_v %% 2 != 1)) return(warning("Overlaps have to be odd numbers!\n"))
+ 
+  res_h.rst <- terra::res(x)[1]
+  res_v.rst <- terra::res(x)[2]
+  base_v.rst <- terra::ncol(x)
+  base_h.rst <- terra::nrow(x)
+  ext.rst <- terra::ext(x)
+  
+  normal.slice_v <- floor(base_v.rst / (nslices_v))
+  normal.slice_h <- floor(base_h.rst / (nslices_h))
+  
+  last.slice_v <- base_v.rst - (nslices_v * normal.slice_v) + normal.slice_v
+  last.slice_h <- base_h.rst - (nslices_h * normal.slice_h) + normal.slice_h
+  
+  
+  if (nslices_v == 1) last.slice_v <- 0
+  if (nslices_h == 1) last.slice_h <- 0
+  if ((base_v.rst / (nslices_v * normal.slice_v)) == 1) last.slice_v <- 0
+  if ((base_h.rst / (nslices_h * normal.slice_h)) == 1) last.slice_h <- 0
+  
+  
+  normal.cropsize_v <- normal.slice_v / res_h.rst
+  normal.cropsize_h <- normal.slice_h / res_v.rst
+  last.cropsize_v <- last.slice_v / res_h.rst
+  last.cropsize_h <- last.slice_h / res_v.rst
+  
+  if (last.cropsize_v == 0) last.cropsize_v = normal.cropsize_v
+  if (last.cropsize_h == 0) last.cropsize_h = normal.cropsize_h
+  overlap_h_units <- overlap_h / res_h.rst
+  overlap_v_units <- overlap_v / res_v.rst
+  
+  
+  normal_slice <- function(ext.rst, i_x, i_y){
+    extent <- terra::ext(ext.rst[1] + (i_x - 1) * normal.cropsize_v, ext.rst[1] + (i_x) * normal.cropsize_v,
+                         ext.rst[4] - (i_y) * normal.cropsize_h, ext.rst[4] - (i_y - 1) * normal.cropsize_h)
+    if (nslices_v == 1){
+      extent[1] <- ext.rst[1]
+      extent[2] <- ext.rst[2]
+    }
+    if (nslices_h == 1){
+      extent[3] <- ext.rst[3]
+      extent[4] <- ext.rst[4]
+    }
+    return(extent)
+  }
+  
+  
+  x_max_slice <- function(ext.rst, i_x, i_y){
+    extent <- terra::ext(ext.rst[2] - last.cropsize_v, ext.rst[2],
+                         ext.rst[4] - (i_y) * normal.cropsize_h, ext.rst[4] - (i_y - 1) * normal.cropsize_h)
+    if (nslices_v == 1){
+      extent[1] <- ext.rst[1]
+      extent[2] <- ext.rst[2]
+    }
+    if (nslices_h == 1){
+      extent[3] <- ext.rst[3]
+      extent[4] <- ext.rst[4]
+    }
+    return(extent)
+  }
+  
+  
+  y_max_slice <- function(ext.rst, i_x, i_y){
+    extent <- terra::ext(ext.rst[1] + (i_x - 1) * normal.cropsize_v, ext.rst[1] + (i_x) * normal.cropsize_v,
+                         ext.rst[3], ext.rst[3] + last.cropsize_h)
+    if (nslices_v == 1){
+      extent[1] <- ext.rst[1]
+      extent[2] <- ext.rst[2]
+    }
+    if (nslices_h == 1){
+      extent[3] <- ext.rst[3]
+      extent[4] <- ext.rst[4]
+    }
+    return(extent)
+  }
+  
+  
+  max_slice <- function(ext.rst, i_x, i_y){
+    extent <- terra::ext(ext.rst[2] - last.cropsize_v, ext.rst[2],
+                         ext.rst[3], ext.rst[3] + last.cropsize_h)
+    if (nslices_v == 1){
+      extent[1] <- ext.rst[1]
+      extent[2] <- ext.rst[2]
+    }
+    if (nslices_h == 1){
+      extent[3] <- ext.rst[3]
+      extent[4] <- ext.rst[4]
+    }
+    return(extent)
+  }
+  
+  
+  tiler <- function(ext.rst, i_x, i_y){
+    if (i_x != nslices_v && i_y != nslices_h) return(normal_slice(ext.rst, i_x, i_y))
+    if (i_x == nslices_v && i_y != nslices_h) return(x_max_slice(ext.rst, i_x, i_y))
+    if (i_x != nslices_v && i_y == nslices_h) return(y_max_slice(ext.rst, i_x, i_y))
+    if (i_x == nslices_v && i_y == nslices_h) return(max_slice(ext.rst, i_x, i_y))
+  }
+  
+  
+  oversizer <- function(tile, overlap_h_units, overlap_v_units, i_x, i_y, nslices_v, nslices_h){
+    oversized <- terra::ext(tile[1] - overlap_h_units, tile[2] + overlap_h_units, tile[3] - overlap_v_units, tile[4] + overlap_v_units)
+    if (i_x == 1) oversized[1] <- tile[1]
+    if (i_x == nslices_v) oversized[2] <- tile[2]
+    if (i_y == 1) oversized[4] <- tile[4]
+    if (i_y == nslices_h) oversized[3] <- tile[3]
+    return(terra::ext(oversized))
+  }
+  
+  if (verbose==T) terra::plot(ext.rst)
+  tiles <- list()
+  oversized <- list()
+  counter <- 1
+  
+  for (i_y in 1:nslices_h){
+    for (i_x in 1:nslices_v){
+      tiles[[counter]] <- tiler(ext.rst, i_x, i_y)
+      
+      if (overlap_h != 0 || overlap_v != 0){
+        oversize <- oversizer(tiles[[counter]], overlap_h_units, overlap_v_units, i_x, i_y, nslices_v, nslices_h)
+        oversized[[counter]] <- oversize
+      }
+      
+      if (verbose==T) terra::plot(tiles[[counter]], add=T, col='yellow')
+      counter <- counter + 1
+    }
+  }
+  if (overlap_h != 0 || overlap_v != 0) return(list(tiles=tiles, oversized=oversized))
+  if (overlap_h == 0 || overlap_v == 0) return(tiles)
 }
-\arguments{
-\item{x}{SpatialRaster.}
-\item{nslices_h}{integer. Horizontal number of slices}
-\item{nslices_v}{integer. Vertical number of slices}
-\item{overlap_h}{integer. Number of overlapping pixels in horizontal direction}
-\item{overlap_v}{integer. Number of overlapping pixels in vertical direction}
-\item{verbose}{logical. Plot additional output}
-}
-\description{
-Returns a list including the extent of the input raster, split in a number of subsets. If required, an overlapping area for the tiles can be specified.
-If \code{is.integer(nrow / nslices_x) == F} or \code{is.integer(ncol / nslices_y) == F}, the remaining pixels will be added to the right and bottom tiles.
-}
-\examples{
-library(terra)
-library(pizzR)
-
-# define a SpatialRaster
-size <- 1000
-r <- rast(nrows=size, ncols=size, ext=ext(c(0,size,0,size)), vals=sample(size, size^2, replace = T))
-
-
-# slice the SpatialRaster tiles
-tiles <- rastertiler(r, nslices_x = 3, nslices_y = 4, verbose=T)
-tiles
-
-# slice the SpatialRaster tiles with 3 pixels larger in size
-tiles <- rastertiler(r, nslices_x = 3, nslices_y = 4, overlap_x = 3, overlap_y = 3, verbose=T)
-tiles
-
