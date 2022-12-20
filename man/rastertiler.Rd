@@ -14,7 +14,7 @@ rastertiler()
 }
 \description{
 Returns a list including the extent of the input raster, split in a number of subsets. If required, an overlapping area for the tiles can be specified.
-If \code{is.integer(nrow / nslices_x) == F} or \code{is.integer(ncol / nslices_y == F}, the remaining pixels will be added to the right and bottom tiles.
+If \code{is.integer(nrow / nslices_x) == F} or \code{is.integer(ncol / nslices_y) == F}, the remaining pixels will be added to the right and bottom tiles.
 }
 \examples{
 library(terra)
