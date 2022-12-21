@@ -6,10 +6,10 @@ rastertiler()
 }
 \arguments{
 \item{x}{SpatialRaster.}
-\item{nslices_x}{integer. Horizontal number of slices}
-\item{nslices_y}{integer. Vertical number of slices}
-\item{overlap_x}{integer. Number of overlapping pixels in horizontal direction}
-\item{overlap_y}{integer. Number of overlapping pixels in vertical direction}
+\item{nslices_h}{integer. Horizontal number of slices}
+\item{nslices_v}{integer. Vertical number of slices}
+\item{overlap_h}{integer. Number of overlapping pixels in horizontal direction}
+\item{overlap_v}{integer. Number of overlapping pixels in vertical direction}
 \item{verbose}{logical. Plot additional output}
 }
 \description{
@@ -26,10 +26,10 @@ r <- rast(nrows=size, ncols=size, ext=ext(c(0,size,0,size)), vals=sample(size, s
 
 
 # slice the SpatialRaster tiles
-tiles <- rastertiler(r, nslices_x = 3, nslices_y = 4, verbose=T)
+tiles <- rastertiler(r, nslices_h = 3, nslices_v = 4, verbose=T)
 tiles
 
 # slice the SpatialRaster tiles with 3 pixels larger in size
-tiles <- rastertiler(r, nslices_x = 3, nslices_y = 4, overlap_x = 3, overlap_y = 3, verbose=T)
+tiles <- rastertiler(r, nslices_h = 3, nslices_v = 4, overlap_h = 3, overlap_v = 3, verbose=T)
 tiles
 }
