@@ -1,4 +1,4 @@
-rasterdiversity <- function(x, index='shannon', w=3){
+rasterdiversity <- function(x, index='shannon', w=3, ...){
   
   library(terra)
   
@@ -38,7 +38,7 @@ rasterdiversity <- function(x, index='shannon', w=3){
     }
   }
   
-  fparameters             <- list()
+  fparameters             <- list(...)
   fparameters$x           <- x
   fparameters$w           <- w
   fparameters$fun         <- fun
