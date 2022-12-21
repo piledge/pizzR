@@ -8,7 +8,7 @@ change.rasterOptions <- function(changetmpdir=FALSE, tmpdir="", OSRAM.remaining=
       cat(paste0(Sys.time(), ": missing packages '", paste(x[to_install], collapse=", "), "' installed\n\n"))
     }
   }
-  package.install(c("memuse", "raster", "terra"))
+  package.install(c("memuse", "raster", "Rcpp", "terra"))
 
 
   require(raster)
