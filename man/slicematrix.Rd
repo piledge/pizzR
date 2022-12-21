@@ -30,3 +30,4 @@ for (i in 1:length(slice.cols)) print(slice.cols[[i]])
 
 # select the colums of the slices
 for (i in 1:length(slice.cols)) print(mtx[, slice.cols[[i]]])
+}
