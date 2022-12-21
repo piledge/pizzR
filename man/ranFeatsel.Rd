@@ -1,19 +1,14 @@
-\name{ranFeatsel}
-\alias{ranFeatsel}
-\title{Random-Forest Models with Feature Selection based on the Ranger-package}
+\name{rfFeatsel}
+\alias{rfFeatsel}
+\title{Random-Forest Models with Feature Selection}
 \usage{
-ranFeatsel(x, y, ...)
+rfFeatsel(x, y, ...)
 }
 \arguments{
-\item{x}{dataframe including features and classes}
-\item{y}{character. Colname of the classes-column in x}
-\item{ntree}{integer. Number of trees for each random forest. Default is 1000}
-\item{best_thr}{numeric. Quantile-Treshold to select the fittest model of the feature-selection}
-\item{best_thr}{numeric. Quantile-Treshold to select the fittest model of the feature-selection}
-\item{nimpplot}{integer. Number variables in importance-plot}
-\item{savename}{character. Basename for output-files}
-\item{savendir}{character. Path for output-files}
-\item{keep.files}{logical. If \code{TRUE}, all models created during feature selection will be kept. Default is \code{TRUE}}
+\item{x}{dataframe including features}
+\item{y}{dataframe or vector including sample-denominations}
+\item{featsel}{logical. If \code{TRUE}, a recursive feature selection will be performed}
+\item{keepmodels}{logical. If \code{TRUE}, all models created during feature selection will be kept}
 \item{...}{additional arguments for randomForest/ranger. See specific packages for help}
 }
 \description{
