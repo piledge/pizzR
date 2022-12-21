@@ -8,7 +8,7 @@ tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=F,attri
       cat(paste0(Sys.time(), ": missing packages '", paste(x[to_install], collapse=", "), "' installed\n\n"))
     }
   }
-  package.install(c("sp", "raster", "terra", "rvest", "xml2"))
+  package.install(c("sp", "raster", "terra", "Rcpp", "rvest", "xml2"))
 
   table_xy <- data.frame(longitude=suppressWarnings(as.numeric(northing)), latitude=suppressWarnings(as.numeric(easting)))
   
