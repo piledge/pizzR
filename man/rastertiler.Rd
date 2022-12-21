@@ -26,10 +26,10 @@ r <- rast(nrows=size, ncols=size, ext=ext(c(0,size,0,size)), vals=sample(size, s
 
 
 # slice the SpatialRaster tiles
-tiles <- rastertiler(r, nslices_x = 3, nslices_y = 4, verbose=T))
+tiles <- rastertiler(r, nslices_x = 3, nslices_y = 4, verbose=T)
 tiles
 
 # slice the SpatialRaster tiles with 3 pixels larger in size
-tiles <- rastertiler(r, nslices_x = 3, nslices_y = 4, overlap_x = 3, overlap_y = 3, verbose=T))
+tiles <- rastertiler(r, nslices_x = 3, nslices_y = 4, overlap_x = 3, overlap_y = 3, verbose=T)
 tiles
 }
