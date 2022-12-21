@@ -9,10 +9,10 @@ rastertiler <- function(x, nslices_h=2, nslices_v=2, overlap_h=0, overlap_v=0, v
     }
   }
   package.install(c("memuse", "raster", "Rcpp", "terra"))
-
+  
   if (class(x)[1] != "SpatRaster") return(warning("Only Objects of class 'SpatRaster' are allowed!\n"))
   if ((overlap_h %% 2 != 1) && (overlap_h != 0) || (overlap_v %% 2 != 1) && (overlap_v != 0)) return(warning("Overlaps have to be odd numbers!\n"))
- 
+  
   res_h.rst <- terra::res(x)[1]
   res_v.rst <- terra::res(x)[2]
   base_v.rst <- terra::ncol(x)
@@ -138,6 +138,22 @@ rastertiler <- function(x, nslices_h=2, nslices_v=2, overlap_h=0, overlap_v=0, v
       counter <- counter + 1
     }
   }
-  if (overlap_h != 0 || overlap_v != 0) return(list(tiles=tiles, oversized=oversized))
-  if (overlap_h == 0 || overlap_v == 0) return(tiles)
+
+  tiles.result <- matrix(ncol=4)
+  for (i in 1:length(tiles)) tiles.result <- rbind(tiles.result, matrix(tiles[[i]], ncol = 4, byrow=T))
+  tiles.result <- tiles.result[-1,]
+  colnames(tiles.result) <- c('xmin', 'xmax', 'ymin', 'ymax')
+  
+  if (overlap_h != 0 || overlap_v != 0){
+    
+    oversized.result <- matrix(ncol=4)
+    for (i in 1:length(oversized)) oversized.result <- rbind(oversized.result, matrix(oversized[[i]], ncol = 4, byrow=T))
+    oversized.result <- oversized.result[-1,]
+    colnames(oversized.result) <- c('xmin', 'xmax', 'ymin', 'ymax')
+  
+    return(list(tiles=tiles.result, oversized=oversized.result))
+  }
+  
+  if (overlap_h == 0 || overlap_v == 0) return(tiles.result)
+  
 }
