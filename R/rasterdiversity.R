@@ -1,5 +1,7 @@
 rasterdiversity <- function(x, index='shannon', w=3){
   
+  library(terra)
+  
   if (index != 'eveness' && index != 'raosQ' && index != 'richness' && index != 'shannon' && index != 'simpson') return(cat("Index can either be 'eveness', 'raosQ', 'richness', 'shannon' or 'simpson'"))
   
   if (index == 'eveness'){
