@@ -21,7 +21,8 @@ library(terra)
 library(pizzR)
 
 # define a SpatialRaster
-r <- rast(nrows=10, ncols=10, vals=sqrt(sample(100, 100)))
+size <- 100
+r <- rast(nrows=size, ncols=size, ext=ext(c(0,size,0,size)), vals=sample(size, size^2, replace = T))
 
 
 # slice the SpatialRaster tiles
@@ -31,4 +32,4 @@ tiles
 # slice the SpatialRaster tiles with 3 pixels larger in size
 tiles <- rastertiler(r, nslices_x = 3, nslices_y = 4, overlap_x = 3, overlap_y = 3, verbose=T))
 tiles
-
+}
