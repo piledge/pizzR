@@ -3,7 +3,7 @@ Type: Package
 Title: Small but useful collection of R-Functions
 Version: 0.1.0
 Author: pi-ledge
-Maintainer: The package maintainer <yourself@somewhere.net>
+Maintainer: pi-ledge <thechiefhimself@gmx.at>
 Description: pizzR is a small collection of R-Functions created
     by a Pizza-enthusiast. Although there is no specific topic,
     most of the functions have a background in forestry, raster
