@@ -32,10 +32,10 @@ rastertiler <- function(x, nslices_h=2, nslices_v=2, overlap_h=0, overlap_v=0, v
   if ((base_h.rst / (nslices_h * normal.slice_h)) == 1) last.slice_h <- 0
   
   
-  normal.cropsize_v <- normal.slice_v / res_h.rst
-  normal.cropsize_h <- normal.slice_h / res_v.rst
-  last.cropsize_v <- last.slice_v / res_h.rst
-  last.cropsize_h <- last.slice_h / res_v.rst
+  normal.cropsize_v <- normal.slice_v * res_h.rst
+  normal.cropsize_h <- normal.slice_h * res_v.rst
+  last.cropsize_v <- last.slice_v * res_h.rst
+  last.cropsize_h <- last.slice_h * res_v.rst
   
   if (last.cropsize_v == 0) last.cropsize_v = normal.cropsize_v
   if (last.cropsize_h == 0) last.cropsize_h = normal.cropsize_h
@@ -138,7 +138,7 @@ rastertiler <- function(x, nslices_h=2, nslices_v=2, overlap_h=0, overlap_v=0, v
       counter <- counter + 1
     }
   }
-
+  
   tiles.result <- matrix(ncol=4)
   for (i in 1:length(tiles)) tiles.result <- rbind(tiles.result, matrix(tiles[[i]], ncol = 4, byrow=T))
   tiles.result <- tiles.result[-1,]
@@ -150,7 +150,7 @@ rastertiler <- function(x, nslices_h=2, nslices_v=2, overlap_h=0, overlap_v=0, v
     for (i in 1:length(oversized)) oversized.result <- rbind(oversized.result, matrix(oversized[[i]], ncol = 4, byrow=T))
     oversized.result <- oversized.result[-1,]
     colnames(oversized.result) <- c('xmin', 'xmax', 'ymin', 'ymax')
-  
+    
     return(list(tiles=tiles.result, oversized=oversized.result))
   }
   
