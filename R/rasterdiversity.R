@@ -1,4 +1,4 @@
-rasterdiversity <- function(x, index='shannon', w=3, ...){
+rasterdiversity <- function(x, index='shannon', window=3, ...){
   
   library(terra)
   
@@ -40,7 +40,7 @@ rasterdiversity <- function(x, index='shannon', w=3, ...){
   
   fparameters             <- list(...)
   fparameters$x           <- x
-  fparameters$w           <- w
+  fparameters$w           <- window
   fparameters$fun         <- fun
   
   return(do.call(terra::focal, fparameters))
