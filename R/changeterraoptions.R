@@ -13,7 +13,7 @@ change.terraOptions <- function(changetempdir=FALSE, tempdir="", OSRAM.remaining
 
   require(terra)
 
-  if (changetempdir == TRUE && dir.exists(tempdir) == FALSE) {
+  if (isTRUE(changetempdir) && dir.exists(tempdir) == FALSE) {
     base::dir.create(tempdir, recursive = TRUE)
     base::cat(paste("\n", Sys.time(), tempdir, "created"))
   }
@@ -32,5 +32,5 @@ change.terraOptions <- function(changetempdir=FALSE, tempdir="", OSRAM.remaining
                           fparameters$progress         <- progress
 
   do.call(terra::terraOptions, fparameters)
-  if (verbose == TRUE) terra::terraOptions()
+  if (isTRUE(verbose)) terra::terraOptions()
 }
