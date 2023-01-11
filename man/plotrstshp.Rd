@@ -24,6 +24,6 @@ v2 <- vect("POLYGON ((-80 40, 30 50, 50 -40, -20 -70))")
 # plot raster with superimposed vector
 plot.rstshp(r, v1)
 
-# plot raster with superimposed vector
+# it's also possible to plot vector with superimposed vector
 plot.rstshp(v1, v2)
 }
