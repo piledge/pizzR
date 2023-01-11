@@ -1,5 +1,5 @@
-tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=F,attributes=F,plot=FALSE){
-
+tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,attributes=NULL,filename=NULL,plot=FALSE){
+  
   package.install <- function(x) {
     to_install <- !x %in% installed.packages()
     if (any(to_install)){
@@ -9,35 +9,39 @@ tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=F,attri
     }
   }
   package.install(c("sp", "raster", "terra", "Rcpp", "rvest", "xml2"))
-
+  
   table_xy <- data.frame(longitude=suppressWarnings(as.numeric(northing)), latitude=suppressWarnings(as.numeric(easting)))
   
   if (any(is.na(table_xy$longitude)) && any(is.na(table_xy$latitude))) return(warning("Northing- and Easting contain non-numeric values"))
   if (any(is.na(table_xy$longitude)))                                  return(warning("Northing contains non-numeric values"))
   if (any(is.na(table_xy$latitude)))                                   return(warning("Easting contains non-numeric values"))
-
-  data <- cbind(table_xy, attributes)
-
+  
+  if (!is.null(attributes)) data <- cbind(table_xy, attributes)
+  
   crs.origin.link <- paste0("https://spatialreference.org/ref/epsg/", crs.origin, "/proj4/")
   crs.origin.param <- rvest::html_text(xml2::read_html(crs.origin.link))
   
   xySPoints <- sp::SpatialPointsDataFrame(coords = c(data[,c("longitude", "latitude")]),
                                           proj4string = sp::CRS(crs.origin.param),
                                           data = data)
-
+  
   shp <- terra::vect(xySPoints)
   crs.export <- crs.origin
-
-  if (crs.project != F){
+  
+  if (!is.null(crs.project)){
     crs.project.link <- paste0("https://spatialreference.org/ref/epsg/", crs.project, "/proj4/")
     crs.project.param <- rvest::html_text(xml2::read_html(crs.project.link))
-
+    
     shp <- terra::project(shp, crs.project.param)
     crs.export <- crs.project
   }
-
+  
+  if (!is.null(crs.project)) filename <- filename else filename <- paste0("points_", crs.export, ".shp")
+  
   if (plot == T) terra::plot(shp)
-
-  terra::writeVector(shp, paste0("points_", crs.export, ".shp"), filetype=NULL, layer=NULL,
-                     overwrite=T, options="ENCODING=UTF-8")
+  
+  terra::writeVector(shp, filename=filename, filetype=NULL, layer=NULL,
+                     overwrite=T, options="ENCODING=UTF-8", )
+  
+  return("\n", paste0(Sys.time(), ": ",'filename exported',"\n\n"))
 }
