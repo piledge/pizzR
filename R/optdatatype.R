@@ -62,15 +62,15 @@ opt.datatype <- function(x, samplesize=25){
   if (nrow(rst_sample_cells) == 0) return("LOG1S")                              #LOG
   if (is.logical(rst_sample_cells[,1:ncol(rst_sample_cells)])) return("LOG1S")
   
-  if (rst_float == T){                                                          #FLOAT
+  if (rst_float){                                                          #FLOAT
     if (rst_significant_value < 3.4e+38){
       return("FLT4S")
     }else
       return("FLT8S")
   }
   
-  if (isFALSE(rst_float)){                                                      #INT
-    if (isTRUE(rst_signed)){                                                    #INTS
+  if (!rst_float){                                                      #INT
+    if (rst_signed){                                                    #INTS
       if (rst_significant_value <= 127){
         return("INT2S")
       }
@@ -81,7 +81,7 @@ opt.datatype <- function(x, samplesize=25){
         return("INT4S")
       }
     }
-    if (isFALSE(rst_signed)){                                                   #INTU
+    if (!rst_signed){                                                   #INTU
       if (rst_significant_value <= 254){
         return("INT2U")
       }
