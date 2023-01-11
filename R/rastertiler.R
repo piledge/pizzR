@@ -120,7 +120,7 @@ rastertiler <- function(x, nslices_h=2, nslices_v=2, overlap_h=0, overlap_v=0, v
     return(terra::ext(oversized))
   }
   
-  if (isTRUE(verbose)) terra::plot(ext.rst)
+  if (verbose) terra::plot(ext.rst)
   tiles <- list()
   oversized <- list()
   counter <- 1
@@ -134,7 +134,7 @@ rastertiler <- function(x, nslices_h=2, nslices_v=2, overlap_h=0, overlap_v=0, v
         oversized[[counter]] <- oversize
       }
       
-      if (isTRUE(verbose)) terra::plot(tiles[[counter]], add=T, col='yellow')
+      if (verbose) terra::plot(tiles[[counter]], add=T, col='yellow')
       counter <- counter + 1
     }
   }
@@ -155,5 +155,4 @@ rastertiler <- function(x, nslices_h=2, nslices_v=2, overlap_h=0, overlap_v=0, v
   }
   
   if (overlap_h == 0 || overlap_v == 0) return(tiles.result)
-  
 }
