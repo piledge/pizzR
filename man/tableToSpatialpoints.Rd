@@ -12,7 +12,7 @@ tableToSpatialpoints(northing, easting, crs.origin, ...)
 \item{attributes}{data.frame. Optional data to be added to the vector file}
 \item{filename}{character. Filename for export}
 \item{overwrite}{logical. If \code{TRUE}, \code{filename} is overwritten}
-\item{plot}{logical. Plots the output}
+\item{plot}{logical. Plot the output}
 \item{options}{additional GDAL-Options}
 \item{...}{additional arguments for writing files. See writeVector() of terra-package}
 }
