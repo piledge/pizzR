@@ -19,26 +19,26 @@ writeslimRaster <- function(x, filename, compression=T, overwrite=T, BIGTIFF="YE
       cat(paste0("\n", Sys.time(), ": Estimate datatype ..."))
       fparameters$datatype                                                      <- pizzR::opt.datatype(x, samplesize)
     }
-    if (compression == TRUE)  fparameters$gdal                                  <- c(paste0("BIGTIFF = ", BIGTIFF), "COMPRESS = DEFLATE", "ZLEVEL = 9", "PREDICTOR = 2")
-    if (compression == FALSE) fparameters$gdal                                  <- c(paste0("BIGTIFF = ", BIGTIFF))
+    if (compression)  fparameters$gdal                                  <- c(paste0("BIGTIFF = ", BIGTIFF), "COMPRESS = DEFLATE", "ZLEVEL = 9", "PREDICTOR = 2")
+    if (!compression) fparameters$gdal                                  <- c(paste0("BIGTIFF = ", BIGTIFF))
     
-    if (compression == TRUE)  cat(paste0("\n", Sys.time(), ": Write slim rasterfile as '", fparameters$datatype,"' ...\n"))
-    if (compression == FALSE) cat(paste0("\n", Sys.time(), ": Write rasterfile ...\n"))
+    if (compression)  cat(paste0("\n", Sys.time(), ": Write slim rasterfile as '", fparameters$datatype,"' ...\n"))
+    if (!compression) cat(paste0("\n", Sys.time(), ": Write rasterfile ...\n"))
     do.call(terra::writeRaster, fparameters)
   }
   
   if (rsttype == "RasterLayer" || rsttype == "RasterBrick" || rsttype == "RasterStack"){
     
     fparameters$format                                                          <- filetype
-    if (compression == TRUE && datatype == "ESTIMATE"){
+    if (compression && datatype == "ESTIMATE"){
       cat(paste0("\n", Sys.time(), ": Estimate datatype ..."))
       fparameters$datatype                                                      <- pizzR::opt.datatype(x, samplesize)
     }
-    if (compression == TRUE && datatype != "ESTIMATE") fparameters$datatype     <- datatype
-    if (compression == TRUE) fparameters$options                                <- c("COMPRESS=DEFLATE", "PREDICTOR=2", "ZLEVEL=9")
+    if (compression && datatype != "ESTIMATE") fparameters$datatype     <- datatype
+    if (compression) fparameters$options                                <- c("COMPRESS=DEFLATE", "PREDICTOR=2", "ZLEVEL=9")
     
-    if (compression == TRUE)  cat(paste0("\n", Sys.time(), ": Write slim rasterfile as '", fparameters$datatype,"' ...\n"))
-    if (compression == FALSE) cat(paste0("\n", Sys.time(), ": Write rasterfile ...\n"))
+    if (compression)  cat(paste0("\n", Sys.time(), ": Write slim rasterfile as '", fparameters$datatype,"' ...\n"))
+    if (!compression) cat(paste0("\n", Sys.time(), ": Write rasterfile ...\n"))
     do.call(raster::writeRaster, fparameters)
   }
   cat(paste0("\n", Sys.time(), ": Done ...\n"))
