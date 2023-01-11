@@ -36,12 +36,12 @@ tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,at
     crs.export <- crs.project
   }
   
-  if (!is.null(crs.project)) filename <- filename else filename <- paste0("points_", crs.export, ".shp")
+  if (!is.null(filename)) filename <- filename else filename <- paste0("points_", crs.export, ".shp")
   
-  if (plot == T) terra::plot(shp)
+  if (plot == T) terra::plot(shp, main=paste0('CRS: ', crs.export))
   
   terra::writeVector(shp, filename=filename, filetype=NULL, layer=NULL,
                      overwrite=T, options="ENCODING=UTF-8", )
   
-  return("\n", paste0(Sys.time(), ": ",'filename exported',"\n\n"))
+  cat(paste0("\n", Sys.time(), ": '",filename, "' exported to '", getwd(), "'\n\n"))
 }
