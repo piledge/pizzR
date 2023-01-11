@@ -1,4 +1,4 @@
-tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,attributes=NULL,filename=NULL,plot=FALSE){
+tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,attributes=NULL,filename=NULL,overwrite=T,plot=FALSE,filetype=NULL,layer=NULL,options="ENCODING=UTF-8",...){
   
   package.install <- function(x) {
     to_install <- !x %in% installed.packages()
@@ -37,11 +37,17 @@ tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,at
   }
   
   if (!is.null(filename)) filename <- filename else filename <- paste0("points_", crs.export, ".shp")
-  
   if (plot == T) terra::plot(shp, main=paste0('CRS: ', crs.export))
+
+  fparameters             <- list(...)
+  fparameters$x           <- shp
+  fparameters$filename    <- filename
+  fparameters$overwrite   <- overwrite
+  fparameters$filetype    <- filetype
+  fparameters$layer       <- layer
+  fparameters$options     <- options
   
-  terra::writeVector(shp, filename=filename, filetype=NULL, layer=NULL,
-                     overwrite=T, options="ENCODING=UTF-8", )
+  do.call(terra::writeVector, fparameters)
   
-  cat(paste0("\n", Sys.time(), ": '",filename, "' exported to '", getwd(), "'\n\n"))
+  cat(paste0("\n", Sys.time(), ": '",filename, "' written to '", getwd(), "'\n\n"))
 }
