@@ -69,8 +69,8 @@ opt.datatype <- function(x, samplesize=25){
       return("FLT8S")
   }
   
-  if (rst_float == FALSE){                                                      #INT
-    if (rst_signed == TRUE){                                                    #INTS
+  if (isFALSE(rst_float)){                                                      #INT
+    if (isTRUE(rst_signed)){                                                    #INTS
       if (rst_significant_value <= 127){
         return("INT2S")
       }
@@ -81,7 +81,7 @@ opt.datatype <- function(x, samplesize=25){
         return("INT4S")
       }
     }
-    if (rst_signed == FALSE){                                                   #INTU
+    if (isFALSE(rst_signed)){                                                   #INTU
       if (rst_significant_value <= 254){
         return("INT2U")
       }
