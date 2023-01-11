@@ -16,7 +16,7 @@ tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,at
   if (any(is.na(table_xy$longitude)))                                  return(warning("Northing contains non-numeric values"))
   if (any(is.na(table_xy$latitude)))                                   return(warning("Easting contains non-numeric values"))
   
-  if (!is.null(attributes)) data <- cbind(table_xy, attributes)
+  if (!is.null(attributes)) data <- cbind(table_xy, attributes) else data <- table_xy
   
   crs.origin.link <- paste0("https://spatialreference.org/ref/epsg/", crs.origin, "/proj4/")
   crs.origin.param <- rvest::html_text(xml2::read_html(crs.origin.link))
