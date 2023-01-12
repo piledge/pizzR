@@ -1,8 +1,9 @@
 rasterdiversity <- function(x, index='shannon', window=3, ...){
+
+  index <- tolower(index)
+  if (index != 'eveness' && index != 'raosq' && index != 'richness' && index != 'shannon' && index != 'simpson') return(cat("Index can either be 'eveness', 'raosq', 'richness', 'shannon' or 'simpson'"))
   
   library(terra)
-  
-  if (index != 'eveness' && index != 'raosQ' && index != 'richness' && index != 'shannon' && index != 'simpson') return(cat("Index can either be 'eveness', 'raosQ', 'richness', 'shannon' or 'simpson'"))
   
   if (index == 'eveness'){
     fun <- function(x) {
@@ -13,7 +14,7 @@ rasterdiversity <- function(x, index='shannon', window=3, ...){
     }
   }
   
-  if (index == 'raosQ'){
+  if (index == 'raosq'){
     div <- length(x)^2
     fun <- function(x, distance = 'euclidean') sum(as.matrix(dist(x, method = distance)) / div)
   }
