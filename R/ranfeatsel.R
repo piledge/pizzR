@@ -1,4 +1,4 @@
-ranFeatsel <- function(data,classes,ntree=1000,nthreads=parallel::detectCores()-1,savename="ranFeatsel",savedir=getwd(),keep.files=TRUE,best_thr=.975,nimpplot=20,...){
+ranFeatsel <- function(data, classes, ntree=1000, nthreads=parallel::detectCores()-1, savename="ranFeatsel", savedir=getwd(), keep.files=TRUE, best_thr=.975, nimpplot=20, ...){
 
   package.install <- function(x) {
     to_install <- !x %in% installed.packages()
