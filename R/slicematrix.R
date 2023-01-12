@@ -1,5 +1,7 @@
 slice.matrix <- function(x, nslices=1, windowsize=1, direction='h'){
   
+  direction <- tolower(direction)
+  
   if (direction == 'h') base <- nrow(x)
   if (direction == 'v') base <- ncol(x)
   if (direction != 'h' && direction != 'v') return(warning("slice can only be 'h' or 'v'!"))
