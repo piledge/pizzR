@@ -15,7 +15,7 @@ writeslimRaster <- function(x, filename, compression=T, overwrite=T, BIGTIFF="YE
   if (rsttype == "SpatRaster"){
     
     fparameters$filetype                                                        <- filetype
-    if (compression == TRUE && datatype == "ESTIMATE"){
+    if (compression && datatype == "ESTIMATE"){
       cat(paste0("\n", Sys.time(), ": Estimate datatype ..."))
       fparameters$datatype                                                      <- pizzR::opt.datatype(x, samplesize)
     }
