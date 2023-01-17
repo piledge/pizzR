@@ -1,4 +1,4 @@
-opt.datatype <- function(x, samplesize=25){
+opt.datatype <- function(x, samplesize=1000){
 
     package.install <- function(x) {
     to_install <- !x %in% installed.packages()
@@ -20,6 +20,7 @@ opt.datatype <- function(x, samplesize=25){
   if (rsttype != "SpatRaster" && rsttype != "RasterLayer" && rsttype != "RasterBrick" && rsttype != "RasterStack") return(warning("Not a suitable rasterfile!\n"))
   
   rst_sample_cells[rst_sample_cells==Inf] <- NA
+  contain_NA <- any(is.na(rst_sample_cells))
   
   if (rsttype == "SpatRaster"){         
     rst_min <- min(x@ptr[["range_min"]])
