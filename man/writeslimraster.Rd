@@ -14,7 +14,8 @@ writeslimRaster(x, filename, compression=TRUE, overwrite=TRUE, ...)
 \item{...}{additional arguments for writing files. See writeRaster() of raster- or terra-package}
 }
 \description{
-Writes a raster object of both, terra- and raster-package, to a file.
+Writes a raster object of both, terra- and raster-package, to a file. \code{datatype} and \code{NAflag} will be estimated by using the \code{pizzR:opt.datatype()}-function.
+By default, compression-level is set to maximum loss-free compression.
 }
 \examples{
 library(pizzR)
