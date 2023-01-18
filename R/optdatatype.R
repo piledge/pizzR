@@ -66,7 +66,7 @@ opt.datatype <- function(x, samplesize=100){
   INT1U <- c(0, 255)
   INT2U <- c(0, 65534)
   INT4U <- c(0, 4294967296)
-  INT1S <- c(-127, 127)
+  INT1S <- c(-127, 127)                                                         # Not available in Terra
   INT2S <- c(-32767, 32767)
   INT4S <- c(-2147483647, 2147483647)
   FLT4S <- c(-3.4e+38, 3.4e+38)
