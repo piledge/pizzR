@@ -50,11 +50,9 @@ opt.datatype <- function(x, samplesize=100){
     
     if (is.na(rst_min) || is.na(rst_max)){                                      #slower; if ptr not available
       rst.summary <- raster::summary(x, maxsamp = 10000)
-      min <- rst.summary[1,]
-      max <- rst.summary[1,]
-      
-      min(rst.summary[rownames(rst.summary) == "Min.", ])
-      max(rst.summary[rownames(rst.summary) == "Max.", ])
+
+      rst_min <- min(rst.summary[rownames(rst.summary) == "Min.", ])
+      rst_max <- max(rst.summary[rownames(rst.summary) == "Max.", ])
     }
   }
   
