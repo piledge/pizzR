@@ -1,6 +1,6 @@
 \name{opt.datatype}
 \alias{opt.datatype}
-\title{Returns the optimal export-datatype for raster- or terra-spatialraster}
+\title{Returns a list including the optimal export-datatype and information if a raster-object contains NA-Values}
 \usage{
 opt.datatype(x)
 }
@@ -9,7 +9,9 @@ opt.datatype(x)
 \item{samplesize}{integer. Number of pixels used of each bands to estimate the optimized datatype for the output raster}
 }
 \description{
-Returns the optimal export-datatype for raster- or terra-spatialraster.
+Returns a list including the optimal export-datatype and information if a raster-object contains NA-Values.
+Works for both, raster- and terra-package.
+NOTE: raster-package was not fully tested!
 }
 \examples{
 library(pizzR)
