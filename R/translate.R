@@ -5,7 +5,7 @@ translate <- function(x,y,verbose=FALSE){
   nchar.loops <- nchar(loops)
   colnames_y <- colnames(y)
 
-  if (verbose){
+  if (!verbose){
     for (i in 1 : loops){
       x[x == y[i, grep("old", colnames_y)]] <- y[i, grep("new", colnames_y)]
     }
