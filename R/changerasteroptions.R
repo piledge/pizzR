@@ -13,7 +13,7 @@ change.rasterOptions <- function(changetmpdir=FALSE, tmpdir="", OSRAM.remaining=
 
   require(raster)
 
-  if (changetmpdir && dir.exists(tmpdir) == FALSE) {
+  if (isTRUE(changetmpdir) && dir.exists(tmpdir) == FALSE) {
     base::dir.create(tmpdir, recursive = TRUE)
     base::cat(paste("\n", Sys.time(), tmpdir, "created"))
   }
@@ -26,11 +26,11 @@ change.rasterOptions <- function(changetmpdir=FALSE, tmpdir="", OSRAM.remaining=
   }
 
                          fparameters                  <- list(...)
-  if (changetmpdir) fparameters$tmpdir           <- tmpdir
+  if (changetmpdir == T) fparameters$tmpdir           <- tmpdir
                          fparameters$memfrac          <- memfrac
                          fparameters$maxmemory        <- maxmemory * 1024^3
                          fparameters$progress         <- progress
 
   do.call(raster::rasterOptions, fparameters)
-  if (verbose) raster::rasterOptions()
+  if (isTRUE(verbose)) raster::rasterOptions()
 }
