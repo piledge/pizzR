@@ -7,18 +7,18 @@ writeslimRaster <- function(x, filename, compression=T, overwrite=T, BIGTIFF="YE
   if (BIGTIFF != "YES" && BIGTIFF != "NO" && BIGTIFF != "IF_SAFER" && BIGTIFF != "IF_NEEDED") return(warning("'BIGTIFF' should be one of the following options: YES/NO/IF_SAFER/IF_NEEDED!\n"))
   if (datatype != "LOG1S" && datatype != "INT1S" && datatype != "INT1U" && datatype != "INT2S" && datatype != "INT2U" && datatype != "INT4S" && datatype != "INT4U" && datatype != "FLT4S" && datatype != "FLT8S" && !is.null(datatype)) return(warning("'datatype' should be either ESTIMATE or one of the following options: LOG1S/INT1S/INT1U/INT2S/INT2U/INT4S/INT4U/FLT4S/FLT8S!\n"))
   
-  fparameters             <- list(...)
-  fparameters$x           <- x
-  fparameters$filename    <- filename
-  fparameters$overwrite   <- overwrite
-  fparameters$datatype    <- datatype
-  fparameters$NAflag      <- NAflag
+  fparameters                                     <- list(...)
+  fparameters$x                                   <- x
+  fparameters$filename                            <- filename
+  fparameters$overwrite                           <- overwrite
+  if (!is.null(datatype)) fparameters$datatype    <- datatype
+  if (!is.null(NAflag))   fparameters$NAflag      <- NAflag
   
   if (is.null(datatype) || (is.null(NAflag))){
     cat(paste0("\n", Sys.time(), ": Estimate raster attributes ..."))
-    get.attributes                                <- pizzR::opt.datatype(x, samplesize)
-    if (is.null(datatype))  fparameters$datatype  <- get.attributes$datatype
-    if (is.null(NAflag))    fparameters$NAflag    <- get.attributes$NAflag
+    get.attributes                                                     <- pizzR::opt.datatype(x, samplesize)
+    if (is.null(datatype))                        fparameters$datatype <- get.attributes$datatype
+    if (is.null(NAflag) && isFalse(NAflag))       fparameters$NAflag   <- NA
   }
 
   if (rsttype == "SpatRaster"){
