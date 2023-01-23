@@ -26,6 +26,7 @@ opt.datatype <- function(x, samplesize=100){
   rst_sample_cells[rst_sample_cells==Inf] <- NA
   contain_NA <- any(is.na(NA_sample_cells))
   
+  
   if (rsttype == "SpatRaster"){         
     rst_min <- min(x@ptr[["range_min"]])
     rst_max <- max(x@ptr[["range_max"]])
@@ -50,7 +51,7 @@ opt.datatype <- function(x, samplesize=100){
     
     if (is.na(rst_min) || is.na(rst_max)){                                      #slower; if ptr not available
       rst.summary <- raster::summary(x, maxsamp = 10000)
-
+      
       rst_min <- min(rst.summary[rownames(rst.summary) == "Min.", ])
       rst_max <- max(rst.summary[rownames(rst.summary) == "Max.", ])
     }
@@ -61,7 +62,7 @@ opt.datatype <- function(x, samplesize=100){
   
   rst_float <- TRUE
   if (all((floor(rst_sample_cells) / rst_sample_cells) == 1, na.rm = T)) rst_float <- FALSE
-
+  
   # for INTU NAflag is the highest value, for INTU NAflag is the lowest value
   INT1U <- c(0, 255)
   INT2U <- c(0, 65534)
@@ -77,40 +78,40 @@ opt.datatype <- function(x, samplesize=100){
   
   if (isTRUE(rst_float)){                                                               #FLOAT
     if (rst_significant_value < 3.4e+38){
-      return(list(datatype = 'FLT4S', NAflag = contain_NA))
+      return(list(datatype = 'FLT4S', contain_NA = contain_NA))
     }else{
-      return(list(datatype = 'FLT8S', NAflag = contain_NA))
+      return(list(datatype = 'FLT8S', contain_NA = contain_NA))
     }
   }
   
   if (isFALSE(rst_float)){                                                              #INT
     if (isTRUE(rst_signed)){  
       if (rst_significant_value <= INT2S[2]){
-        if (contain_NA) return(list(datatype = 'INT4S', NAflag = contain_NA))
-        if (!contain_NA) return(list(datatype = 'INT2S', NAflag = contain_NA))
+        if (contain_NA) return(list(datatype = 'INT4S', contain_NA = contain_NA))
+        if (!contain_NA) return(list(datatype = 'INT2S', contain_NA = contain_NA))
       }
       if (rst_significant_value <= INT4S[2]){
-        if (contain_NA) return(list(datatype = 'FLT4S', NAflag = contain_NA))
-        if (!contain_NA) return(list(datatype = 'INT4S', NAflag = contain_NA))
+        if (contain_NA) return(list(datatype = 'FLT4S', contain_NA = contain_NA))
+        if (!contain_NA) return(list(datatype = 'INT4S', contain_NA = contain_NA))
       }
     }
     
     if (!rst_signed){                                                           #INTU
       if (rst_significant_value <= INT1U[2]){
-        if (contain_NA) return(list(datatype = 'INT2U', NAflag = contain_NA))
-        if (!contain_NA) return(list(datatype = 'INT1U', NAflag = contain_NA))
+        if (contain_NA) return(list(datatype = 'INT2U', contain_NA = contain_NA))
+        if (!contain_NA) return(list(datatype = 'INT1U', contain_NA = contain_NA))
       }
       if (rst_significant_value <= INT2U[2]){
-        if (contain_NA) return(list(datatype = 'INT4U', NAflag = contain_NA))
-        if (!contain_NA) return(list(datatype = 'INT2U', NAflag = contain_NA))
+        if (contain_NA) return(list(datatype = 'INT4U', contain_NA = contain_NA))
+        if (!contain_NA) return(list(datatype = 'INT2U', contain_NA = contain_NA))
       }
       if (rst_significant_value <= INT4U[2]){
-        if (contain_NA) return(list(datatype = 'FLT4S', NAflag = contain_NA))
-        if (!contain_NA) return(list(datatype = 'INT4U', NAflag = contain_NA))
+        if (contain_NA) return(list(datatype = 'FLT4S', contain_NA = contain_NA))
+        if (!contain_NA) return(list(datatype = 'INT4U', contain_NA = contain_NA))
       }
     }
     
-    if (rst_significant_value <= FLT4S[2]) return(list(datatype = 'FLT4S', NAflag = contain_NA))
-    return(list(datatype = 'FLT4S', NAflag = contain_NA))
+    if (rst_significant_value <= FLT4S[2]) return(list(datatype = 'FLT4S', contain_NA = contain_NA))
+    return(list(datatype = 'FLT4S', contain_NA = contain_NA))
   }
 }
