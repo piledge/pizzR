@@ -75,7 +75,7 @@ opt.datatype <- function(x, samplesize=100){
   if (nrow(rst_sample_cells) == 0) return("LOG1S")                              #LOG
   if (is.logical(rst_sample_cells[,1:ncol(rst_sample_cells)])) return("LOG1S")
   
-  if (rst_float){                                                               #FLOAT
+  if (isTRUE(rst_float)){                                                               #FLOAT
     if (rst_significant_value < 3.4e+38){
       return(list(datatype = 'FLT4S', NAflag = contain_NA))
     }else{
@@ -83,8 +83,8 @@ opt.datatype <- function(x, samplesize=100){
     }
   }
   
-  if (!rst_float){                                                              #INT
-    if (rst_signed){  
+  if (isFALSE(rst_float)){                                                              #INT
+    if (isTRUE(rst_signed)){  
       if (rst_significant_value <= INT2S[2]){
         if (contain_NA) return(list(datatype = 'INT4S', NAflag = contain_NA))
         if (!contain_NA) return(list(datatype = 'INT2S', NAflag = contain_NA))
