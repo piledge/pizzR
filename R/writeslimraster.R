@@ -18,7 +18,7 @@ writeslimRaster <- function(x, filename, compression=T, overwrite=T, BIGTIFF="YE
     cat(paste0("\n", Sys.time(), ": Estimate raster attributes ..."))
     get.attributes                                                     <- pizzR::opt.datatype(x, samplesize)
     if (is.null(datatype))                        fparameters$datatype <- get.attributes$datatype
-    if (is.null(NAflag) && isFalse(NAflag))       fparameters$NAflag   <- NA
+    if (is.null(NAflag) && isFALSE(NAflag))       fparameters$NAflag   <- NA
   }
 
   if (rsttype == "SpatRaster"){
