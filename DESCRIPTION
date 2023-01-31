@@ -11,4 +11,3 @@ Description: pizzR is a small collection of R-Functions created
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-ByteCompile: true
