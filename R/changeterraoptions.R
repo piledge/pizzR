@@ -1,8 +1,8 @@
-change.terraOptions <- function(changetempdir=F, tempdir="", OSRAM.remaining=3, progress=0, verbose=F, ...){
-  
-  if (!is.logical(changetempdir)) return(warning("'changetempdir' has to be of class logical!\n"))
+change.rasterOptions <- function(changetmpdir=F, tmpdir="", OSRAM.remaining=3, progress='', verbose=F, ...){
+
+  if (!is.logical(changetmpdir)) return(warning("'changetmpdir' has to be of class logical!\n"))
   if (!is.logical(verbose)) return(warning("'verbose' has to be of class logical!\n"))
-  
+
   package.install <- function(x) {
     to_install <- !x %in% installed.packages()
     if (any(to_install)){
@@ -12,27 +12,27 @@ change.terraOptions <- function(changetempdir=F, tempdir="", OSRAM.remaining=3, 
     }
   }
   package.install(c("memuse", "raster", "Rcpp", "terra"))
-
-  require(terra)
-
-  if (changetempdir && dir.exists(tempdir) == F) {
-    base::dir.create(tempdir, recursive = T)
-    base::cat(paste("\n", Sys.time(), tempdir, "created"))
+  
+  require(raster)
+  
+  if (changetmpdir && dir.exists(tmpdir) == F) {
+    base::dir.create(tmpdir, recursive = T)
+    base::cat(paste("\n", Sys.time(), tmpdir, "created"))
   }
   
-  memmax <- memuse::Sys.meminfo()$totalram@size
-  if (((memmax-OSRAM.remaining) / memmax) > 0.9){
-    memfrac  <-  0.9
+  maxmemory <- memuse::Sys.meminfo()$totalram@size
+  if (((maxmemory-OSRAM.remaining) / maxmemory) > 0.9){
+    memfrac <-  0.9
   }else{
-    memfrac <- ((memmax - OSRAM.remaining) / memmax)
+    memfrac <- ((maxmemory - OSRAM.remaining) / maxmemory)
   }
   
   fparameters                  <- list(...)
-  if (changetempdir) fparameters$tempdir          <- tempdir
+  if (changetmpdir) fparameters$tmpdir           <- tmpdir
   fparameters$memfrac          <- memfrac
-  fparameters$memmax           <- memmax
+  fparameters$maxmemory        <- maxmemory * 1024^3
   fparameters$progress         <- progress
   
-  do.call(terra::terraOptions, fparameters)
-  if (verbose) terra::terraOptions()
+  do.call(raster::rasterOptions, fparameters)
+  if (verbose) raster::rasterOptions()
 }
