@@ -22,7 +22,7 @@ translate <- function(x,y,verbose=F){
       }
   }
   if (verbose){
-    base::cat(sprintf(paste0("\r %s: %", nchar.loops+13, "s items translated\n"),
+    base::cat(sprintf(paste0("\r %s: %", nchar.loops + 13, "s items translated\n"),
                 Sys.time(), loops))
   }
   return(x)
