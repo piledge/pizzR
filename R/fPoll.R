@@ -83,7 +83,7 @@ fPoll <- function(species, dbh_cm, height_m) {
     b6 = 0
     b7 = 3.34479
   }
-  if (species == 10 & dbh > 1.05) { #fagus sylvatica, Aesculus hippocastanum, robinia pseudoacacia, sorbus
+  if (species == 10 & dbh > 1.05) { #fagus sylvatica, aesculus hippocastanum, robinia pseudoacacia, sorbus
     b1 = 0.686253
     b2 = -0.0371508
     b3 = -31.0674
@@ -92,7 +92,7 @@ fPoll <- function(species, dbh_cm, height_m) {
     b6 = 49.6163
     b7 = -22.3719
   }
-  if (species == 10  & dbh <= 1.05) { #fagus sylvatica, Aesculus hippocastanum, robinia pseudoacacia, sorbus
+  if (species == 10  & dbh <= 1.05) { #fagus sylvatica, aesculus hippocastanum, robinia pseudoacacia, sorbus
     b1 = 0.5173
     b2 = 0
     b3 = -13.62144
@@ -218,7 +218,7 @@ fPoll <- function(species, dbh_cm, height_m) {
     b6 = 9.3988
     b7 = 0
   }
-  if (species == 28 ) { #corylus , pinus mugo
+  if (species == 28 ) { #corylus, pinus mugo
     b1 = 0
     b2 = 0
     b3 = 0
