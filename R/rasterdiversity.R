@@ -1,8 +1,11 @@
 rasterdiversity <- function(x, index='shannon', window=3, ...){
-
+  
   index <- tolower(index)
   if (index != 'eveness' && index != 'raosq' && index != 'richness' && index != 'shannon' && index != 'simpson') return(warning("Index can either be 'eveness', 'raosq', 'richness', 'shannon' or 'simpson'\n"))
-
+  if (!is.numeric(window))                                                                                       return(warning("'window' has to be of type integer\n"))
+  window.divided <- window / 2
+  if (window.divided - floor(window.divided)) != 0.5)                                                            return(warning("'window' has to be a odd integer\n"))
+  
   library(terra)
   
   if (index == 'eveness'){
