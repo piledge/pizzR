@@ -17,13 +17,13 @@ translate <- function(x,y,verbose=F){
   if (verbose){
     for (i in loops){
       base::cat(sprintf(paste0("\r %s: remaining items to translate: % ", nchar.loops, "s"),
-                        Sys.time(), loops - i))
+                        Sys.time(), loops - i + 1))
       x[x == y[i, colnr_old]] <- y[i, colnr_new]
     }
   }
   if (verbose){
     base::cat(sprintf(paste0("\r %s: %", nchar.loops + 13, "s items translated\n"),
-                      Sys.time(), loops))
+                      Sys.time(), max(loops)))
   }
   return(x)
 }
