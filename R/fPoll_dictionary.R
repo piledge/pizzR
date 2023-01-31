@@ -3,4 +3,4 @@ fPoll.dictionary <- data.frame(id=c(1, 2, 3, 4, 5, 6, 10, 11, 12, 13, 14, 15, 19
                                          'pinus cembra', 'fagus sylvatica, aesculus hippocastanum, robinia pseudoacacia, sorbus',
                                          'oak', 'carpinus betulus', 'fraxinus', 'acer, tilia', 'ulmus', 'betula', 'alnus',
                                          'populus alba', 'populus nigra, populus tremula', 'salix, prunus, other broadleaved trees',
-                                         'corylus , pinus mugo', 'other broadleaved trees'))
+                                         'corylus avellana, pinus mugo', 'other broadleaved trees'))
