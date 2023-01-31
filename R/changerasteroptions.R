@@ -1,6 +1,6 @@
-change.rasterOptions <- function(changetmpdir=F, tmpdir="", OSRAM.remaining=3, progress="", verbose=F, ...){
+change.terraOptions <- function(changetempdir=F, tempdir="", OSRAM.remaining=3, progress=0, verbose=F, ...){
   
-  if (!is.logical(changetmpdir)) return(warning("'changetmpdir' has to be of class logical!\n"))
+  if (!is.logical(changetempdir)) return(warning("'changetempdir' has to be of class logical!\n"))
   if (!is.logical(verbose)) return(warning("'verbose' has to be of class logical!\n"))
   
   package.install <- function(x) {
@@ -12,28 +12,27 @@ change.rasterOptions <- function(changetmpdir=F, tmpdir="", OSRAM.remaining=3, p
     }
   }
   package.install(c("memuse", "raster", "Rcpp", "terra"))
+
+  require(terra)
   
-  
-  require(raster)
-  
-  if (changetmpdir && dir.exists(tmpdir) == F) {
-    base::dir.create(tmpdir, recursive = T)
-    base::cat(paste("\n", Sys.time(), tmpdir, "created"))
+  if (changetempdir && dir.exists(tempdir) == F) {
+    base::dir.create(tempdir, recursive = T)
+    base::cat(paste("\n", Sys.time(), tempdir, "created"))
   }
   
-  maxmemory <- memuse::Sys.meminfo()$totalram@size
-  if (((maxmemory-OSRAM.remaining) / maxmemory) > 0.9){
-    memfrac <-  0.9
+  memmax <- memuse::Sys.meminfo()$totalram@size
+  if (((memmax-OSRAM.remaining) / memmax) > 0.9){
+    memfrac  <-  0.9
   }else{
-    memfrac <- ((maxmemory - OSRAM.remaining) / maxmemory)
+    memfrac <- ((memmax - OSRAM.remaining) / memmax)
   }
   
   fparameters                  <- list(...)
-  if (changetmpdir == T) fparameters$tmpdir           <- tmpdir
+  if (changetempdir) fparameters$tempdir          <- tempdir
   fparameters$memfrac          <- memfrac
-  fparameters$maxmemory        <- maxmemory * 1024^3
+  fparameters$memmax           <- memmax
   fparameters$progress         <- progress
   
-  do.call(raster::rasterOptions, fparameters)
-  if (verbose) raster::rasterOptions()
+  do.call(terra::terraOptions, fparameters)
+  if (verbose) terra::terraOptions()
 }
