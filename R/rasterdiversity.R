@@ -46,9 +46,8 @@ rasterdiversity <- function(x, index='shannon', window=3, ...){
   
   if (index == 'simpson'){
     fun <- function(x) {
-      cnts <- table(x)
-      cnts <- cnts / sum(cnts)
-      -log(sum(cnts^2))
+      p <- table(x)/length(x)
+      1 / sum(p^2)
     }
   }
   
