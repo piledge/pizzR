@@ -30,7 +30,7 @@ change.terraOptions <- function(changetempdir=F, tempdir="", OSRAM.remaining=3, 
   fparameters                  <- list(...)
   if (changetempdir) fparameters$tempdir          <- tempdir
   fparameters$memfrac          <- memfrac
-  fparameters$memmax           <- memmax - OSRAM.remaining
+  fparameters$memmax           <- memmax
   fparameters$progress         <- progress
   
   do.call(terra::terraOptions, fparameters)
