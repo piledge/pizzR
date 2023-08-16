@@ -1,4 +1,15 @@
 rst.pca <- function(x,scale=T){
+
+  package.install <- function(x) {
+    to_install <- !x %in% installed.packages()
+    if (any(to_install)){
+      cat(paste0(Sys.time(), ": install missing packages '", paste(x[to_install], collapse=", "), "'\n"))
+      install.packages(x[to_install], dependencies = T)
+      cat(paste0(Sys.time(), ": missing packages '", paste(x[to_install], collapse=", "), "' installed\n\n"))
+    }
+  }
+  package.install(c("raster", "terra"))
+  pizzR::change.terraOptions()
   
   rsttype <- class(x)[1]
   if (rsttype != "SpatRaster") return(warning("Not a suitable rasterfile!\n"))
