@@ -42,7 +42,7 @@ rst.pca <- function(x,scale=T){
   pca.rst <- merged[order(merged$position), seq(band.nr)]
   terra::values(x) <- pca.rst
 
-  terra::setMinMax(pca.rst)
+  terra::setMinMax(x)
   names(x) <- paste0('PC', seq(band.nr))
   
   return(x)
