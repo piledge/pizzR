@@ -9,7 +9,7 @@ rst.pca <- function(x,scale=T){
     }
   }
   package.install(c("raster", "terra"))
-  pizzR::change.terraOptions()
+  suppressMessages(pizzR::change.terraOptions())
   
   rsttype <- class(x)[1]
   if (rsttype != "SpatRaster") return(warning("Not a suitable rasterfile!\n"))
