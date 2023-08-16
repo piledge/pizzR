@@ -31,7 +31,7 @@
 #'   console output
 #' @return none, but the 'sideeffect' of creating segmentation of an input image
 #'   and storing the result on disk
-#' @note Developed for Orfeo ToolBox 5.10.1! No guarantee it will work with other 
+#' @note Developed for Orfeo ToolBox 5.10.1 but also used successful with Orfeo ToolBox 8.1.2! No guarantee it will work with other 
 #'   versions.
 #'   
 
