@@ -6,10 +6,9 @@ opt.datatype(x)
 }
 \arguments{
 \item{x}{SpatRaster, RasterLayer, RasterBrick, RasterStack}
-\item{samplesize}{integer. Number of pixels used of each bands to estimate the optimized datatype for the output raster}
 }
 \description{
-Returns a list including the optimal export-datatype and information if a raster-object contains NA-Values.
+Returns a list including the optimal export-datatype.
 Works for both, raster- and terra-package.
 NOTE: raster-package was not fully tested!
 }
