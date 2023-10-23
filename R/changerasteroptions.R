@@ -35,4 +35,5 @@ change.terraOptions <- function(changetempdir=F, tempdir="", OSRAM.remaining=3, 
   
   do.call(terra::terraOptions, fparameters)
   if (verbose) terra::terraOptions()
+  if (changetmpdir) Sys.setenv(TMP = tmpdir, TEMP = tmpdir)
 }
