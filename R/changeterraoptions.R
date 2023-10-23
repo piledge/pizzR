@@ -35,4 +35,5 @@ change.rasterOptions <- function(changetmpdir=F, tmpdir="", OSRAM.remaining=3, p
   
   do.call(raster::rasterOptions, fparameters)
   if (verbose) raster::rasterOptions()
+  if (changetmpdir) Sys.setenv(TMP = tmpdir, TEMP = tmpdir)
 }
