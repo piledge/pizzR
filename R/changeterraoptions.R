@@ -1,4 +1,4 @@
-function (changetempdir = F, tempdir = "", OSRAM.remaining = 3, 
+change.terraOptions <- function (changetempdir = F, tempdir = "", OSRAM.remaining = 3, 
           progress = 0, verbose = F, ...) 
 {
   if (!is.logical(changetempdir)) 
