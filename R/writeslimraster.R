@@ -1,4 +1,4 @@
-writeslimRaster <- function(x, filename, compression=T, overwrite=T, BIGTIFF="YES", filetype="GTiff", samplesize=25, datatype="ESTIMATE", ...){
+writeslimRaster <- function(x, filename, compression=T, overwrite=T, BIGTIFF="YES", filetype="GTiff", datatype="ESTIMATE", ...){
 
   rsttype <- class(x)[1]
   if (rsttype != "SpatRaster" && rsttype != "RasterLayer" && rsttype != "RasterBrick" && rsttype != "RasterStack") return(warning("Not a suitable rasterfile!\n"))
@@ -17,7 +17,7 @@ writeslimRaster <- function(x, filename, compression=T, overwrite=T, BIGTIFF="YE
     fparameters$filetype                                                        <- filetype
     if (compression == TRUE && datatype == "ESTIMATE"){
       cat(paste0("\n", Sys.time(), ": Estimate datatype ..."))
-      fparameters$datatype                                                      <- pizzR::opt.datatype(x, samplesize)
+      fparameters$datatype                                                      <- pizzR::opt.datatype(x)
     }
     if (compression == TRUE)  fparameters$gdal                                  <- c(paste0("BIGTIFF = ", BIGTIFF), "COMPRESS = DEFLATE", "ZLEVEL = 9", "PREDICTOR = 2")
     if (compression == FALSE) fparameters$gdal                                  <- c(paste0("BIGTIFF = ", BIGTIFF))
