@@ -1,6 +1,6 @@
 # pizzR
 
-> *Copyright 2022 [Michael Lechner]. Licensed under the MIT license.*
+> *Copyright 2023 [Michael Lechner]. Licensed under the MIT license.*
 
 `pizzR` is a small collection of R-Functions created by a Pizza-enthusiast. Although there is no specific topic, most of the functions have a background in forestry, raster data as well as tree species classification.
 
