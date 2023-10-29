@@ -1,4 +1,4 @@
-package.install <- function(x) {
+package.install <- function(x=pizzR::packages) {
   to_install <- !x %in% installed.packages()
   if (any(to_install)){
     cat(paste0("\n", Sys.time(), ": install missing packages '", paste(x[to_install], collapse=", "), "'\n"))
