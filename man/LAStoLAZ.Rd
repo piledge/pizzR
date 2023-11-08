@@ -16,7 +16,7 @@ Easy compress a folder full of .LAS-Files to .LAZ-Files. Input-variable has to b
 library(lidR)
 library(pizzR)
 
-i.path <- dirname (system.file("extdata", "Megaplot.laz", package="lidR"))
+i.path <- system.file('extdata', package="pizzR")
 o.path <- file.path(tempdir(), "example.tif")
 
 # just specify a Folder full of .LAS-files
