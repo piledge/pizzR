@@ -17,11 +17,8 @@ library(lidR)
 library(pizzR)
 
 i.path <- system.file('extdata', package="pizzR")
-o.path <- file.path(tempdir(), "example.tif")
+o.path <- tempdir()
 
-# just specify a Folder full of .LAS-files
-LAStoLAZ(i.path)
-
-# You can also specify a output-folder of your choice
+# Just specify a Folder full of .LAS-files. You can also specify a output-folder of your choice
 LAStoLAZ(i.path, o.path)
 }
