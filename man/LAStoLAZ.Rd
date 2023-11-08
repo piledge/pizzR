@@ -20,5 +20,5 @@ i.path <- system.file('extdata', package="pizzR")
 o.path <- tempdir()
 
 # Just specify a Folder full of .LAS-files. You can also specify a output-folder of your choice
-LAStoLAZ(i.path, o.path)
+LAStoLAZ(i.path, o.path, verbose=T)
 }
