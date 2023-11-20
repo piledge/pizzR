@@ -26,10 +26,10 @@ rasterdiversity <- function(x, index='shannon', window=3, ...){
       even <- shan / max(shan)
     }
   }
-  
+
+  if (index == 'raosq') div <- length(data)^2
   if (index == 'raosq'){
-    div <- length(data)^2
-    fun <- function(x) sum(as.matrix(dist(c(data),
+        fun <- function(x) sum(as.matrix(dist(c(data),
                                         method = "euclidean"))/div)
   }
   
