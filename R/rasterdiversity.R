@@ -16,7 +16,7 @@ rasterdiversity <- function(x, index='shannon', window=3, ...){
     }
   }
   package.install(c("raster", "Rcpp", "terra"))
-
+  
   library(terra)
   
   if (index == 'eveness'){
@@ -27,11 +27,11 @@ rasterdiversity <- function(x, index='shannon', window=3, ...){
       even <- shan / max(shan)
     }
   }
-
-  if (index == 'raosq') div <- length(x)^2
+  
+  if (index == 'raosq') div <- window^4
   if (index == 'raosq'){
-        fun <- function(x) sum(as.matrix(dist(x,
-                                        method = "euclidean"))/div)
+    fun <- function(x) sum(as.matrix(dist(x,
+                                          method = "euclidean"))/div)
   }
   
   if (index == 'richness'){
@@ -60,3 +60,4 @@ rasterdiversity <- function(x, index='shannon', window=3, ...){
   
   return(do.call(terra::focal, fparameters))
 }
+
