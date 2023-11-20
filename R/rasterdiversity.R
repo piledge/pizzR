@@ -28,8 +28,9 @@ rasterdiversity <- function(x, index='shannon', window=3, ...){
   }
   
   if (index == 'raosq'){
-    div <- length(x)^2
-    fun <- function(x, distance = 'euclidean') sum(as.matrix(dist(x, method = distance)) / div)
+    div <- length(data)^2
+    fun <- function(x) sum(as.matrix(dist(c(data),
+                                        method = "euclidean"))/div)
   }
   
   if (index == 'richness'){
