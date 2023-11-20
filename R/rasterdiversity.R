@@ -5,6 +5,7 @@ rasterdiversity <- function(x, index='shannon', window=3, ...){
   if (!is.numeric(window))                                                                                       return(warning("'window' has to be of type integer\n"))
   window.divided <- window / 2
   if (window.divided - floor(window.divided) != 0.5)                                                             return(warning("'window' has to be a odd integer\n"))
+  if (terra::nrow(rst) > window && terra::nrow(rst) > window)                                                    return(warning("Focal window bigger than raster!\n"))
   
   package.install <- function(x) {
     to_install <- !x %in% installed.packages()
