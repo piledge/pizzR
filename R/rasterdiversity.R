@@ -30,7 +30,7 @@ rasterdiversity <- function(x, index='shannon', window=3, ...){
 
   if (index == 'raosq') div <- length(x)^2
   if (index == 'raosq'){
-        fun <- function(x) sum(as.matrix(dist(c(x),
+        fun <- function(x) sum(as.matrix(dist(x,
                                         method = "euclidean"))/div)
   }
   
