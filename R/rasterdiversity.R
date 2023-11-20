@@ -35,7 +35,7 @@ rasterdiversity <- function(x, index='shannon', window=3, ...){
   }
   
   if (index == 'richness'){
-    fun <- function(x) length(unique(na.omit(x)))
+    fun <- function(x) nrow(unique(na.omit(x)))
   }
   
   if (index == 'shannon'){
