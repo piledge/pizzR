@@ -10,8 +10,8 @@ opt.datatype <- function(x) {
     }
   }
   package.install(c("memuse", "raster", "Rcpp", "terra"))
-  rsttype <- class(x)[1]
 
+  rsttype <- class(x)[1]
   if (rsttype != "SpatRaster" && rsttype != "RasterLayer" && 
       rsttype != "RasterBrick" && rsttype != "RasterStack") 
     return(warning("Not a suitable rasterfile!\n"))
