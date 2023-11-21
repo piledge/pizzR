@@ -13,7 +13,6 @@ LAStoLAZ(x,y,verbose=F)
 Easy compress a folder full of .LAS-Files to .LAZ-Files. Input-variable has to be a folder including the files.
 }
 \examples{
-library(lidR)
 library(pizzR)
 
 i.path <- system.file('extdata', package="pizzR")
