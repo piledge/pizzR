@@ -23,7 +23,7 @@ fPoll.dictionary
 fPoll(1, 25.4, 30)
 
 # abies alba with 15.9cm dbh and 18m tree height
-fPoll(3, 15.9, 18)
+fPoll(2, 15.9, 18)
 
 # Pollanschütz, J. 1974: Zuwachsschätzung im Rahmen von Stichprobe-inventuren der Forsteinrichtung
 }
