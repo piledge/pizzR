@@ -1,5 +1,15 @@
 LAStoLAZ <- function(x,y=NULL,verbose=F){
-  pizzR::package.install('lidR')
+  package.install <- function(x) {
+    to_install <- !x %in% installed.packages()
+    if (any(to_install)) {
+      cat(paste0(Sys.time(), ": install missing packages '", 
+                 paste(x[to_install], collapse = ", "), "'\n"))
+      install.packages(x[to_install], dependencies = T)
+      cat(paste0(Sys.time(), ": missing packages '", paste(x[to_install], 
+                                                           collapse = ", "), "' installed\n\n"))
+    }
+  }
+  package.install('lidR')
   
   if(is.null(y)) y <- file.path(dirname(x), 'output_LAStoLAZ')
   
