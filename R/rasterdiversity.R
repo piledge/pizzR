@@ -22,9 +22,10 @@ rasterdiversity <- function(x, index='shannon', window=3, ...){
   if (index == 'eveness'){
     fun <- function(x) {
       cnts <- table(x)
+      s <- length(na.omit(cnts))
       cnts <- cnts / sum(cnts)
       shan <- -sum(cnts * log(cnts))
-      even <- shan / max(shan)
+      shan / log(s)
     }
   }
   
