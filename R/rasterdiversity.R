@@ -30,9 +30,9 @@ rasterdiversity <- function(x, index='shannon', window=3, ...){
   }
   
   if (index == 'raosq') div <- window^4
+  if (index == 'raosq') method <- "euclidean"
   if (index == 'raosq'){
-    fun <- function(x) sum(as.matrix(dist(x,
-                                          method = "euclidean"))/div)
+    fun <- function(x) sum(as.matrix(dist(na.omit(x)))/div)
   }
   
   if (index == 'richness'){
@@ -61,4 +61,3 @@ rasterdiversity <- function(x, index='shannon', window=3, ...){
   
   return(do.call(terra::focal, fparameters))
 }
-
