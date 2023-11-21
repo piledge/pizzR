@@ -1,4 +1,4 @@
-LAStoLAZ <- function(x,y=NULL,verbose=F){
+LAStoLAZ <- function(x,y=NULL,verbose=T){
   package.install <- function(x) {
     to_install <- !x %in% installed.packages()
     if (any(to_install)) {
