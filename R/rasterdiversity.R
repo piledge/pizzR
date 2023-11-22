@@ -29,9 +29,9 @@ rasterdiversity <- function(x, index='shannon', window=3, ...){
     }
   }
   
-  if (index == 'raosq') div <- window^4
-  if (index == 'raosq') method <- "euclidean"
   if (index == 'raosq'){
+    div <- window^4
+    method <- "euclidean"
     fun <- function(x) sum(as.matrix(dist(na.omit(x)))/div)
   }
   
