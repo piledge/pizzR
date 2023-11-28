@@ -1,4 +1,4 @@
-packages <- c("caret", "e1071", "feather", "foreach", "gdata", "ggplot2", "lidR", "magrittr", "memuse", "randomForest", "ranger",
+packages <- c("caret", "e1071", "feather", "foreach", "gdata", "ggplot2", "lidR", "magrittr", "memuse", "parallelly", "randomForest", "ranger",
               "raster", "Rcpp", "remotes", "rvest", "RMariaDB", "s2", "sf", "terra", "tidyverse", "xml2")
 
 to_install <- !packages %in% installed.packages()
