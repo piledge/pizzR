@@ -12,7 +12,7 @@ rst.pca <- function(x,scale=T){
   suppressMessages(pizzR::change.terraOptions())
   
   rsttype <- class(x)[1]
-  if (rsttype != "SpatRaster") return(warning("Not a suitable SpatRaster!\n"))
+  if (rsttype != "SpatRaster") return(warning("Only Objects of class 'SpatRaster' are allowed!\n"))
   
   band.nr <- terra::nlyr(rst)
   
