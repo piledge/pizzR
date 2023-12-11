@@ -37,7 +37,7 @@
 
 OTB_lsms <- function(IMGpath, OTBpath=NULL, spatrad=5, rangerad=15, minsize=100, 
                      savedir=NULL, maxiter=100, thres=.001, tilesizex=4096, fact=.5,
-                     tilesizey=4096, vectorize=FALSE, resume=TRUE, Ncore=2, 
+                     tilesizey=4096, vectorize=TRUE, resume=TRUE, Ncore=3, 
                      ram=1024, silent=TRUE){
   
   OTB_init <- function(path = NULL){
