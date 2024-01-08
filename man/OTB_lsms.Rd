@@ -24,10 +24,9 @@ i.path <- system.file('extdata/rastersample.tif', package="pizzR")
 o.path <- tempdir()
 OTBp <- 'C:/OTB-8.1.2-Win64'
 
-# Just specify a Folder full of .LAS-files. You can also specify a output-folder of your choice
+# Do a segmentation on a raster
 OTB_lsms(IMGpath = i.path, OTBpath = OTBp, savedir = o.path, maxiter = 10,
-                spatrad = 20, rangerad = 30, minsize = 200,
-                fact = 1, vectorize = TRUE,
+                spatrad = 20, rangerad = 30, minsize = 200, fact = 1
                 Ncore = 2, ram = 2048)
 
 # show result
