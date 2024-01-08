@@ -8,7 +8,10 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
 
   OTB_init <- function(path = NULL){
     if(file.access(path) != 0){
-      stop(paste0("\n", Sys.time(),": Unable to access ", path, "'!"))
+      files <- list.files(dirname(path), full.names = T)
+      otb.instances <- files[grep('OTB', files)]
+      path <- otb.instances[length(otb.instances)]
+      if(file.access(path) != 0) stop(paste0("\n", Sys.time(),": Unable to access ", path, "'!"))
     }
     options("OTB_PATH" = path)
     cat(paste0("\n", Sys.time(),": 'OTB_PATH' set to ", path))
