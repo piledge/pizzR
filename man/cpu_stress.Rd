@@ -5,8 +5,8 @@
 cpu_stress()
 }
 \arguments{
-\item{n_core}{Number of cores to be used. Default is n_threads - 1}
-\item{dur_s}{Duration in seconds. Infinity if not given}
+\item{n_core}{Number of cores to be used. Default is n_threads - 1.}
+\item{dur_s}{Duration in seconds. Default is Infinity.}
 }
 \description{
 Simple stresstest for CPU.
