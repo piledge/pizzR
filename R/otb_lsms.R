@@ -2,14 +2,9 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
                      spatrad=5,rangerad=15,minsize=100,
                      maxiter=100,thres=.001,fact=.5,
                      tilesizex=4096,tilesizey=4096,vectorize=TRUE,resume=TRUE,
-                     Ncore=parallel::detectCores()-1,ram=1024){
+                     Ncore=parallel::detectCores()-1,ram=2048){
   
   if (!any(c('tif', 'tiff') %in% tools::file_ext(IMGpath))) return(warning('IMGpath has to be a .tif-file.'))
-  if (is.null(savedir)) savedir <- getwd()
-  if (!is.null(savedir)){
-    pizzR::setcreate.wd(savedir)
-    base::cat('\n')
-  }
 
   OTB_init <- function(path = NULL){
     if(file.access(path) != 0){
