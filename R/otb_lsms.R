@@ -8,21 +8,21 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
   if (is.null(savedir)) savedir <- getwd()
   if (!is.null(savedir)){
     pizzR::setcreate.wd(savedir)
-    cat('\n')
+    base::cat('\n')
   }
 
   OTB_init <- function(path = NULL){
     if(file.access(path) != 0){
-      stop("Unable to access '", path, "'!")
+      stop(paste0("\n", Sys.time(),": Unable to access ", path, "'!"))
     }
     options("OTB_PATH" = path)
-    cat("'OTB_PATH' set to ", path)
+    cat(paste0("\n", Sys.time(),": 'OTB_PATH' set to ", path))
   }
 
   OTB_run   <- function(cmd, Ncore = 1, DefaultRAM = NULL, ...){
     
     if (is.null(getOption("OTB_PATH"))){
-      stop("OTB_PATH not found! Use 'OTB_init()' to set it...")
+      stop(paste0("\n", Sys.time(),": OTB_PATH not found! Use 'OTB_init()' to set it ..."))
     }
   
     Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = Ncore)
@@ -50,7 +50,7 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
     
     try({
       cmd <- sprintf('%s && %s', OTB_PREFIX, cmd)
-      cat("\nRunning:\n", cmd, "\n\n")
+      cat(paste0("\n", Sys.time(),"\nRunning:\n", cmd, "\n\n"))
       system(cmd, ...)
     })
   }
@@ -163,4 +163,5 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
       }
     }
   })
+  cat(paste0("\n", Sys.time(),": Files written to '", savedir, "'!"))
 }
