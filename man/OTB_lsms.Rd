@@ -6,7 +6,8 @@ OTB_lsms(IMGpath,OTBpath,savedir, ...)
 }
 \arguments{
 \item{IMGpath}{character. Path to the (input image) file.}
-\item{OTBpath}{character. Path to OTB-X.X.X-win64 or OTB-X.X.X-debian or OTB-X.X.X-Linux64.}
+\item{OTBpath}{character. Path to OTB-X.X.X-win64 or OTB-X.X.X-debian or OTB-X.X.X-Linux64.
+  If not accessible, newest version in specified parent directory will be used.}
 \item{savedir}{character. output directory to store results. If \code{NULL}
   (the default), a folder will be created in the paretn directory of IMGpath.
   If savedir does not exist, an attempt is made to create it.}
