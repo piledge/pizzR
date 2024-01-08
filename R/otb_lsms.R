@@ -6,8 +6,10 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
   
   if (!any(c('tif', 'tiff') %in% tools::file_ext(IMGpath))) return(warning('IMGpath has to be a .tif-file.'))
   if (is.null(savedir)) savedir <- getwd()
-  if (!is.null(savedir)) pizzR::setcreate.wd(savedir)
-
+  if (!is.null(savedir)){
+    pizzR::setcreate.wd(savedir)
+    cat('\n')
+  }
 
   OTB_init <- function(path = NULL){
     if(file.access(path) != 0){
