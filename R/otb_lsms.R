@@ -5,10 +5,10 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
                      Ncore=parallel::detectCores()-1,ram=1024){
   
   if (!any(c('tif', 'tiff') %in% tools::file_ext(IMGpath))) return(warning('IMGpath has to be a .tif-file.'))
-  pizzR::setcreate.wd(savedir)
-  
-  
-  
+  if (is.null(savedir)) savedir <- getwd()
+  if (!is.null(savedir)) pizzR::setcreate.wd(savedir)
+
+
   OTB_init <- function(path = NULL){
     if(file.access(path) != 0){
       stop("Unable to access '", path, "'!")
@@ -16,18 +16,18 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
     options("OTB_PATH" = path)
     cat("'OTB_PATH' set to ", path)
   }
-  
+
   OTB_run   <- function(cmd, Ncore = 1, DefaultRAM = NULL, ...){
     
     if (is.null(getOption("OTB_PATH"))){
       stop("OTB_PATH not found! Use 'OTB_init()' to set it...")
     }
-    
+  
     Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = Ncore)
     if (!is.null(DefaultRAM)) Sys.setenv(OTB_MAX_RAM_HINT = DefaultRAM)
-    
+  
     if (Sys.info()["sysname"] == "Windows"){
-      
+
       # OTB_PREFIX <- file.path(getOption("OTB_PATH"), "otbenv.cmd")
       OTB_PREFIX <- file.path(getOption("OTB_PATH"), "otbenv.bat")
       stopifnot(file.access(OTB_PREFIX) == 0)
