@@ -1,47 +1,15 @@
-#' Orfeo ToolBox's Large-Scale Mean Shift Segmentation
-#'
-#' Wrapper function to execute OTB's LSMS conveniently from R. If more than one
-#'   level is supplied for the parameters 'spatrad', 'rangerad', 'minsize' or 
-#'   'fact' segmentation will be run for each unique combination.
-#'   Make sure OTB is properly installed! (visit https://www.orfeo-toolbox.org
-#'   for download and instructions on installation)
-#'
-#' @param IMGpath character path to the (input image) file
-#' @param OTBpath character path to OTB-X.X.X-win64 or OTB-X.X.X-debian or
-#'   OTB-X.X.X-Linux64
-#' @param spatrad integer vector spatial radius of LSMS
-#' @param rangerad numeric vector spatial radius of LSMS
-#' @param minsize integer vector minimum object size in the SmallRegionsMerging 
-#'   step
-#' @param savedir character output directory to store results. If \code{NULL} 
-#'   (the default), a folder will be created in the paretn directory of IMGpath.
-#'   If savedir does not exist, an attempt is made to create it
-#' @param maxiter integer maximum number of iterations in LSMS
-#' @param thres numeric mode convergence threshold of LSMS
-#' @param tilesizex integer tile size in x direction
-#' @param tilesizey integer tile size in y direction
-#' @param vectorize logical should the segmentation result be exported in
-#'   ESRI Shapefile format?
-#' @param resume logical if \code{TRUE} (the default) 
-#'   only parameter combinations are used, for which no results are found in 
-#'   savedir
-#' @param Ncore integer maximum number of threads to use
-#' @param ram integer amount of memory (in MB) to be made available for OTB
-#' @param silent logical if \code{TRUE}, system calls should produce least 
-#'   console output
-#' @return none, but the 'sideeffect' of creating segmentation of an input image
-#'   and storing the result on disk
-#' @note Developed for Orfeo ToolBox 5.10.1 but also used successful with Orfeo ToolBox 8.1.2! No guarantee it will work with other 
-#'   versions.
-#'   
-
-OTB_lsms <- function(IMGpath, OTBpath=NULL, spatrad=5, rangerad=15, minsize=100, 
-                     savedir=NULL, maxiter=100, thres=.001, tilesizex=4096, fact=.5,
-                     tilesizey=4096, vectorize=TRUE, resume=TRUE, Ncore=3, 
-                     ram=1024, silent=TRUE){
+OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
+                     spatrad=5,rangerad=15,minsize=100,
+                     maxiter=100,thres=.001,fact=.5,
+                     tilesizex=4096,tilesizey=4096,vectorize=TRUE,resume=TRUE,
+                     Ncore=parallel::detectCores()-1,ram=1024){
+  
+  if (!any(c('tif', 'tiff') %in% tools::file_ext(IMGpath))) return(warning('IMGpath has to be a .tif-file.'))
+  pizzR::setcreate.wd(savedir)
+  
+  
   
   OTB_init <- function(path = NULL){
-    # if (is.null(path)) path <- OTB_find(maxdepth = 1)[1]
     if(file.access(path) != 0){
       stop("Unable to access '", path, "'!")
     }
@@ -76,11 +44,6 @@ OTB_lsms <- function(IMGpath, OTBpath=NULL, spatrad=5, rangerad=15, minsize=100,
       OTB_PREFIX <- system(sprintf('echo %s', OTB_PREFIX), intern = TRUE)
       stopifnot(file.access(OTB_PREFIX) == 0)
       OTB_PREFIX <- sprintf('. "%s"', OTB_PREFIX)
-      
-      # # OTB_PREFIX  <- file.path(OTB_PREFIX, "bin/")
-      # OTB_PREFIX  <- file.path(OTB_PREFIX, "bin/")
-      # stopifnot(file.access(OTB_PREFIX) == 0)
-      
     }
     
     try({
@@ -89,7 +52,7 @@ OTB_lsms <- function(IMGpath, OTBpath=NULL, spatrad=5, rangerad=15, minsize=100,
       system(cmd, ...)
     })
   }
-
+  
   basenam <- gsub(pattern = "[.][[:print:]]*$", replacement = "", IMGpath)
   
   if (is.null(savedir)) savedir <- paste0(basenam, "_LSMS")
@@ -108,12 +71,12 @@ OTB_lsms <- function(IMGpath, OTBpath=NULL, spatrad=5, rangerad=15, minsize=100,
   exten   <- ".tif"
   
   OTB_init(path = OTBpath)
-
+  
   try(expr = {
-
+    
     for (i in seq_along(spatrad)){
       for (ii in seq_along(rangerad)){
-
+        
         sr1 <- formatC(spatrad[i], decimal.mark = "o")
         rr1 <- formatC(rangerad[ii], decimal.mark = "o")
         
@@ -121,7 +84,7 @@ OTB_lsms <- function(IMGpath, OTBpath=NULL, spatrad=5, rangerad=15, minsize=100,
                             basenam, sr1, rr1, exten)
         filtrnam <- sprintf("%s_FILT_sr%s_rr%s_LSMS_filtr%s", 
                             basenam, sr1, rr1, exten)
-
+        
         filExe <- paste("otbcli_MeanShiftSmoothing",
                         "-in", IMGpath,
                         "-fout", filtrnam,
@@ -178,9 +141,9 @@ OTB_lsms <- function(IMGpath, OTBpath=NULL, spatrad=5, rangerad=15, minsize=100,
                             "-minsize", minsize[iv],
                             "-tilesizex", tilesizex,
                             "-tilesizey", tilesizey, collapse=" ")
-  
+            
             if (!file.exists(merOut) || !isTRUE(resume)) OTB_run(cmd = merExe, Ncore = Ncore)
-              
+            
             if (isTRUE(vectorize)){
               vecnam <- gsub(pattern=".tif", replacement=".shp", merOut)
               vecExe <- paste("otbcli_LSMSVectorization",
@@ -191,11 +154,11 @@ OTB_lsms <- function(IMGpath, OTBpath=NULL, spatrad=5, rangerad=15, minsize=100,
                               "-tilesizey", tilesizey, collapse=" ")
               
               if (!file.exists(vecnam) || !isTRUE(resume)) OTB_run(cmd = vecExe, Ncore = Ncore)
-    
+              
             }
           }
         }
       }
-    } # END main loop
+    }
   })
 }
