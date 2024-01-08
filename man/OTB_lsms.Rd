@@ -32,5 +32,5 @@ OTB_lsms(IMGpath = i.path, OTBpath = OTBp, savedir = o.path, maxiter = 10,
 
 # show result
 plot.rstshp(rast(system.file('extdata/rastersample.tif', package="pizzR"))[[1]],
-            vect(list.files(tempdir(), pattern = '.shp', full.names = T))[1])
+            vect(list.files(tempdir(), pattern = '.shp', full.names = T)[1]))
 }
