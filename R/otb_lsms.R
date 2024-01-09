@@ -7,7 +7,7 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
   if (!any(c('tif', 'tiff') %in% tools::file_ext(IMGpath))) return(warning('IMGpath has to be a .tif-file.'))
 
   OTB_init <- function(path = NULL){
-    stop(paste0("\n", Sys.time(),": 'OTB_PATH' missing!"))
+    return(warning(paste0("\n", Sys.time(),": 'OTB_PATH' missing!")))
     if(file.access(path) != 0){
       files <- list.files(dirname(path), full.names = T)
       otb.instances <- files[grep('OTB', files)]
