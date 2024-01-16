@@ -1,11 +1,11 @@
 \name{split.vector}
 \alias{split.vector}
-\title{Split a vector into parts}
+\title{Split a vector into parts.}
 \usage{
   split.vector()
 }
 \arguments{
-  \item{x}{numeric. Vector to split}
+  \item{x}{numeric. Vector to split.}
   \item{qu}{Number of parts to split.}
 }
 \description{

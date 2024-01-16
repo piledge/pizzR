@@ -1,12 +1,12 @@
 \name{server.suspend}
 \alias{server.suspend}
-\title{Function to suspend a Server after processing}
+\title{Function to suspend a Server after processing.}
 \usage{
 server.suspend(x, y)
 }
 \arguments{
-\item{x}{integer. Gracetime for suspension. Default = 60 Seconds}
-\item{y}{character. Path for execution of suspension command. Need to be executable without root privileges by user}
+\item{x}{integer. Gracetime for suspension. Default = 60 Seconds.}
+\item{y}{character. Path for execution of suspension command. Need to be executable without root privileges by user.}
 }
 \description{
 Function to suspend a Server after processing.

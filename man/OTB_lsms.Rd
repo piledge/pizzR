@@ -1,6 +1,6 @@
 \name{OTB_lsms}
 \alias{OTB_lsms}
-\title{Wrapper function to execute OTB's LSMS conveniently from R}
+\title{Wrapper function to execute OTB's LSMS conveniently from R.}
 \usage{
 OTB_lsms(IMGpath,OTBpath,savedir, ...)
 }
@@ -26,10 +26,10 @@ OTB_lsms(IMGpath,OTBpath,savedir, ...)
 }
 \description{
 Wrapper function to execute OTB's LSMS conveniently from R. If more than one
-level is supplied for the parameters 'spatrad', 'rangerad', 'minsize' or 
+level is supplied for the parameters 'spatrad', 'rangerad', 'minsize' or
 'fact' segmentation will be run for each unique combination.
 Make sure OTB is properly installed! (visit https://www.orfeo-toolbox.org
-for download and instructions on installation)
+for download and instructions on installation).
 }
 \examples{
 library(pizzR)

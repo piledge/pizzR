@@ -1,16 +1,16 @@
 \name{rastertiler}
 \alias{rastertiler}
-\title{Split extent of a SpatialRaster in n tiles}
+\title{Split extent of a SpatialRaster in n tiles.}
 \usage{
 rastertiler()
 }
 \arguments{
 \item{x}{SpatialRaster.}
-\item{nslices_h}{integer. Horizontal number of slices}
-\item{nslices_v}{integer. Vertical number of slices}
-\item{overlap_h}{integer. Number of overlapping pixels in horizontal direction}
-\item{overlap_v}{integer. Number of overlapping pixels in vertical direction}
-\item{verbose}{logical. Plot additional output}
+\item{nslices_h}{integer. Horizontal number of slices.}
+\item{nslices_v}{integer. Vertical number of slices.}
+\item{overlap_h}{integer. Number of overlapping pixels in horizontal direction.}
+\item{overlap_v}{integer. Number of overlapping pixels in vertical direction.}
+\item{verbose}{logical. Plot additional output.}
 }
 \description{
 Returns a list including the extent of the input raster, split in a number of subsets. If required, an overlapping area for the tiles can be specified.

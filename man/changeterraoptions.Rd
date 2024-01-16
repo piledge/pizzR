@@ -1,16 +1,16 @@
 \name{change.terraOptions}
 \alias{change.terraOptions}
-\title{simple modification of 'terra'-package parameters}
+\title{Simple modification of \code{terra}-package parameters.}
 \usage{
 change.terraOptions()
 }
 \arguments{
-\item{changetmpdir}{logical. If \code{TRUE}, path of \code{tmpdir} is required}
-\item{tmpdir}{character. Path to write temporary files if RAM is exeeded}
-\item{OSRAM.remaining}{integer. Memory remaining for operating system. To small values may lead to system instability}
-\item{progress}{non-negative integer. A progress bar is shown if the number of chunks in which the data is processed is larger than this number. No progress bar is shown if the value is zero}
-\item{verbose}{logical. Console output}
-\item{...}{additional arguments for writing files. See terraOptions() of terra-package}
+\item{changetmpdir}{logical. If \code{TRUE}, path of \code{tmpdir} is required.}
+\item{tmpdir}{character. Path to write temporary files if RAM is exeeded.}
+\item{OSRAM.remaining}{integer. Memory remaining for operating system. To small values may lead to system instability.}
+\item{progress}{non-negative integer. A progress bar is shown if the number of chunks in which the data is processed is larger than this number. No progress bar is shown if the value is zero.}
+\item{verbose}{logical. Console output.}
+\item{...}{additional arguments for writing files. See terraOptions() of terra-package.}
 }
 \description{
 Simple modification of 'terra'-package parameters.

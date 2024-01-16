@@ -1,16 +1,16 @@
 \name{change.rasterOptions}
 \alias{change.rasterOptions}
-\title{simple modification of 'raster'-package parameters}
+\title{Simple modification of \code{raster}-package parameters.}
 \usage{
 change.rasterOptions()
 }
 \arguments{
-\item{changetmpdir}{logical. If \code{TRUE}, path of \code{tmpdir} is required}
-\item{tmpdir}{character. Path to write temporary files if RAM is exeeded}
-\item{OSRAM.remaining}{integer. Memory remaining for operating system. To small values may lead to system instability}
-\item{progress}{character. Valid values are "text", "window" and "" (the default in most functions, no progress bar)}
-\item{verbose}{logical. Console output}
-\item{...}{additional arguments for writing files. See rasterOptions() of raster-package}
+\item{changetmpdir}{logical. If \code{TRUE}, path of \code{tmpdir} is required.}
+\item{tmpdir}{character. Path to write temporary files if RAM is exeeded.}
+\item{OSRAM.remaining}{integer. Memory remaining for operating system. To small values may lead to system instability.}
+\item{progress}{character. Valid values are "text", "window" and "" (the default in most functions, no progress bar).}
+\item{verbose}{logical. Console output.}
+\item{...}{additional arguments for writing files. See rasterOptions() of raster-package.}
 }
 \description{
 Simple modification of 'raster'-package parameters.

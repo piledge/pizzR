@@ -1,6 +1,6 @@
 \name{cpu_stress}
 \alias{cpu_stress}
-\title{simple stresstest for cpu}
+\title{Simple stresstest for cpu.}
 \usage{
 cpu_stress()
 }

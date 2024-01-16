@@ -1,11 +1,11 @@
 \name{opt.datatype}
 \alias{opt.datatype}
-\title{Returns a list including the optimal export-datatype and information if a raster-object contains NA-Values}
+\title{Returns a list including the optimal export-datatype and information if a raster-object contains NA-Values.}
 \usage{
 opt.datatype(x)
 }
 \arguments{
-\item{x}{SpatRaster, RasterLayer, RasterBrick, RasterStack}
+\item{x}{SpatRaster, RasterLayer, RasterBrick, RasterStack.}
 }
 \description{
 Returns a list including the optimal export-datatype.

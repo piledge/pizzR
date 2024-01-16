@@ -1,17 +1,17 @@
 \name{fPoll}
 \alias{fPoll}
-\title{returns the Pollanschütz-value for a given species}
+\title{Returns the Pollanschütz-value for a given species.}
 \usage{
 fPoll()
 }
 \arguments{
-\item{species}{integer. Species-ID. Execute \code{fPoll.dictionary} for details}
-\item{dbh_cm}{numeric. Diameter breast height in centimeter}
-\item{height_m}{numeric. Tree height in meter}
+\item{species}{integer. Species-ID. Execute \code{fPoll.dictionary} for details.}
+\item{dbh_cm}{numeric. Diameter breast height in centimeter.}
+\item{height_m}{numeric. Tree height in meter.}
 
 }
 \description{
-returns the Pollanschütz-value for a given species
+Returns the Pollanschütz-value for a given species.
 }
 \examples{
 library(pizzR)

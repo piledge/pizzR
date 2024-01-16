@@ -1,14 +1,14 @@
 \name{slice.matrix}
 \alias{slice.matrix}
-\title{slice matrix into rows or colums}
+\title{slice matrix into rows or colums.}
 \usage{
 slice.matrix()
 }
 \arguments{
 \item{x}{matrix.}
-\item{nslices}{integer. Number of slices}
-\item{windowsize}{integer. Define overlapping rows or columns for neighbouring slices}
-\item{direction}{character. Slice either horizontal ('h') or vertical ('v')}
+\item{nslices}{integer. Number of slices.}
+\item{windowsize}{integer. Define overlapping rows or columns for neighbouring slices.}
+\item{direction}{character. Slice either horizontal ('h') or vertical ('v').}
 }
 \description{
 Returns a list including rows of colums of a sliced matrix. Can be used to split a Matrix into several pieces prior to parallel computing.

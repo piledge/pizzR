@@ -1,6 +1,6 @@
 \name{quapply}
 \alias{quapply}
-\title{Columnwise calculating of a dataframes quantiles}
+\title{Columnwise calculating of a dataframes quantiles.}
 \usage{
   quapply()
 }

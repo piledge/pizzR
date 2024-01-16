@@ -1,6 +1,6 @@
 \name{setcreate.wd}
 \alias{setcreate.wd}
-\title{A useful combination of setwd() and dir.create()}
+\title{A useful combination of setwd() and dir.create().}
 \usage{
 setcreate.wd(x)
 }

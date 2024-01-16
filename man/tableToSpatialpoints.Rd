@@ -1,20 +1,20 @@
 \name{tableToSpatialpoints}
 \alias{tableToSpatialpoints}
-\title{To create a vector file from a table}
+\title{To create a vector file from a table.}
 \usage{
 tableToSpatialpoints(northing, easting, crs.origin, ...)
 }
 \arguments{
-\item{northing}{numeric. Northing of the points}
-\item{easting}{numeric. Easting of the points}
-\item{crs.origin}{character. EPSG-Code for point-coordinates}
-\item{crs.project}{character. Optional EPSG-Code to project points}
-\item{attributes}{data.frame. Optional data to be added to the vector file}
-\item{filename}{character. Filename for export}
-\item{overwrite}{logical. If \code{TRUE}, \code{filename} is overwritten}
-\item{plot}{logical. Plot the output}
-\item{options}{additional GDAL-Options}
-\item{...}{additional arguments for writing files. See writeVector() of terra-package}
+\item{northing}{numeric. Northing of the points.}
+\item{easting}{numeric. Easting of the points.}
+\item{crs.origin}{character. EPSG-Code for point-coordinates.}
+\item{crs.project}{character. Optional EPSG-Code to project points.}
+\item{attributes}{data.frame. Optional data to be added to the vector file.}
+\item{filename}{character. Filename for export.}
+\item{overwrite}{logical. If \code{TRUE}, \code{filename} is overwritten.}
+\item{plot}{logical. Plot the output.}
+\item{options}{additional GDAL-Options.}
+\item{...}{additional arguments for writing files. See writeVector() of terra-package.}
 }
 \description{
 Writes a vector file of a given table.

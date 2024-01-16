@@ -1,12 +1,12 @@
 \name{plot.rstshp}
 \alias{plot.rstshp}
-\title{To plot a spatialraster with superimposed spatialvecor in one command}
+\title{To plot a spatialraster with superimposed spatialvecor in one command.}
 \usage{
 plot.rstshp()
 }
 \arguments{
 \item{x}{SpatRaster or SpatVector. Defines if raster- or terra-package is used for plot.}
-\item{y}{SpatRaster or SpatVector}
+\item{y}{SpatRaster or SpatVector.}
 }
 \description{
 To plot a spatialraster with superimposed spatialvecor in one command.

@@ -1,11 +1,11 @@
 \name{split.group}
 \alias{split.group}
-\title{Split groups of a vector into parts}
+\title{Split groups of a vector into parts.}
 \usage{
   split.group()
 }
 \arguments{
-  \item{x}{numeric. IDs of the groups}
+  \item{x}{numeric. IDs of the groups.}
   \item{qu}{Number of parts to split.}
 }
 \description{

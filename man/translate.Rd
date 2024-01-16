@@ -1,13 +1,13 @@
 \name{translate}
 \alias{translate}
-\title{to translate the values of a dataframes colums}
+\title{To translate the values of a dataframes colums.}
 \usage{
 translate()
 }
 \arguments{
-\item{x}{dataframe's column}
-\item{y}{dataframe including column named 'old' and 'new'}
-\item{verbose}{logical. console output}
+\item{x}{dataframe's column.}
+\item{y}{dataframe including column named 'old' and 'new'.}
+\item{verbose}{logical. console output.}
 }
 \description{
 Translates the values of a dataframes colum by use of a dictionary-dataframe.
