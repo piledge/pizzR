@@ -15,16 +15,16 @@
   library(pizzR)
 
   sampledata <- matrix(sample(100), ncol = 10)
-  colums <- seq(ncol(sampledata))
+  rows <- seq(nrow(sampledata))
 
   # split a dataset into 5 parts
-  groups <- split.vector(colums, 5)
-  sampledata[,groups == 1]
-  sampledata[,groups == 2]
+  groups <- split.vector(rows, 5)
+  sampledata[groups == 1,]
+  sampledata[groups == 2,]
 
   # split a dataset into 3 parts
-  groups <- split.vector(colums, 3)
-  sampledata[,groups == 2]
-  sampledata[,groups == 3]
+  groups <- split.vector(rows, 3)
+  sampledata[groups == 2,]
+  sampledata[groups == 3,]
 }
 
