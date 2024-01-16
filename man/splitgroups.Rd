@@ -18,7 +18,7 @@
 
   dataset <- c(rep(1,3), rep(2, 3), rep(3,1), rep(4,3), rep(5, 2), rep(6,4), rep(7,5))
 
-  # split dataset into 5 groups
+  # split dataset into 3 groups
   (data.frame(dataset=dataset, groups=split.groups(dataset, 3)))
 
   # split dataset into 4 groups
