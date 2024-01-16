@@ -10,6 +10,7 @@
 }
 \description{
   Split groups of a vector into parts. Remaining size will be handled at the last part.
+  The individual groups are not divided into the parts.
   Can be used to split a raster-extract of the \code{raster}- or \code{terra}-package into subsets.
 }
 \examples{
