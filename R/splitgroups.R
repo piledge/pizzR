@@ -9,5 +9,3 @@ split.groups <- function(x, ranges){
 
   return(pizzR::translate(x, dict))
 }
-
-(data.frame(dataset=dataset, groups=split.groups(dataset, ranges)))
