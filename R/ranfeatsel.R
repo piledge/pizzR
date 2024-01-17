@@ -1,5 +1,5 @@
 ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detectCores() - 1,
-                        savename = "ranFeatsel", savedir = getwd(), keep.files = TRUE,
+                        savename = "ranFeatsel", savedir = getwd(), keep.files = FALSE,
                         best_thr = 0.975, nimpplot = 20, ...)
 {
   package.install <- function(x) {
@@ -31,7 +31,7 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
   if ((nthreads > parallel::detectCores() - 1)) {
     nthreads <- parallel::detectCores() - 1
   }
-  dots <- list(...)
+  dots <- list()
   dots$x <- data[, -grep(classes, colnames(data))]
   dots$y <- as.factor(data[, grep(classes, colnames(data))])
   dots$num.trees <- ntree
@@ -193,9 +193,11 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
   if (fittest.model$loopID == best.model$loopID) {
     cat("\nCOMMENT: fittest model and best model are equal")
   }
-  return(list(OOB_OA = OOB_OA, ranFeatsel.fittest = fittest.ranger,
-              ranFeatsel.best = best.ranger, cm.fittest = cm.fittest.all,
-              cm.best = cm.best.all, fittest.model.metrics = fittest.model,
-              best.model.metrics = best.model, fittest.varimpplot = fittest.varimpplot,
-              best.varimpplot = best.varimpplot))
+  return(list(OOB_OA = OOB_OA,
+              ranFeatsel.fittest = fittest.ranger, ranFeatsel.best = best.ranger,
+              cm.fittest = cm.fittest.all, cm.best = cm.best.all,
+              fittest.model.metrics = fittest.model, best.model.metrics = best.model,
+              fittest.varimpplot = fittest.varimpplot, best.varimpplot = best.varimpplot,
+              fittest.features = names(fittest.ranger[["variable.importance"]]), best.features = names(best.ranger[["variable.importance"]]))
+  )
 }
