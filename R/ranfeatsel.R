@@ -2,10 +2,12 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
                         savename = "ranFeatsel", savedir = getwd(), keep.files = FALSE,
                         best_thr = 0.975, nimpplot = 20, seed = NULL, ...)
 {
+  
   if (is.null(seed)){
     seed <- sample(seq(1000000000), 1, replace=TRUE)
-    set.seed(seed)
-  }else set.seed(seed)
+    cat(crayon::red(paste0(pizzR::Systime(), ': Using random seed of ', seed, ". Specify 'seed' to make static.", "\n")))
+  }
+  set.seed(seed)
 
   package.install <- function(x) {
     to_install <- !x %in% installed.packages()
@@ -17,7 +19,7 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
                                                            collapse = ", "), "' installed\n\n"))
     }
   }
-  package.install(c("caret", "parallel", "ranger", "vip"))
+  package.install(c("crayon", "parallel", "ranger", "vip"))
   st.featsel <- as.integer(format(Sys.time(), "%s"))
   cat("\n")
   cat("               \r", paste0(pizzR::Systime(), ": starting recursive MDA-feature selection",
@@ -56,10 +58,11 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
     least.importance <- names(sort(ranger_submod$variable.importance,
                                    decreasing = FALSE))[1]
     dots$x <- dots$x[colnames(dots$x) != least.importance]
-    cm_1 <- caret::confusionMatrix((ranger_submod[["predictions"]]),
-                                   ranger_submod[["call"]][["y"]])
-    OA <- round(cm_1$overall[1], 3)
-    kappa <- round(cm_1$overall[2], 3)
+    
+    cm <- pizzR::confMatrix((ranger_submod[["predictions"]]), ranger_submod[["call"]][["y"]])
+    OA <- cm[["OA"]]
+    kappa <- OA <- cm[["KAPPA"]]
+    
     if (i == 1) {
       OOB_OA <- data.frame(cbind(i, OA, kappa, least.importance,
                                  nvariables))
