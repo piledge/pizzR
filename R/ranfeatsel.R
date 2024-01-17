@@ -1,7 +1,11 @@
 ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detectCores() - 1,
                         savename = "ranFeatsel", savedir = getwd(), keep.files = FALSE,
-                        best_thr = 0.975, nimpplot = 20, ...)
+                        best_thr = 0.975, nimpplot = 20, seed = NULL, ...)
 {
+  if (is.null(seed)){
+    seed <- sample(seq(1000000000), 1, replace=TRUE)
+    set.seed(seed)
+  }else set.seed(seed)
 
   package.install <- function(x) {
     to_install <- !x %in% installed.packages()
@@ -191,6 +195,7 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
               cm.fittest = cm.fittest.all, cm.best = cm.best.all,
               fittest.model.metrics = fittest.model, best.model.metrics = best.model,
               fittest.varimpplot = fittest.varimpplot, best.varimpplot = best.varimpplot,
-              fittest.features = names(fittest.ranger[["variable.importance"]]), best.features = names(best.ranger[["variable.importance"]]))
+              fittest.features = names(fittest.ranger[["variable.importance"]]), best.features = names(best.ranger[["variable.importance"]]),
+              used.seed = seed)
   )
 }
