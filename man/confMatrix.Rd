@@ -1,6 +1,6 @@
 \name{confMatrix}
 \alias{confMatrix}
-\title{Calculation of confusion matrices.}
+\title{Calculation of Confusion Matrices.}
 \usage{
   confMatrix()
 }
@@ -9,7 +9,7 @@
   \item{ref}{Vector of reference values.}
 }
 \description{
-  Easy calculation of confusion matrices including Producers- , Users- and Overall-Accuracy.
+  Returning a list containing Confusion Matrix, Producers- , Users-, Overall-Accuracy and Cohens Kappa.
 }
 \examples{
   library(pizzR)

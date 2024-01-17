@@ -1,6 +1,6 @@
 \name{kappa}
 \alias{kappa}
-\title{Calculation of cohens kappa.}
+\title{Calculation of Cohens Kappa.}
 \usage{
   kappa()
 }
@@ -9,7 +9,7 @@
   \item{ref}{Vector of reference values.}
 }
 \description{
-  Easy calculation of cohens kappa.
+  Easy calculation of Cohens Kappa.
 }
 \examples{
   library(pizzR)
