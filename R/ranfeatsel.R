@@ -31,7 +31,7 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
   if ((nthreads > parallel::detectCores() - 1)) {
     nthreads <- parallel::detectCores() - 1
   }
-  dots <- list()
+  dots <- list(...)
   dots$x <- data[, -grep(classes, colnames(data))]
   dots$y <- as.factor(data[, grep(classes, colnames(data))])
   dots$num.trees <- ntree
@@ -90,7 +90,7 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
     }
   }
   best_qu <- quantile(OOB_OA$oobOA, probs = best_thr)
-  fittest.models <- subset(OOB_OA, OOB_OA$oobOA > best_qu)
+  fittest.models <- subset(OOB_OA, OOB_OA$oobOA >= best_qu)
   fittest.model <- subset(fittest.models, fittest.models$nvariables ==
                             min(fittest.models$nvariables))
   file.copy(sprintf(paste0("%s/%s_fs_%s_classif_%0", N, "d.Rdata"),
