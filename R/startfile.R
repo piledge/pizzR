@@ -2,4 +2,5 @@
 	packageStartupMessage(
 	"\nPizzRtime!\n")
 	library("magrittr")
+	options(digits.secs = 0)
 }
