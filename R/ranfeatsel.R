@@ -18,17 +18,9 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
   cat("\n")
   cat("               \r", paste0(pizzR::Systime(), ": starting recursive MDA-feature selection",
                                   "\n"))
-  if (dir.exists(savedir) == FALSE) {
-    dir.create(savedir, recursive = TRUE)
-    cat(paste0(" ", pizzR::Systime(), ": '", savedir, "' created and set as working directory\n"))
-    setwd(savedir)
-  }
-  else {
-    if (getwd() != savedir) {
-      cat(paste0(" ", pizzR::Systime(), ": '", savedir, "' set as working directory\n"))
-      setwd(savedir)
-    }
-  }
+
+  pizzR::setcreate.wd(savedir)
+
   if ((nthreads > parallel::detectCores() - 1)) {
     nthreads <- parallel::detectCores() - 1
   }
