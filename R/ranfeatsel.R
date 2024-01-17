@@ -5,7 +5,7 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
   
   if (is.null(seed)){
     seed <- sample(seq(1000000000), 1, replace=TRUE)
-    cat(crayon::red(paste0(pizzR::Systime(), ': Using random seed of ', seed, ". Specify 'seed' to make static.", "\n")))
+    cat(crayon::red(paste0("\n ", pizzR::Systime(), ': Using random seed of ', seed, ". Specify 'seed' if required static.", "\n")))
   }
   set.seed(seed)
 
