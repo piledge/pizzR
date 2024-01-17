@@ -2,6 +2,7 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
                         savename = "ranFeatsel", savedir = getwd(), keep.files = FALSE,
                         best_thr = 0.975, nimpplot = 20, ...)
 {
+  options(digits.secs = 0)
   package.install <- function(x) {
     to_install <- !x %in% installed.packages()
     if (any(to_install)) {
