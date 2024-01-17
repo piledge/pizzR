@@ -2,30 +2,30 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
                         savename = "ranFeatsel", savedir = getwd(), keep.files = FALSE,
                         best_thr = 0.975, nimpplot = 20, ...)
 {
-  options(digits.secs = 0)
+
   package.install <- function(x) {
     to_install <- !x %in% installed.packages()
     if (any(to_install)) {
-      cat(paste0(Sys.time(), ": install missing packages '",
+      cat(paste0(pizzR::Systime(), ": install missing packages '",
                  paste(x[to_install], collapse = ", "), "'\n"))
       install.packages(x[to_install], dependencies = T)
-      cat(paste0(Sys.time(), ": missing packages '", paste(x[to_install],
+      cat(paste0(pizzR::Systime(), ": missing packages '", paste(x[to_install],
                                                            collapse = ", "), "' installed\n\n"))
     }
   }
   package.install(c("caret", "parallel", "ranger", "vip"))
   st.featsel <- as.integer(format(Sys.time(), "%s"))
   cat("\n")
-  cat("               \r", paste0(Sys.time(), ": starting recursive MDA-feature selection",
+  cat("               \r", paste0(pizzR::Systime(), ": starting recursive MDA-feature selection",
                                   "\n"))
   if (dir.exists(savedir) == FALSE) {
     dir.create(savedir, recursive = TRUE)
-    cat(paste0(" ", Sys.time(), ": '", savedir, "' created and set as working directory\n"))
+    cat(paste0(" ", pizzR::Systime(), ": '", savedir, "' created and set as working directory\n"))
     setwd(savedir)
   }
   else {
     if (getwd() != savedir) {
-      cat(paste0(" ", Sys.time(), ": '", savedir, "' set as working directory\n"))
+      cat(paste0(" ", pizzR::Systime(), ": '", savedir, "' set as working directory\n"))
       setwd(savedir)
     }
   }
@@ -44,13 +44,13 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
   rf_type <- "MDA"
   for (i in 1:(ncol(data) - 1)) {
     if (i == 1) {
-      cat("               \r", paste0(Sys.time(), ": remaining loops: ",
+      cat("               \r", paste0(pizzR::Systime(), ": remaining loops: ",
                                       ncol(data) - (i)))
     }
     else {
       dur <- round((as.integer(format(Sys.time(), "%s")) -
                       st)/60, 2)
-      cat("               \r", paste0(Sys.time(), ": remaining loops: ",
+      cat("               \r", paste0(pizzR::Systime(), ": remaining loops: ",
                                       ncol(data) - (i), "   |   duration last loop: ",
                                       dur, " minutes        "))
     }
@@ -86,7 +86,7 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
     if (i == (ncol(data) - 1)) {
       dur <- round((as.integer(format(Sys.time(), "%s")) -
                       st)/60, 2)
-      cat("               \r", paste0(Sys.time(), ": remaining loops: 0   |    duration last loop: ",
+      cat("               \r", paste0(pizzR::Systime(), ": remaining loops: 0   |    duration last loop: ",
                                       dur, " minutes                      "))
     }
   }
@@ -135,7 +135,7 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
   write.csv2(best.model, sprintf(paste0("%s/%s_fs_%s_classif_",
                                         "best_metrics.csv"), savedir, savename, rf_type))
   if (keep.files == F) {
-    cat("               \n", paste0(Sys.time(), ": removing submodels   |                                                                 "))
+    cat("               \n", paste0(pizzR::Systime(), ": removing submodels   |                                                                 "))
     file.remove(list.files(savedir, pattern = ".Rdata", full.names = TRUE)[-c(grep("fittest",
                                                                                    list.files(savedir, pattern = ".Rdata", full.names = TRUE)),
                                                                               grep("best", list.files(savedir, pattern = ".Rdata",
@@ -181,7 +181,7 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
                               horizontal = T, geom = "point", aesthetics = list(size = 2))
   dur.featsel <- round((as.integer(format(Sys.time(), "%s")) -
                           st.featsel)/60, 2)
-  cat("               \n", paste0(Sys.time(), ": run completed",
+  cat("               \n", paste0(pizzR::Systime(), ": run completed",
                                   "        |    duration of run:     ", dur.featsel, " minutes             \n\n\n"))
   cat(paste0("fittest model: OOB-OA = ", fittest.model$oobOA,
              "; Kappa = ", fittest.model$kappa, "; nVariables = ",

@@ -4,14 +4,14 @@ raster_to_envi_converter <- function(input.path, output.path, interleave = 'BSQ'
   if (!interleave %in% c('BSQ', 'BIL', 'BIP'))  return(warning("'interleave' has to be 'BSQ', 'BIL' or 'BIP'"))
     rfiles <- list.files(input.path, full.names = T, pattern = input.filetype)
   if (length(rfiles) == 0)  return(warning("No raster files found!"))
-  
+
   package.install <- function(x) {
     to_install <- !x %in% installed.packages()
     if (any(to_install)) {
-      cat(paste0(Sys.time(), ": install missing packages '", 
+      cat(paste0(pizzR::Systime(), ": install missing packages '",
         paste(x[to_install], collapse = ", "), "'\n"))
       install.packages(x[to_install], dependencies = T)
-      cat(paste0(Sys.time(), ": missing packages '", paste(x[to_install], 
+      cat(paste0(pizzR::Systime(), ": missing packages '", paste(x[to_install],
         collapse = ", "), "' installed\n\n"))
     }
   }

@@ -1,41 +1,41 @@
 tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,attributes=NULL,filename=NULL,overwrite=T,plot=FALSE,filetype=NULL,layer=NULL,options="ENCODING=UTF-8",...){
-  
+
   package.install <- function(x) {
     to_install <- !x %in% installed.packages()
     if (any(to_install)){
-      cat(paste0(Sys.time(), ": install missing packages '", paste(x[to_install], collapse=", "), "'\n"))
+      cat(paste0(pizzR::Systime(), ": install missing packages '", paste(x[to_install], collapse=", "), "'\n"))
       install.packages(x[to_install], dependencies = T)
-      cat(paste0(Sys.time(), ": missing packages '", paste(x[to_install], collapse=", "), "' installed\n\n"))
+      cat(paste0(pizzR::Systime(), ": missing packages '", paste(x[to_install], collapse=", "), "' installed\n\n"))
     }
   }
   package.install(c("sp", "raster", "terra", "Rcpp", "rvest", "xml2"))
-  
+
   table_xy <- data.frame(longitude=suppressWarnings(as.numeric(northing)), latitude=suppressWarnings(as.numeric(easting)))
-  
+
   if (any(is.na(table_xy$longitude)) && any(is.na(table_xy$latitude))) return(warning("Northing- and Easting contain non-numeric values"))
   if (any(is.na(table_xy$longitude)))                                  return(warning("Northing contains non-numeric values"))
   if (any(is.na(table_xy$latitude)))                                   return(warning("Easting contains non-numeric values"))
-  
+
   if (!is.null(attributes)) data <- cbind(table_xy, attributes) else data <- table_xy
-  
+
   crs.origin.link <- paste0("https://spatialreference.org/ref/epsg/", crs.origin, "/proj4/")
   crs.origin.param <- rvest::html_text(xml2::read_html(crs.origin.link))
-  
+
   xySPoints <- sp::SpatialPointsDataFrame(coords = c(data[,c("longitude", "latitude")]),
                                           proj4string = sp::CRS(crs.origin.param),
                                           data = data)
-  
+
   shp <- terra::vect(xySPoints)
   crs.export <- crs.origin
-  
+
   if (!is.null(crs.project)){
     crs.project.link <- paste0("https://spatialreference.org/ref/epsg/", crs.project, "/proj4/")
     crs.project.param <- rvest::html_text(xml2::read_html(crs.project.link))
-    
+
     shp <- terra::project(shp, crs.project.param)
     crs.export <- crs.project
   }
-  
+
   if (!is.null(filename)) filename <- filename else filename <- paste0("points_", crs.export, ".shp")
   if (plot == T) terra::plot(shp, main=paste0('CRS: ', crs.export))
 
@@ -46,8 +46,8 @@ tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,at
   fparameters$filetype    <- filetype
   fparameters$layer       <- layer
   fparameters$options     <- options
-  
+
   do.call(terra::writeVector, fparameters)
-  
-  cat(paste0("\n", Sys.time(), ": '",filename, "' written to '", getwd(), "'\n\n"))
+
+  cat(paste0("\n", pizzR::Systime(), ": '",filename, "' written to '", getwd(), "'\n\n"))
 }

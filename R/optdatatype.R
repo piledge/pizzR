@@ -2,31 +2,31 @@ opt.datatype <- function(x) {
   package.install <- function(x) {
     to_install <- !x %in% installed.packages()
     if (any(to_install)) {
-      cat(paste0(Sys.time(), ": install missing packages '", 
+      cat(paste0(pizzR::Systime(), ": install missing packages '",
                  paste(x[to_install], collapse = ", "), "'\n"))
       install.packages(x[to_install], dependencies = T)
-      cat(paste0(Sys.time(), ": missing packages '", paste(x[to_install], 
+      cat(paste0(pizzR::Systime(), ": missing packages '", paste(x[to_install],
                                                            collapse = ", "), "' installed\n\n"))
     }
   }
   package.install(c("memuse", "raster", "Rcpp", "terra"))
 
   rsttype <- class(x)[1]
-  if (rsttype != "SpatRaster" && rsttype != "RasterLayer" && 
-      rsttype != "RasterBrick" && rsttype != "RasterStack") 
+  if (rsttype != "SpatRaster" && rsttype != "RasterLayer" &&
+      rsttype != "RasterBrick" && rsttype != "RasterStack")
     return(warning("Not a suitable rasterfile!\n"))
 
   if (rsttype == "SpatRaster")                                                            minmaxvals <- terra::minmax(x)
   if (rsttype == "RasterLayer" || rsttype == "RasterBrick" || rsttype == "RasterStack")   minmaxvals <- raster::minValue(x)
-  
+
   rst_min <- min(minmaxvals)
   rst_max <- max(minmaxvals)
   rst_significant_value <- max(abs(c(rst_min, rst_max)))
   rst_signed <- rst_min < 0
   rst_float <- TRUE
-  
+
   if(all((floor(minmaxvals)/minmaxvals) == 1, na.rm = T)) rst_float <- FALSE
-  
+
   if (all(is.logical(minmaxvals)))
     return("LOG1S")
   if (rst_float == T) {

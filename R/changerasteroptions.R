@@ -6,33 +6,33 @@ change.rasterOptions <- function(changetmpdir=F, tmpdir="", OSRAM.remaining=3, p
   package.install <- function(x) {
     to_install <- !x %in% installed.packages()
     if (any(to_install)){
-      cat(paste0(Sys.time(), ": install missing packages '", paste(x[to_install], collapse=", "), "'\n"))
+      cat(paste0(pizzR::Systime(), ": install missing packages '", paste(x[to_install], collapse=", "), "'\n"))
       install.packages(x[to_install], dependencies = T)
-      cat(paste0(Sys.time(), ": missing packages '", paste(x[to_install], collapse=", "), "' installed\n\n"))
+      cat(paste0(pizzR::Systime(), ": missing packages '", paste(x[to_install], collapse=", "), "' installed\n\n"))
     }
   }
   package.install(c("memuse", "raster", "Rcpp", "terra"))
-  
+
   require(raster)
-  
+
   if (changetmpdir && dir.exists(tmpdir) == F) {
     base::dir.create(tmpdir, recursive = T)
-    base::cat(paste("\n", Sys.time(), tmpdir, "created"))
+    base::cat(paste("\n", pizzR::Systime(), tmpdir, "created"))
   }
-  
+
   maxmemory <- memuse::Sys.meminfo()$totalram@size
   if (((maxmemory-OSRAM.remaining) / maxmemory) > 0.9){
     memfrac <-  0.9
   }else{
     memfrac <- ((maxmemory - OSRAM.remaining) / maxmemory)
   }
-  
+
   fparameters                  <- list(...)
   if (changetmpdir) fparameters$tmpdir           <- tmpdir
   fparameters$memfrac          <- memfrac
   fparameters$maxmemory        <- maxmemory * 1024^3
   fparameters$progress         <- progress
-  
+
   do.call(raster::rasterOptions, fparameters)
   if (verbose) raster::rasterOptions()
   if (changetmpdir) Sys.setenv(TMP = tmpdir, TEMP = tmpdir)
