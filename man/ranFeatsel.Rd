@@ -9,6 +9,7 @@ rfFeatsel(x, y, ...)
 \item{y}{dataframe or vector including sample-denominations.}
 \item{featsel}{logical. If \code{TRUE}, a recursive feature selection will be performed.}
 \item{keepmodels}{logical. If \code{TRUE}, all models created during feature selection will be kept.}
+\item{seed}{integer. Specify static seed. If \code{NULL}, random seed will be used.}
 \item{...}{additional arguments for randomForest/ranger. See specific packages for help.}
 }
 \description{
