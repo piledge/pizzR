@@ -1,4 +1,4 @@
-OTB_Haralick <- function(x=NULL, band = NULL, savedir=NULL, texture = c("simple", "advanced", "higher"), xrad = 3, yrad = 3,
+OTB_Haralick <- function(IMGpath=NULL, band = NULL, savedir=NULL, texture = c("simple", "advanced", "higher"), xrad = 3, yrad = 3,
                          ram=NULL, nbbin = 8, OTBpath = NULL, Ncore = parallel::detectCores()-1, ...){
 
   if (is.null(ram)){
@@ -8,7 +8,7 @@ OTB_Haralick <- function(x=NULL, band = NULL, savedir=NULL, texture = c("simple"
   }
 
   if (!any(c('tif', 'tiff') %in% tools::file_ext(IMGpath))) return(warning('IMGpath has to be a .tif-file.'))
-  if (is.null(band)) band <- seq_len(terra::nlyr(terra::rast(x)))
+  if (is.null(band)) band <- seq_len(terra::nlyr(terra::rast(IMGpath)))
   basenam <- gsub(pattern = "[.][[:print:]]*$", replacement = "", IMGpath)
   if (is.null(savedir)) savedir <- paste0(basenam, "_LSMS")
 
@@ -19,14 +19,14 @@ OTB_Haralick <- function(x=NULL, band = NULL, savedir=NULL, texture = c("simple"
 
     pizzR::setcreate.wd(savedir)
 
-    filename <- file.path(savedir, basename(x))
+    filename <- file.path(savedir, basename(IMGpath))
     filename <- gsub(pattern = pizzR::extension(filename),
                      replacement = sprintf("_b%s_%s_xr%s_yr%s_nbbin%s.tif",
                                            band[i], texture, xrad, yrad, nbbin),
                      x = filename)
 
     cmd1 <- sprintf("otbcli_HaralickTextureExtraction -in %s -channel %s -parameters.xrad %s -parameters.yrad %s -parameters.nbbin %s -texture %s -ram %s -out %s",
-                    x, band[i], xrad, yrad, nbbin, texture, ram, filename)
+                    IMGpath, band[i], xrad, yrad, nbbin, texture, ram, filename)
     print(cmd1)
     if (!file.exists(filename)) pizzR::OTB_run(cmd1, ...)
   }
