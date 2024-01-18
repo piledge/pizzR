@@ -1,5 +1,7 @@
-OTB_Haralick <- function(IMGpath=NULL, band = NULL, savedir=NULL, texture = c("simple", "advanced", "higher"), xrad = 3, yrad = 3,
-                         ram=NULL, nbbin = 8, OTBpath = NULL, Ncore = parallel::detectCores()-1, ...){
+OTB_Haralick <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL, 
+                         band=NULL,texture=c("simple","advanced","higher"),
+                         xrad=3,yrad=3,nbbin=8,
+                         Ncore=parallel::detectCores()-1,ram=NULL, ...){
 
   if (is.null(ram)){
     avail.ram <- memuse::Sys.meminfo()$totalram@size*1024
