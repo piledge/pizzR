@@ -1,4 +1,4 @@
-OTB_Haralick <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL, 
+OTB_haralick <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
                          band=NULL,texture=c("simple","advanced","higher"),
                          xrad=3,yrad=3,nbbin=8,
                          Ncore=parallel::detectCores()-1,ram=NULL, ...){
@@ -20,10 +20,11 @@ OTB_Haralick <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
   }
 
   if (!any(c('tif', 'tiff') %in% tools::file_ext(IMGpath))) return(warning('IMGpath has to be a .tif-file.'))
-  if (is.null(band)) band <- seq_len(terra::nlyr(terra::rast(IMGpath)))
+
   basenam <- gsub(pattern = "[.][[:print:]]*$", replacement = "", IMGpath)
   if (is.null(savedir)) savedir <- paste0(basenam, "_LSMS")
-  
+  if (is.null(band)) band <- seq_len(terra::nlyr(terra::rast(IMGpath)))
+
   pizzR::setcreate.wd(savedir)
   for (i in seq_along(band)){
 

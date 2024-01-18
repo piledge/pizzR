@@ -14,12 +14,13 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
   }
   package.install(c("memuse", "tools"))
 
-  if (!any(c('tif', 'tiff') %in% tools::file_ext(IMGpath))) return(warning('IMGpath has to be a .tif-file.'))
-    if (is.null(ram)){
+  if (is.null(ram)){
     avail.ram <- memuse::Sys.meminfo()$totalram@size*1024
     ram <- avail.ram - 3072
     if (ram < 4096) ram <- 4096
   }
+
+  if (!any(c('tif', 'tiff') %in% tools::file_ext(IMGpath))) return(warning('IMGpath has to be a .tif-file.'))
 
   basenam <- gsub(pattern = "[.][[:print:]]*$", replacement = "", IMGpath)
   if (is.null(savedir)) savedir <- paste0(basenam, "_LSMS")

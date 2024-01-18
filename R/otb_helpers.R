@@ -10,10 +10,14 @@ OTB_init <- function(path = NULL){
   cat(paste0("\n", pizzR::Systime(),": 'OTB_PATH' set to ", path))
 }
 
-OTB_run   <- function(cmd, Ncore = parallel::detectCores()-1, DefaultRAM = NULL, ...){
+
+
+OTB_run   <- function(cmd, Ncore = NULL, DefaultRAM = NULL, ...){
   if (is.null(getOption("OTB_PATH"))){
     stop("OTB_PATH not found! Use 'OTB_init()' to set it...")
   }
+
+  if (is.null(Ncore)) Ncore <- parallel::detectCores()-1
 
   Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = Ncore)
   if (!is.null(DefaultRAM)) Sys.setenv(OTB_MAX_RAM_HINT = DefaultRAM)
