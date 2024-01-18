@@ -3,8 +3,8 @@ OTB_Haralick <- function(IMGpath=NULL, band = NULL, savedir=NULL, texture = c("s
 
   if (is.null(ram)){
     avail.ram <- memuse::Sys.meminfo()$totalram@size*1024
-    used.ram <- avail.ram - 3072
-    if (used.ram < 4096) used.ram <- 4096
+    ram <- avail.ram - 3072
+    if (ram < 4096) ram <- 4096
   }
 
   if (!any(c('tif', 'tiff') %in% tools::file_ext(IMGpath))) return(warning('IMGpath has to be a .tif-file.'))
