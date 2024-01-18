@@ -11,13 +11,14 @@ OTB_Haralick <- function(IMGpath=NULL, band = NULL, savedir=NULL, texture = c("s
   if (is.null(band)) band <- seq_len(terra::nlyr(terra::rast(IMGpath)))
   basenam <- gsub(pattern = "[.][[:print:]]*$", replacement = "", IMGpath)
   if (is.null(savedir)) savedir <- paste0(basenam, "_LSMS")
-
+  
+  pizzR::setcreate.wd(savedir)
   for (i in seq_along(band)){
 
     texture <- match.arg(arg = texture, choices =  c("simple", "advanced", "higher"))
     pizzR::OTB_init(path = OTBpath)
 
-    pizzR::setcreate.wd(savedir)
+
 
     filename <- file.path(savedir, basename(IMGpath))
     filename <- gsub(pattern = pizzR::extension(filename),
