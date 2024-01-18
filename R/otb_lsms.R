@@ -2,12 +2,16 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
                      spatrad=5,rangerad=15,minsize=100,
                      maxiter=100,thres=.001,fact=.5,
                      tilesizex=4096,tilesizey=4096,vectorize=TRUE,resume=TRUE,
-                     Ncore=parallel::detectCores()-1,ram=2048){
+                     Ncore=parallel::detectCores()-1,ram=NULL){
 
   if (!any(c('tif', 'tiff') %in% tools::file_ext(IMGpath))) return(warning('IMGpath has to be a .tif-file.'))
+    if (is.null(ram)){
+    avail.ram <- memuse::Sys.meminfo()$totalram@size*1024
+    ram <- avail.ram - 3072
+    if (ram < 4096) ram <- 4096
+  }
 
   basenam <- gsub(pattern = "[.][[:print:]]*$", replacement = "", IMGpath)
-
   if (is.null(savedir)) savedir <- paste0(basenam, "_LSMS")
   if (file.access(savedir) < 0) dir.create(savedir, recursive = TRUE)
 
