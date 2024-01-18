@@ -4,6 +4,16 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
                      tilesizex=4096,tilesizey=4096,vectorize=TRUE,resume=TRUE,
                      Ncore=parallel::detectCores()-1,ram=NULL){
 
+  package.install <- function(x) {
+    to_install <- !x %in% installed.packages()
+    if (any(to_install)) {
+      cat(paste0(pizzR::Systime(), ": install missing packages '", paste(x[to_install], collapse = ", "), "'\n"))
+      install.packages(x[to_install], dependencies = T)
+      cat(paste0(pizzR::Systime(), ": missing packages '", paste(x[to_install], collapse = ", "), "' installed\n\n"))
+    }
+  }
+  package.install(c("memuse", "tools"))
+
   if (!any(c('tif', 'tiff') %in% tools::file_ext(IMGpath))) return(warning('IMGpath has to be a .tif-file.'))
     if (is.null(ram)){
     avail.ram <- memuse::Sys.meminfo()$totalram@size*1024
