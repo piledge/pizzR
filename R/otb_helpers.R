@@ -10,7 +10,7 @@ OTB_init <- function(path = NULL){
   cat(paste0("\n", pizzR::Systime(),": 'OTB_PATH' set to ", path))
 }
 
-OTB_run   <- function(cmd, Ncore = 1, DefaultRAM = NULL, ...){
+OTB_run   <- function(cmd, Ncore = parallel::detectCores()-1, DefaultRAM = NULL, ...){
   if (is.null(getOption("OTB_PATH"))){
     stop("OTB_PATH not found! Use 'OTB_init()' to set it...")
   }

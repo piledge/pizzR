@@ -1,7 +1,16 @@
-OTB_Haralick <- function(x, band = NULL, savedir, texture = c("simple", "advanced", "higher"), xrad = 3, yrad = 3,
-                         ram=4096, nbbin = 8, OTBpath = "C:/OTB-8.1.2-Win64", ...){
+OTB_Haralick <- function(x=NULL, band = NULL, savedir=NULL, texture = c("simple", "advanced", "higher"), xrad = 3, yrad = 3,
+                         ram=NULL, nbbin = 8, OTBpath = NULL, Ncore = parallel::detectCores()-1, ...){
 
+  if (is.null(ram)){
+    avail.ram <- memuse::Sys.meminfo()$totalram@size*1024
+    used.ram <- avail.ram - 3072
+    if (used.ram < 4096) used.ram <- 4096
+  }
+
+  if (!any(c('tif', 'tiff') %in% tools::file_ext(IMGpath))) return(warning('IMGpath has to be a .tif-file.'))
   if (is.null(band)) band <- seq_len(terra::nlyr(terra::rast(x)))
+  basenam <- gsub(pattern = "[.][[:print:]]*$", replacement = "", IMGpath)
+  if (is.null(savedir)) savedir <- paste0(basenam, "_LSMS")
 
   for (i in seq_along(band)){
 
@@ -22,3 +31,4 @@ OTB_Haralick <- function(x, band = NULL, savedir, texture = c("simple", "advance
     if (!file.exists(filename)) pizzR::OTB_run(cmd1, ...)
   }
 }
+
