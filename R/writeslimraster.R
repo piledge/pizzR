@@ -24,6 +24,7 @@ writeslimRaster <- function(x, filename, compression=T, overwrite=T, BIGTIFF="YE
 
     if (compression == TRUE)  cat(paste0("\n", pizzR::Systime(), ": Write slim rasterfile as '", fparameters$datatype,"' ...\n"))
     if (compression == FALSE) cat(paste0("\n", pizzR::Systime(), ": Write rasterfile ...\n"))
+    terra::setMinMax(x, force = T)
     do.call(terra::writeRaster, fparameters)
   }
 
