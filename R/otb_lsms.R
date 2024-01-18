@@ -6,54 +6,6 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
 
   if (!any(c('tif', 'tiff') %in% tools::file_ext(IMGpath))) return(warning('IMGpath has to be a .tif-file.'))
 
-  OTB_init <- function(path = NULL){
-    if (is.null(path)) stop(paste0("\n", pizzR::Systime(), ": 'OTB_PATH' missing!"))
-    if(file.access(path) != 0){
-      files <- list.files(dirname(path), full.names = T)
-      otb.instances <- files[grep('OTB', files)]
-      path <- otb.instances[length(otb.instances)]
-      if(file.access(path) != 0) stop(paste0("\n", pizzR::Systime(),": Unable to access ", path, "'!"))
-    }
-    options("OTB_PATH" = path)
-    cat(paste0("\n", pizzR::Systime(),": 'OTB_PATH' set to ", path))
-  }
-
-  OTB_run   <- function(cmd, Ncore = 1, DefaultRAM = NULL, ...){
-
-    if (is.null(getOption("OTB_PATH"))){
-      stop(paste0("\n", pizzR::Systime(),": OTB_PATH not found! Use 'OTB_init()' to set it ..."))
-    }
-
-    Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = Ncore)
-    if (!is.null(DefaultRAM)) Sys.setenv(OTB_MAX_RAM_HINT = DefaultRAM)
-
-    if (Sys.info()["sysname"] == "Windows"){
-
-      # OTB_PREFIX <- file.path(getOption("OTB_PATH"), "otbenv.cmd")
-      OTB_PREFIX <- file.path(getOption("OTB_PATH"), "otbenv.bat")
-      stopifnot(file.access(OTB_PREFIX) == 0)
-      OTB_PREFIX <- sprintf('"%s"', OTB_PREFIX)
-    } else if (Sys.info()["sysname"] == "Linux"){
-
-      OTB_PREFIX <- file.path(getOption("OTB_PATH"), "otbenv.profile")
-      stopifnot(file.access(OTB_PREFIX) == 0)
-      # OTB_PREFIX <- sprintf('. "%s"', OTB_PREFIX)
-      OTB_PREFIX <- sprintf('. %s', OTB_PREFIX)
-
-    } else {
-      OTB_PREFIX <- file.path(getOption("OTB_PATH"), "otbenv.profile")
-      OTB_PREFIX <- system(sprintf('echo %s', OTB_PREFIX), intern = TRUE)
-      stopifnot(file.access(OTB_PREFIX) == 0)
-      OTB_PREFIX <- sprintf('. "%s"', OTB_PREFIX)
-    }
-
-    try({
-      cmd <- sprintf('%s && %s', OTB_PREFIX, cmd)
-      cat(paste0("\n", pizzR::Systime(),"\nRunning:\n", cmd, "\n\n"))
-      system(cmd, ...)
-    })
-  }
-
   basenam <- gsub(pattern = "[.][[:print:]]*$", replacement = "", IMGpath)
 
   if (is.null(savedir)) savedir <- paste0(basenam, "_LSMS")
@@ -71,7 +23,7 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
   basenam <- file.path(savedir, basename(basenam))
   exten   <- ".tif"
 
-  OTB_init(path = OTBpath)
+  pizzR::OTB_init(path = OTBpath)
 
   try(expr = {
 
@@ -98,7 +50,7 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
                         "-modesearch", 0, collapse=" ")
 
         domsfilt <- !(file.exists(filtrnam) && file.exists(filtsnam))
-        if (domsfilt || !isTRUE(resume)) OTB_run(cmd = filExe, Ncore = Ncore)
+        if (domsfilt || !isTRUE(resume)) pizzR::OTB_run(cmd = filExe, Ncore = Ncore)
 
         for (iii in seq_along(rr_fact)){
 
@@ -127,7 +79,7 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
 
 
           domsseg  <- !file.exists(segm0nam)
-          if (domsseg || !isTRUE(resume)) OTB_run(cmd = segExe, Ncore = Ncore)
+          if (domsseg || !isTRUE(resume)) pizzR::OTB_run(cmd = segExe, Ncore = Ncore)
 
           for (iv in seq_along(minsize)){
 
@@ -143,7 +95,7 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
                             "-tilesizex", tilesizex,
                             "-tilesizey", tilesizey, collapse=" ")
 
-            if (!file.exists(merOut) || !isTRUE(resume)) OTB_run(cmd = merExe, Ncore = Ncore)
+            if (!file.exists(merOut) || !isTRUE(resume)) pizzR::OTB_run(cmd = merExe, Ncore = Ncore)
 
             if (isTRUE(vectorize)){
               vecnam <- gsub(pattern=".tif", replacement=".shp", merOut)
@@ -154,7 +106,7 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
                               "-tilesizex", tilesizex,
                               "-tilesizey", tilesizey, collapse=" ")
 
-              if (!file.exists(vecnam) || !isTRUE(resume)) OTB_run(cmd = vecExe, Ncore = Ncore)
+              if (!file.exists(vecnam) || !isTRUE(resume)) pizzR::OTB_run(cmd = vecExe, Ncore = Ncore)
 
             }
           }

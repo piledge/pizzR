@@ -1,0 +1,44 @@
+OTB_init <- function(path = NULL){
+  if (is.null(path)) stop(paste0("\n", pizzR::Systime(), ": 'OTB_PATH' missing!"))
+  if(file.access(path) != 0){
+    files <- list.files(dirname(path), full.names = T)
+    otb.instances <- files[grep('OTB', files)]
+    path <- otb.instances[length(otb.instances)]
+    if(file.access(path) != 0) stop(paste0("\n", pizzR::Systime(),": Unable to access ", path, "'!"))
+  }
+  options("OTB_PATH" = path)
+  cat(paste0("\n", pizzR::Systime(),": 'OTB_PATH' set to ", path))
+}
+
+OTB_run   <- function(cmd, Ncore = 1, DefaultRAM = NULL, ...){
+  if (is.null(getOption("OTB_PATH"))){
+    stop("OTB_PATH not found! Use 'OTB_init()' to set it...")
+  }
+
+  Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = Ncore)
+  if (!is.null(DefaultRAM)) Sys.setenv(OTB_MAX_RAM_HINT = DefaultRAM)
+
+  if (Sys.info()["sysname"] == "Windows"){
+
+    OTB_PREFIX <- file.path(getOption("OTB_PATH"), "otbenv.bat")
+    stopifnot(file.access(OTB_PREFIX) == 0)
+    OTB_PREFIX <- sprintf('"%s"', OTB_PREFIX)
+  } else if (Sys.info()["sysname"] == "Linux"){
+
+    OTB_PREFIX <- file.path(getOption("OTB_PATH"), "otbenv.profile")
+    stopifnot(file.access(OTB_PREFIX) == 0)
+    OTB_PREFIX <- sprintf('. %s', OTB_PREFIX)
+
+  } else {
+    OTB_PREFIX <- file.path(getOption("OTB_PATH"), "otbenv.profile")
+    OTB_PREFIX <- system(sprintf('echo %s', OTB_PREFIX), intern = TRUE)
+    stopifnot(file.access(OTB_PREFIX) == 0)
+    OTB_PREFIX <- sprintf('. "%s"', OTB_PREFIX)
+  }
+
+  try({
+    cmd <- sprintf('%s && %s', OTB_PREFIX, cmd)
+    cat("\nRunning:\n", cmd, "\n\n")
+    system(cmd, ...)
+  })
+}
