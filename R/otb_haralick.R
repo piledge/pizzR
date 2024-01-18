@@ -31,5 +31,6 @@ OTB_Haralick <- function(IMGpath=NULL, band = NULL, savedir=NULL, texture = c("s
     print(cmd1)
     if (!file.exists(filename)) pizzR::OTB_run(cmd1, ...)
   }
+  cat(paste0("\n", pizzR::Systime(),": Files written to '", savedir, "'!"))
 }
 
