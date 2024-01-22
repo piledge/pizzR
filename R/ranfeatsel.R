@@ -191,7 +191,7 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
              "\n"))
   print(cm.best)
   if (fittest.model$loopID == best.model$loopID) {
-    cat(crayon::red("\nNOTE: fittest model and best model are equal"))
+    cat(crayon::red("\nNOTE: fittest model and best model are equal\n"))
   }
   return(list(OOB_OA = OOB_OA,
               ranFeatsel.fittest = fittest.ranger, ranFeatsel.best = best.ranger,
