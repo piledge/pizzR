@@ -1,21 +1,21 @@
-OTB_init <- function (path = NULL) 
+OTB_init <- function (path = NULL)
 {
   if (is.null(path)) {
-    if (Sys.info()["sysname"] == "Windows") 
+    if (Sys.info()["sysname"] == "Windows")
       files <- list.files("C:/", full.names = T)
-    if (Sys.info()["sysname"] == "Linux") 
+    if (Sys.info()["sysname"] == "Linux")
       files <- list.files("~/", full.names = T)
     otb.instances <- files[grep("OTB", files)]
-    
-    if (length(otb.instances) == 0) 
+
+    if (length(otb.instances) == 0)
       stop(paste0("\n", pizzR::Systime(), ": Unable to access ", path, "'!"))
-    
+
     path <- otb.instances[length(otb.instances)]
   }
-  
-  options(OTB_PATH = path)
+
   if (Sys.info()["sysname"] == "Windows" && length(grep('otbenv.bat', list.files(path))) == 0)   stop(paste0("\n", pizzR::Systime(), " '", path, "' not containing OTB-files!"))
   if (Sys.info()["sysname"] == "Linux" && length(grep('monteverdi.sh', list.files(path))) == 0)  stop(paste0("\n", pizzR::Systime(), " '", path, "' not containing OTB-files!"))
+  options(OTB_PATH = path)
   cat(paste0("\n", pizzR::Systime(), ": 'OTB_PATH' set to ", path))
 }
 
