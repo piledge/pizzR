@@ -17,7 +17,7 @@ OTB_namebands <- function(IMGpath,savedir=NULL,otbfunction='Haralick', verbose=T
       if (nbands == 11) bandnames <- c("ShortRunEmphasis", "LongRunEmphasis", "GreyLevelNonuniformity", "RunLengthNonuniformity", "RunPercentage", "LowGreyLevelRunEmphasis", "HighGreyLevelRunEmphasis", "ShortRunLowGreyLevelEmphasis", "ShortRunHighGreyLevelEmphasis", "LongRunLowGreyLevelEmphasis", "LongRunHighGreyLevelEmphasis")
     }
 
-    names(rst) <- paste(basename(pizzR::file_path_sans_ext(IMGpath)), bandnames, sep='_')
+    names(rst) <- paste(basename(pizzR::file_path_sans_ext(IMGpath)[1]), bandnames, sep='_')
     if (verbose) cat("\n", paste0(pizzR::Systime(), ": remaining loops: ", length(IMGpath) - i))
     pizzR::writeslimRaster(rst, file.path(savedir, basename(IMGpath[i])))
   }
