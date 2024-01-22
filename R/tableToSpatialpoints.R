@@ -18,7 +18,7 @@ tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,at
 
   if (!is.null(attributes)) data <- cbind(table_xy, attributes) else data <- table_xy
 
-  crs.origin.link <- paste0("https://spatialreference.org/ref/epsg/", crs.origin, "/proj4/")
+  crs.origin.link <- paste0("https://spatialreference.org/ref/epsg/", crs.origin, "/proj4.txt")
   crs.origin.param <- rvest::html_text(xml2::read_html(crs.origin.link))
 
   xySPoints <- sp::SpatialPointsDataFrame(coords = c(data[,c("longitude", "latitude")]),
@@ -29,7 +29,7 @@ tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,at
   crs.export <- crs.origin
 
   if (!is.null(crs.project)){
-    crs.project.link <- paste0("https://spatialreference.org/ref/epsg/", crs.project, "/proj4/")
+    crs.project.link <- paste0("https://spatialreference.org/ref/epsg/", crs.project, "/proj4.txt")
     crs.project.param <- rvest::html_text(xml2::read_html(crs.project.link))
 
     shp <- terra::project(shp, crs.project.param)

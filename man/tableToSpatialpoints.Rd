@@ -33,7 +33,7 @@ setwd(tempdir())
 
 # create a shapefile from a data.frame
 tableToSpatialpoints(northing=data$northing, easting = data$easting, filename = 'points.shp',
-                     crs.origin = '32633', plot = T,)
+                     crs.origin = '32633', plot = T)
 
 # create a shapefile from a data.frame and project it to another crs
 tableToSpatialpoints(northing=data$northing, easting = data$easting, filename = 'projected.shp',
