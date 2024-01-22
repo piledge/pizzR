@@ -1,9 +1,11 @@
 OTB_init <- function(path = NULL){
   if (is.null(path)) stop(paste0("\n", pizzR::Systime(), ": 'OTB_PATH' missing!"))
   if(file.access(path) != 0){
-    files <- list.files(dirname(path), full.names = T)
+    if (Sys.info()["sysname"] == "Windows") files <- list.files('C:/', full.names = T)
+    if (Sys.info()["sysname"] == "Linux")   files <- list.files('~/', full.names = T)
     otb.instances <- files[grep('OTB', files)]
     path <- otb.instances[length(otb.instances)]
+    if (is.null(path)) stop(paste0("\n", pizzR::Systime(),": Unable to access ", path, "'!"))
     if(file.access(path) != 0) stop(paste0("\n", pizzR::Systime(),": Unable to access ", path, "'!"))
   }
   options("OTB_PATH" = path)
