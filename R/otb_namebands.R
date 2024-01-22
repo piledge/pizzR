@@ -1,7 +1,7 @@
 OTB_namebands <- function(IMGpath,savedir=NULL,otbfunction='Haralick'){
 
-  if (!otbfunction %in% c('Haralick')) return(warning("Export can currently only be 'Haralick'"))
-  if (is.null(savedir)) savedir <- file.path(dirname(IMGpath), 'OTBexport_namebands')
+  if (!otbfunction %in% c("Haralick"))  return(warning("Export can currently only be 'Haralick'"))
+  if (is.null(savedir))                 savedir <- file.path(dirname(IMGpath[1]), "OTBexport_namebands")
   pizzR::setcreate.wd(savedir)
 
   for (i in seq(IMGpath)){
