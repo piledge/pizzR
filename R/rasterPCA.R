@@ -14,7 +14,7 @@ rst.pca <- function(x,scale=T){
   rsttype <- class(x)[1]
   if (rsttype != "SpatRaster") return(warning("Only Objects of class 'SpatRaster' are allowed!\n"))
 
-  band.nr <- terra::nlyr(rst)
+  band.nr <- terra::nlyr(x)
 
   rst.mask <- is.na(terra::values(x[[1]]))
   rst.numbered <- seq(rst.mask)
