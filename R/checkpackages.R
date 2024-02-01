@@ -7,3 +7,4 @@ if (any(to_install)){
   install.packages(packages[to_install], dependencies = T)
   cat("\n\n\nDependencies installed:", paste0(packages[to_install], sep=""), "\n")
 }
+library(magrittr)
