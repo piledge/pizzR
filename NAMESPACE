@@ -1,1 +1,2 @@
+if (length(grep('magrittr', rownames(installed.packages()))) == 0) install.packages("magrittr", dependencies = T)
 exportPattern("^[[:alpha:]]+")
