@@ -3,8 +3,6 @@ packages <- c("caret", "crayon", "doParallel", "e1071", "feather", "foreach", "g
 
 to_install <- !packages %in% installed.packages()
 if (any(to_install)){
-  cat("\n\n\nDependencies missing. Installing:", paste0(packages[to_install], sep=""), "\n")
-  install.packages(packages[to_install], dependencies = T)
-  cat("\n\n\nDependencies installed:", paste0(packages[to_install], sep=""), "\n")
+  cat("\n\n\nPackages missing:", paste0(packages[to_install], sep=""), "\n")
+  cat("use 'pizzR::package.install(pizzR::packages)' to add\n\n\n\n")
 }
-library(magrittr)
