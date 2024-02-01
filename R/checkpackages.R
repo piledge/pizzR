@@ -7,3 +7,4 @@ if (any(to_install)){
   cat("\n\n\nPackages missing:", paste0(packages[to_install], sep=""), "\n")
   cat("use 'pizzR::package.install(pizzR::packages)' to add\n\n\n\n")
 }
+library("magrittr")
