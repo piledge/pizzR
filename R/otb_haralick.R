@@ -36,6 +36,5 @@ OTB_haralick <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
     print(cmd1)
     if (!file.exists(filename)) pizzR::OTB_run(cmd1, ...)
   }
-  cat(paste0("\n", pizzR::Systime(),": Files written to '", savedir, "'!"))
 }
 
