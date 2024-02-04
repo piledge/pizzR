@@ -1,6 +1,6 @@
 rastertiler <- function(x, nslices_h=2, nslices_v=2, overlap_h=0, overlap_v=0, verbose=F){
 
-  pizzR::package.install(c("memuse", "raster", "Rcpp", "terra"), verbose = 1)
+  pizzR::package.install(c("memuse", "raster", "terra"), verbose = 1)
 
   if (class(x)[1] != "SpatRaster") return(warning("Only Objects of class 'SpatRaster' are allowed!\n"))
   if ((overlap_h %% 2 != 1) && (overlap_h != 0) || (overlap_v %% 2 != 1) && (overlap_v != 0)) return(warning("Overlaps have to be odd numbers!\n"))
