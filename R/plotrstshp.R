@@ -1,4 +1,7 @@
 plot.rstshp <- function(x, y){
+  
+  pizzR::package.install(c("terra"), verbose = 1)
+  
   rsttype <- class(x)[1]
   
   if(rsttype == "SpatRaster" || rsttype == "SpatVector"){
