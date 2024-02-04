@@ -1,8 +1,3 @@
-package.install(c('teddst', 'tsfds'))
-
-x <- c('teddst', 'tsfds')
-
-
 package.install <- function(x=pizzR::dependencies, verbose = 1){
   
   if (!is.character(class(x))) return(warning("'x' has to be of class character!"))
