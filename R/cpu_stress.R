@@ -26,6 +26,5 @@ stress_cpu <- function(n_cores=NULL,dur_s=NULL){
       while(Sys.time() < st) 0.7/0.3
     }
   }
-
   parallel::stopCluster(clust)
 }
