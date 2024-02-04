@@ -9,9 +9,9 @@ if (any(to_install)){
   nchar.missing <- nchar(n.missing)
   
   cat("\n\nDependencies missing:", paste0(missing_dependencies, sep=","), "\n")
-  cat("\nInstalling ...")
+  cat("\nInstalling ...\n")
   for (i in seq(n.missing)){
-    cat(sprintf(paste0("\n%0", nchar.missing, ".f"), i), 'of', n.missing, ':', missing_dependencies[i])
+    cat(sprintf(paste0("%0", nchar.missing, ".f"), i), 'of', n.missing, ':', missing_dependencies[i], '\n')
     install.packages(missing_dependencies[i], dependencies = F, quiet = T)
   }
   
@@ -20,7 +20,7 @@ if (any(to_install)){
   if (!success){
     to_install <- !dependencies %in% rownames(installed.packages())
     cat("\n\nDependencies still missing:", dependencies[to_install])
-    cat("Try to install manually.\n")
+    cat("\nTry to install manually.\n")
   }
 }else{
   cat("\nDependencies meet the requirements\n")
