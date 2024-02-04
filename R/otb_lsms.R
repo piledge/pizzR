@@ -121,5 +121,4 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
       }
     }
   })
-  cat(paste0("\n", pizzR::Systime(),": Files written to '", savedir, "'!"))
 }
