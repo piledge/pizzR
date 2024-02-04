@@ -1,6 +1,6 @@
 plot.rstshp <- function(x, y){
   
-  pizzR::package.install(c("terra"), verbose = 1)
+  pizzR::package.install(c("raster", "terra"), verbose = 1)
   
   rsttype <- class(x)[1]
   
