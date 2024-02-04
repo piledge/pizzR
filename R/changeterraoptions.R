@@ -1,5 +1,4 @@
-change.terraOptions <- function (tempdir = NA,
-                                 progress = 3, verbose = F, ...)
+change.terraOptions <- function (tempdir=NA,progress=3,verbose=F,...)
 {
   if (!is.logical(verbose))         return(warning("'verbose' has to be of class logical!\n"))
   if (!is.numeric(progress))        return(warning("'progress' has to be of class integer!\n"))
