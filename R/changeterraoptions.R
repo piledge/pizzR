@@ -17,7 +17,7 @@ change.terraOptions <- function (tempdir = NA,
     }
   }
 
-    pizzR::package.install(c("memuse", "raster", "Rcpp", "terra"))
+    pizzR::package.install(c("memuse", "raster", "Rcpp", "terra"), verbose = 1)
     require(terra)
 
     memmax <- memuse::Sys.meminfo()$totalram@size
