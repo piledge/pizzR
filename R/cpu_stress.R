@@ -1,5 +1,7 @@
 stress_cpu <- function(n_cores=NULL,dur_s=NULL){
 
+  pizzR::package.install(c("foreach", "parallel"), verbose = 1)
+
   library(foreach)
   if (is.null(n_cores)) n_cores <- (parallel::detectCores() - 1)
   if (!is.numeric(n_cores)) return(warning('n_cores has to be integer!'))
