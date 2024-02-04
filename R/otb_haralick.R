@@ -3,15 +3,7 @@ OTB_haralick <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
                          xrad=3,yrad=3,nbbin=8,
                          Ncore=parallel::detectCores()-1,ram=NULL, ...){
 
-  package.install <- function(x) {
-    to_install <- !x %in% installed.packages()
-    if (any(to_install)) {
-      cat(paste0(pizzR::Systime(), ": install missing packages '", paste(x[to_install], collapse = ", "), "'\n"))
-      install.packages(x[to_install], dependencies = T)
-      cat(paste0(pizzR::Systime(), ": missing packages '", paste(x[to_install], collapse = ", "), "' installed\n\n"))
-    }
-  }
-    package.install(c("memuse", "tools"))
+  pizzR::package.install(c("memuse", "tools"), verbose = 1)
 
   if (is.null(ram)){
     avail.ram <- memuse::Sys.meminfo()$totalram@size*1024
