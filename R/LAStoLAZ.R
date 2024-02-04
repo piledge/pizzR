@@ -1,6 +1,6 @@
 LAStoLAZ <- function(x,y=NULL,verbose=T){
 
-  pizzR::package.install('lidR')
+  pizzR::package.install('lidR', verbose = 1)
 
   if(is.null(y)) y <- file.path(dirname(x), 'output_LAStoLAZ')
 
