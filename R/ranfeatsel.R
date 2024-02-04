@@ -2,6 +2,7 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
                         savename = "ranFeatsel", savedir = getwd(), keep.files = FALSE,
                         best_thr = 0.975, nimpplot = 20, seed = NULL, ...)
 {
+  pizzR::package.install(c("crayon", "parallel", "ranger", "vip"), verbose = 1)
   
   if (is.null(seed)){
     seed <- sample(seq(1000000000), 1, replace=TRUE)
@@ -9,7 +10,6 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
   }
   set.seed(seed)
 
-  pizzR::package.install(c("crayon", "parallel", "ranger", "vip"), verbose = 1)
   st.featsel <- as.integer(format(Sys.time(), "%s"))
   cat("\n")
   cat("               \r", paste0(pizzR::Systime(), ": starting recursive MDA-feature selection",
