@@ -1,4 +1,4 @@
-fPoll <- function(species, dbh_cm, height_m) {
+fPoll <- function(species,dbh_cm,height_m) {
   dbh = dbh_cm / 10
   height = height_m * 10
   
