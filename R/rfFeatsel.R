@@ -7,8 +7,6 @@ rfFeatsel <- function(x, y, fs_seq = NULL, keep.models = TRUE, savename='D:/', s
     sum(diag(x)) / sum(x)
   }
   
-  
-  
   dots            <- list(...)
   dots$x          <- x
   dots$y          <- as.factor(y) 
@@ -43,7 +41,6 @@ rfFeatsel <- function(x, y, fs_seq = NULL, keep.models = TRUE, savename='D:/', s
     
     dots$x    <- dots$x[, names(imp)[seq_len(i)], drop = FALSE]
     rf_submod <- do.call(randomForest::randomForest, dots)
-    
       
     save(rf_submod,
          file = sprintf(paste0("%s/%s_fs_%s_bw_%0", N, "d.Rdata"),
@@ -60,7 +57,6 @@ rfFeatsel <- function(x, y, fs_seq = NULL, keep.models = TRUE, savename='D:/', s
     }
     cat("               \r", i)
   }
-  
   
   write.table(data.frame(names(out), out),
               file = sprintf("%s/%s_fs_%s_bw_mean_rsq.Rdata",
