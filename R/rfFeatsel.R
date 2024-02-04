@@ -1,4 +1,6 @@
 rfFeatsel <- function(x, y, fs_seq = NULL, keep.models = TRUE, savename='D:/', savedir = NULL, best_thr = .975, ...){
+
+  pizzR::package.install(c("randomForest"), verbose = 1)
   
   OOB_OA <- function(x){
     x <- with(x, confusion[, seq_len(nrow(confusion))])
