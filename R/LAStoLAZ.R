@@ -2,7 +2,7 @@ LAStoLAZ <- function(x,y=NULL,verbose=T){
 
   pizzR::package.install('lidR', verbose = 1)
 
-  if(is.null(y)) y <- file.path(dirname(x), 'output_LAStoLAZ')
+  if(is.null(y))              y <- file.path(dirname(x), 'output_LAStoLAZ')
 
   if(!is.logical(verbose))    return(warning('Verbose has to be logical!'))
   if(!dir.exists(x))          return(warning('Input-folder does not exist!'))
