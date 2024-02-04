@@ -5,17 +5,7 @@ raster_to_envi_converter <- function(input.path, output.path, interleave = 'BSQ'
     rfiles <- list.files(input.path, full.names = T, pattern = input.filetype)
   if (length(rfiles) == 0)  return(warning("No raster files found!"))
 
-  package.install <- function(x) {
-    to_install <- !x %in% installed.packages()
-    if (any(to_install)) {
-      cat(paste0(pizzR::Systime(), ": install missing packages '",
-        paste(x[to_install], collapse = ", "), "'\n"))
-      install.packages(x[to_install], dependencies = T)
-      cat(paste0(pizzR::Systime(), ": missing packages '", paste(x[to_install],
-        collapse = ", "), "' installed\n\n"))
-    }
-  }
-  package.install(c("memuse", "raster", "Rcpp", "terra"))
+  pizzR::package.install(c("memuse", "raster", "Rcpp", "terra"), verbose = 1)
 
   pizzR::setcreate.wd(output.path)
   for (i in seq(rfiles)) terra::writeRaster(terra::rast(rfiles[i]), overwrite = T,
