@@ -1,4 +1,4 @@
-extension <- function (filename, value = NULL, maxchar = 10)
+extension <- function (filename,value=NULL,maxchar=10)
 {
   if (!is.null(value)) {
     extension(filename) <- value
