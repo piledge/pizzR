@@ -245,7 +245,6 @@ fPoll <- function(species,dbh_cm,height_m) {
     b6 = 9.9888
     b7 = 0
   }
-
   return(b1 + b2 * (log(dbh))^2 + b3 * (1 / height) + b4 * (1 / dbh) + b5 * (1 / (dbh^2)) + b6 * (1 / (dbh * height)) + b7 * (1 / (dbh^2 * height)))
 }
 
