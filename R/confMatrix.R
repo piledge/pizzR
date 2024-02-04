@@ -1,4 +1,4 @@
-confMatrix <- function(pred, ref){
+confMatrix <- function(pred,ref){
   CM <- table("pred" = pred, "ref" = ref)
   UA <- round(diag(CM) / rowSums(CM) * 100, 1)
   PA <- round(diag(CM) / colSums(CM) * 100, 1)
