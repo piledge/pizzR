@@ -1,16 +1,23 @@
+package.install(c('teddst', 'tsfds'))
+
+x <- c('teddst', 'tsfds')
+
+
 package.install <- function(x=pizzR::dependencies, verbose = 1){
   
-  if (!is.character(class(x))) return(warning("'x' has to be of class character"))
-  if (!verbose %in% c(0, 1, 2)) return(warning("'verbose' can either be 0 (no messages), 1 (installation status) or 2 (full output)"))
-
+  if (!is.character(class(x))) return(warning("'x' has to be of class character!"))
+  if (!verbose %in% c(0, 1, 2)) return(warning("'verbose' can either be 0 (no messages), 1 (installation status) or 2 (full output)!"))
+  
   to_install <- !x %in% rownames(installed.packages())
-
+  
   if (any(to_install)){
     missing_packages <- as.character(x[to_install])
     repo_packages <- rownames(available.packages())
     available_packages <- missing_packages[missing_packages %in% repo_packages]
     not_to_install <- !missing_packages %in% repo_packages
     unavailable_packages <- missing_packages[not_to_install]
+    
+    if (any(to_install) && length(available_packages) == 0) return(warning("Packages not available!"))
     
     n.missing <- length(available_packages)
     nchar.missing <- nchar(n.missing)
