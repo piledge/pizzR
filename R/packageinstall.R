@@ -14,7 +14,7 @@ package.install <- function(x=pizzR::dependencies, verbose = 1){
     
     n.missing <- length(available_packages)
     nchar.missing <- nchar(n.missing)
-    if (verbose > 0) cat("\n\nInstall packages:", paste(available_packages, sep = ',', collapse= ", "), "\n")
+    if (verbose > 0) cat("\n\nMissing packages:", paste(available_packages, sep = ',', collapse= ", "), "\n")
     
     if (verbose > 0) cat("\nInstalling ...\n")
     for (i in seq(n.missing)){
