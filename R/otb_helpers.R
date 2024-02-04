@@ -21,6 +21,9 @@ OTB_init <- function (path = NULL)
 
 
 OTB_run   <- function(cmd, Ncore = NULL, DefaultRAM = NULL, ...){
+  
+  pizzR::package.install(c("parallel"), verbose = 1)
+  
   if (is.null(getOption("OTB_PATH"))){
     stop("OTB_PATH not found! Use 'OTB_init()' to set it...")
   }
