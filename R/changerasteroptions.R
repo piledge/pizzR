@@ -3,7 +3,7 @@ change.rasterOptions <- function(changetmpdir=F, tmpdir="", OSRAM.remaining=3, p
   if (!is.logical(changetmpdir)) return(warning("'changetmpdir' has to be of class logical!\n"))
   if (!is.logical(verbose)) return(warning("'verbose' has to be of class logical!\n"))
 
-  pizzR::package.install(c("memuse", "raster", "Rcpp", "terra"))
+  pizzR::package.install(c("memuse", "raster", "Rcpp", "terra"), verbose = 1)
 
   require(raster)
 
