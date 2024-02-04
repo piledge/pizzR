@@ -1,6 +1,6 @@
 opt.datatype <- function(x) {
 
-  pizzR::package.install(c("memuse", "raster", "Rcpp", "terra"), verbose = 1)
+  pizzR::package.install(c("memuse", "raster", "terra"), verbose = 1)
 
   rsttype <- class(x)[1]
   if (rsttype != "SpatRaster" && rsttype != "RasterLayer" &&
