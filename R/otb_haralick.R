@@ -3,7 +3,7 @@ OTB_haralick <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
                          xrad=3,yrad=3,nbbin=8,
                          Ncore=parallel::detectCores()-1,ram=NULL, ...){
 
-  pizzR::package.install(c("memuse", "tools"), verbose = 1)
+  pizzR::package.install(c("memuse", "terra", "tools"), verbose = 1)
 
   if (is.null(ram)){
     avail.ram <- memuse::Sys.meminfo()$totalram@size*1024
