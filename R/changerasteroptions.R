@@ -3,15 +3,7 @@ change.rasterOptions <- function(changetmpdir=F, tmpdir="", OSRAM.remaining=3, p
   if (!is.logical(changetmpdir)) return(warning("'changetmpdir' has to be of class logical!\n"))
   if (!is.logical(verbose)) return(warning("'verbose' has to be of class logical!\n"))
 
-  package.install <- function(x) {
-    to_install <- !x %in% installed.packages()
-    if (any(to_install)){
-      cat(paste0(pizzR::Systime(), ": install missing packages '", paste(x[to_install], collapse=", "), "'\n"))
-      install.packages(x[to_install], dependencies = T)
-      cat(paste0(pizzR::Systime(), ": missing packages '", paste(x[to_install], collapse=", "), "' installed\n\n"))
-    }
-  }
-  package.install(c("memuse", "raster", "Rcpp", "terra"))
+  pizzR::package.install(c("memuse", "raster", "Rcpp", "terra"))
 
   require(raster)
 
