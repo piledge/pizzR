@@ -1,5 +1,7 @@
 writeslimRaster <- function(x, filename, compression=T, overwrite=T, BIGTIFF="YES", filetype="GTiff", datatype="ESTIMATE", ...){
 
+  pizzR::package.install(c("raster", "terra"), verbose = 1)
+  
   rsttype <- class(x)[1]
   if (rsttype != "SpatRaster" && rsttype != "RasterLayer" && rsttype != "RasterBrick" && rsttype != "RasterStack") return(warning("Not a suitable rasterfile!\n"))
   if (!is.logical(compression)) return(warning("'compression' needs to be boolean!\n"))
