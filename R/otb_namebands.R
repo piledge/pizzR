@@ -1,5 +1,7 @@
 OTB_namebands <- function(IMGpath,savedir=NULL,otbfunction='Haralick', verbose=T){
 
+  pizzR::package.install(c("memuse", "terra", "tools"), verbose = 1)
+
   if (!otbfunction %in% c("Haralick"))  return(warning("Export can currently only be 'Haralick'"))
   if (is.null(savedir))                 savedir <- file.path(dirname(IMGpath[1]), "OTBexport_namebands")
   if (!is.logical(verbose))             return(warning("'verbose' has to be of type logical"))
