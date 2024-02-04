@@ -1,14 +1,6 @@
 rastertiler <- function(x, nslices_h=2, nslices_v=2, overlap_h=0, overlap_v=0, verbose=F){
 
-  package.install <- function(x) {
-    to_install <- !x %in% installed.packages()
-    if (any(to_install)){
-      cat(paste0(pizzR::Systime(), ": install missing packages '", paste(x[to_install], collapse=", "), "'\n"))
-      install.packages(x[to_install], dependencies = T)
-      cat(paste0(pizzR::Systime(), ": missing packages '", paste(x[to_install], collapse=", "), "' installed\n\n"))
-    }
-  }
-  package.install(c("memuse", "raster", "Rcpp", "terra"))
+  pizzR::package.install(c("memuse", "raster", "Rcpp", "terra"), verbose = 1)
 
   if (class(x)[1] != "SpatRaster") return(warning("Only Objects of class 'SpatRaster' are allowed!\n"))
   if ((overlap_h %% 2 != 1) && (overlap_h != 0) || (overlap_v %% 2 != 1) && (overlap_v != 0)) return(warning("Overlaps have to be odd numbers!\n"))
