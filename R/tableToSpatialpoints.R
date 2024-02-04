@@ -1,14 +1,6 @@
 tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,attributes=NULL,filename=NULL,overwrite=T,plot=FALSE,filetype=NULL,layer=NULL,options="ENCODING=UTF-8",...){
 
-  package.install <- function(x) {
-    to_install <- !x %in% installed.packages()
-    if (any(to_install)){
-      cat(paste0(pizzR::Systime(), ": install missing packages '", paste(x[to_install], collapse=", "), "'\n"))
-      install.packages(x[to_install], dependencies = T)
-      cat(paste0(pizzR::Systime(), ": missing packages '", paste(x[to_install], collapse=", "), "' installed\n\n"))
-    }
-  }
-  package.install(c("sp", "raster", "terra", "Rcpp", "rvest", "xml2"))
+  pizzR::package.install(c("sp", "raster", "terra", "rvest", "xml2"), verbose = 1)
 
   table_xy <- data.frame(longitude=suppressWarnings(as.numeric(northing)), latitude=suppressWarnings(as.numeric(easting)))
 
