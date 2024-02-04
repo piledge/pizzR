@@ -9,17 +9,7 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
   }
   set.seed(seed)
 
-  package.install <- function(x) {
-    to_install <- !x %in% installed.packages()
-    if (any(to_install)) {
-      cat(paste0(pizzR::Systime(), ": install missing packages '",
-                 paste(x[to_install], collapse = ", "), "'\n"))
-      install.packages(x[to_install], dependencies = T)
-      cat(paste0(pizzR::Systime(), ": missing packages '", paste(x[to_install],
-                                                           collapse = ", "), "' installed\n\n"))
-    }
-  }
-  package.install(c("crayon", "parallel", "ranger", "vip"))
+  pizzR::package.install(c("crayon", "parallel", "ranger", "vip"), verbose = 1)
   st.featsel <- as.integer(format(Sys.time(), "%s"))
   cat("\n")
   cat("               \r", paste0(pizzR::Systime(), ": starting recursive MDA-feature selection",
