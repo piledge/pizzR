@@ -32,7 +32,7 @@ package.install <- function(x=pizzR::dependencies, verbose = 1){
     if (!success){
       to_install <- !x %in% rownames(installed.packages())
       missing_packages <- as.character(x[to_install])
-      if (verbose > 0) cat("\n\nPackages not able to install:", paste(missing_packages, sep = ',', collapse= ", "), "\n\n")
+      warning(cat("\n\nPackages not able to install:", paste(missing_packages, sep = ',', collapse= ", "), "\n\n"))
     }
   }
 }
