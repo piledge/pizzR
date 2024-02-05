@@ -7,7 +7,10 @@ opt.datatype <- function(x) {
       rsttype != "RasterBrick" && rsttype != "RasterStack")
     return(warning("Not a suitable rasterfile!\n"))
 
-  if (rsttype == "SpatRaster")                                                            minmaxvals <- terra::minmax(x)
+  if (rsttype == "SpatRaster"){
+    terra::setMinMax(rst)
+    minmaxvals <- terra::minmax(x)
+    }
   if (rsttype == "RasterLayer" || rsttype == "RasterBrick" || rsttype == "RasterStack")   minmaxvals <- raster::minValue(x)
 
   rst_min <- min(minmaxvals)
