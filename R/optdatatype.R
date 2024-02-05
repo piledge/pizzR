@@ -8,7 +8,7 @@ opt.datatype <- function(x) {
     return(warning("Not a suitable rasterfile!\n"))
 
   if (rsttype == "SpatRaster"){
-    terra::setMinMax(rst)
+    terra::setMinMax(x, force = T)
     minmaxvals <- terra::minmax(x)
     }
   if (rsttype == "RasterLayer" || rsttype == "RasterBrick" || rsttype == "RasterStack")   minmaxvals <- raster::minValue(x)
