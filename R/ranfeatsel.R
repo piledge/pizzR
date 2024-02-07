@@ -3,7 +3,7 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
                         best_thr = 0.975, nimpplot = 20, seed = NULL, ...)
 {
   pizzR::package.install(c("crayon", "parallel", "ranger", "vip"), verbose = 1)
-  
+
   if (is.null(seed)){
     seed <- sample(seq(1000000000), 1, replace=TRUE)
     cat(crayon::red(paste0("\n ", pizzR::Systime(), ': Using random seed of ', seed, ". Specify 'seed' if required static.", "\n")))
@@ -48,11 +48,11 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
     least.importance <- names(sort(ranger_submod$variable.importance,
                                    decreasing = FALSE))[1]
     dots$x <- dots$x[colnames(dots$x) != least.importance]
-    
+
     cm <- pizzR::confMatrix((ranger_submod[["predictions"]]), ranger_submod[["call"]][["y"]])
     OA <- cm[["OA"]]
-    kappa <- OA <- cm[["KAPPA"]]
-    
+    kappa <- cm[["KAPPA"]]
+
     if (i == 1) {
       OOB_OA <- data.frame(cbind(i, OA, kappa, least.importance,
                                  nvariables))
@@ -172,12 +172,12 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
                           st.featsel)/60, 2)
   cat("               \n", paste0(pizzR::Systime(), ": run completed",
                                   "        |    duration of run:     ", dur.featsel, " minutes             \n\n\n"))
-  cat(paste0("fittest model: OOB-OA = ", fittest.model$oobOA,
-             "; Kappa = ", fittest.model$kappa, "; nVariables = ",
+  cat(paste0("fittest model: OOB-OA = ", round(fittest.model$oobOA, 3),
+             "; Kappa = ", round(fittest.model$kappa, 3), "; nVariables = ",
              fittest.model$nvariables, "\n"))
   print(cm.fittest)
-  cat(paste0("\n\nbest model:    OOB-OA = ", best.model$oobOA,
-             "; Kappa = ", best.model$kappa, "; nVariables = ", best.model$nvariables,
+  cat(paste0("\n\nbest model:    OOB-OA = ", round(best.model$oobOA, 3),
+             "; Kappa = ", round(best.model$kappa, 3), "; nVariables = ", best.model$nvariables,
              "\n"))
   print(cm.best)
   if (fittest.model$loopID == best.model$loopID) {
