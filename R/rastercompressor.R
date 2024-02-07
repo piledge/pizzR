@@ -29,7 +29,7 @@ raster.compressor <- function(x, tmpdir=NA, dryrun = T){
     }
     rst <- terra::rast(file.list$old.files[i])
     cat(paste0("\n\n", pizzR::Systime(), ": ",  i, " of ", nfiles))
-    cat(paste0("\n\n", pizzR::Systime(), ": File '",  file.list$old.files[i], "'"))
+    cat(paste0("\n", pizzR::Systime(), ": File '",  file.list$old.files[i], "'"))
     cat(paste0("\n", pizzR::Systime(), ": Original filesize ",  round(file.list$filesize.old.MiB[i], 2), " MiB"))
     pizzR::writeslimRaster(rst, file.list$tmp.files[i], compression = T)
     file.list$filesize.new.MiB[i] <- file.info(file.list$tmp.files[i])$size/(1048576)
