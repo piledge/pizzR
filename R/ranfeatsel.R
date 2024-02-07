@@ -173,11 +173,11 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
   cat("               \n", paste0(pizzR::Systime(), ": run completed",
                                   "        |    duration of run:     ", dur.featsel, " minutes             \n\n\n"))
   cat(paste0("fittest model: OOB-OA = ", round(fittest.model$oobOA, 3),
-             "; Kappa = ", round(fittest.model$kappa, 3), "; nVariables = ",
+             "%; Kappa = ", round(fittest.model$kappa, 3), "; nVariables = ",
              fittest.model$nvariables, "\n"))
   print(cm.fittest)
   cat(paste0("\n\nbest model:    OOB-OA = ", round(best.model$oobOA, 3),
-             "; Kappa = ", round(best.model$kappa, 3), "; nVariables = ", best.model$nvariables,
+             "%; Kappa = ", round(best.model$kappa, 3), "; nVariables = ", best.model$nvariables,
              "\n"))
   print(cm.best)
   if (fittest.model$loopID == best.model$loopID) {
