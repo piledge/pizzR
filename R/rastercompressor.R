@@ -23,6 +23,11 @@ raster.compressor <- function(x, tmpdir=NA, dryrun = T){
 
   pizzR::setcreate.wd(tmpdir)
   for (i in seq(files)){
+    if (!file.exists(file.list$old.files[i])){
+      cat(crayon::red(paste0("\n", pizzR::Systime(), ": File initially found but not available!\n")))
+      file.list$filesize.new.MiB[i] <- file.list$diff[i] <- file.list$percent.new[i] <- NA
+    }
+    
     rst <- terra::rast(file.list$old.files[i])
     cat(paste0("\n\n", pizzR::Systime(), ": File: '",  file.list$old.files[i], "'"))
     pizzR::writeslimRaster(rst, file.list$tmp.files[i], compression = T)
@@ -37,7 +42,7 @@ raster.compressor <- function(x, tmpdir=NA, dryrun = T){
 
     if (file.list$percent.new[i] < 100)   cat(paste0(pizzR::Systime(), ": New file is ",  round(file.list$diff[i], 2) , ' MiB (', round(100 - file.list$percent.new[i], 2), ' %) smaller.\n'))
     if (file.list$percent.new[i] > 100)   cat(paste0(pizzR::Systime(), ": New file is ",  abs(round(file.list$diff[i], 2)) , ' MiB (', abs(round(file.list$percent.new[i] - 100, 2)), ' %) bigger.\n'))
-    if (file.list$percent.new[i] == 100)  cat(paste0(pizzR::Systime(), ": No change in filesize \n"))
+    if (file.list$percent.new[i] == 100)  cat(paste0(pizzR::Systime(), ": No change in filesize\n"))
   }
 
   if (!dryrun) file.remove(tmpdir)
@@ -47,7 +52,7 @@ raster.compressor <- function(x, tmpdir=NA, dryrun = T){
     all.percent <- sum(file.list$filesize.new.MiB) / sum(file.list$filesize.old.MiB) * 100
     if (all.percent < 100)   cat(paste0("\n", pizzR::Systime(), ": New files are ",  round(all.diff, 2) , ' MiB (', round(100 - all.percent, 2), ' %) smaller.\n'))
     if (all.percent > 100)   cat(paste0("\n", pizzR::Systime(), ": New files are ",  abs(round(all.diff, 2)) , ' MiB (', abs(round(all.percent - 100, 2)), ' %) bigger.\n'))
-    if (all.percent == 100)  cat(paste0("\n", pizzR::Systime(), ": No change in filesize \n"))
+    if (all.percent == 100)  cat(paste0("\n", pizzR::Systime(), ": No change in filesize\n"))
   }
-  if (dryrun) cat(crayon::red(paste0("\n", pizzR::Systime(), ": Dryrun! No files have been changed! \n")))
+  if (dryrun) cat(crayon::red(paste0("\n", pizzR::Systime(), ": Dryrun! No files have been changed!\n")))
 }
