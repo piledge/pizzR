@@ -49,9 +49,9 @@ raster.compressor <- function(x, tmpdir=NA, dryrun = T){
   if (nfiles > 1){
     all.diff <- sum(file.list$filesize.old.MiB) - sum(file.list$filesize.new.MiB)
     all.percent <- sum(file.list$filesize.new.MiB) / sum(file.list$filesize.old.MiB) * 100
-    if (all.percent < 100)   cat(paste0("\n", pizzR::Systime(), ": New files are ",  round(all.diff, 2) , ' MiB (', round(100 - all.percent, 2), ' %) smaller.\n'))
-    if (all.percent > 100)   cat(paste0("\n", pizzR::Systime(), ": New files are ",  abs(round(all.diff, 2)) , ' MiB (', abs(round(all.percent - 100, 2)), ' %) bigger.\n'))
-    if (all.percent == 100)  cat(paste0("\n", pizzR::Systime(), ": No change in filesize\n"))
+    if (all.percent < 100)   cat(paste0("\n\n", pizzR::Systime(), ": New files are ",  round(all.diff, 2) , ' MiB (', round(100 - all.percent, 2), ' %) smaller.\n'))
+    if (all.percent > 100)   cat(paste0("\n\n", pizzR::Systime(), ": New files are ",  abs(round(all.diff, 2)) , ' MiB (', abs(round(all.percent - 100, 2)), ' %) bigger.\n'))
+    if (all.percent == 100)  cat(paste0("\n\n", pizzR::Systime(), ": No change in filesize\n"))
   }
   
   if (dryrun){
