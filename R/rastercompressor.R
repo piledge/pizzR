@@ -5,12 +5,12 @@ raster.compressor <- function(x, tmpdir=NA, dryrun = T){
   if (!is.character(tmpdir))  return(warning("'tmpdir' has to be of type character!"))
   if (!is.logical(dryrun))    return(warning("'dryrun' has to be of type logical!"))
 
-  cat(paste0("\n\n", pizzR::Systime(), ": Searching for '.tif'- or '.tiff'-files: "))
+  cat(paste0("\n\n", pizzR::Systime(), ": Searching for '.tif'- or '.tiff'-files "))
 
   files <- list.files(x, pattern = '.tif$', recursive = T, full.names = T)
   nfiles <- length(files)
   if (nfiles == 0)    return(warning("No files have been found!"))
-  cat(nfiles, 'found\n')
+  cat(paste0(', ', nfiles, ' found\n'))
 
   nchar.nfiles <- nchar(nfiles)
   indices <- sprintf(paste0("%0", nchar.nfiles, ".f"), seq(nfiles))
@@ -29,7 +29,8 @@ raster.compressor <- function(x, tmpdir=NA, dryrun = T){
       next
     }
     rst <- terra::rast(file.list$old.files[i])
-    cat(paste0("\n\n", pizzR::Systime(), ": File: '",  file.list$old.files[i], "'"))
+    cat(paste0("\n\n", pizzR::Systime(), ": File '",  file.list$old.files[i], "'"))
+    cat(paste0("\n", pizzR::Systime(), ": Original filesize ",  file.list$filesize.old.MiB[i], " MiB"))
     pizzR::writeslimRaster(rst, file.list$tmp.files[i], compression = T)
     file.list$filesize.new.MiB[i] <- file.info(file.list$tmp.files[i])$size/(1048576)
     file.list$diff[i] <- file.list$filesize.old.MiB[i] - file.list$filesize.new.MiB[i]
