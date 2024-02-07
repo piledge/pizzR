@@ -59,4 +59,5 @@ raster.compressor <- function(x, tmpdir=NA, dryrun = T){
     cat(crayon::red(paste0("\n", pizzR::Systime(), ": Dryrun! No files have been changed!\n")))
   }
   file.remove(tmpdir)
+  invisible(file.list)
 }
