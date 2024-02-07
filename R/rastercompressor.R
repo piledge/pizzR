@@ -26,8 +26,8 @@ raster.compressor <- function(x, tmpdir=NA, dryrun = T){
     if (!file.exists(file.list$old.files[i])){
       cat(crayon::red(paste0("\n", pizzR::Systime(), ": File initially found but not available!\n")))
       file.list$filesize.new.MiB[i] <- file.list$diff[i] <- file.list$percent.new[i] <- NA
+      next
     }
-    
     rst <- terra::rast(file.list$old.files[i])
     cat(paste0("\n\n", pizzR::Systime(), ": File: '",  file.list$old.files[i], "'"))
     pizzR::writeslimRaster(rst, file.list$tmp.files[i], compression = T)
