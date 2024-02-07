@@ -52,7 +52,10 @@ raster.compressor <- function(x, tmpdir=NA, dryrun = T){
     if (all.percent > 100)   cat(paste0("\n", pizzR::Systime(), ": New files are ",  abs(round(all.diff, 2)) , ' MiB (', abs(round(all.percent - 100, 2)), ' %) bigger.\n'))
     if (all.percent == 100)  cat(paste0("\n", pizzR::Systime(), ": No change in filesize\n"))
   }
-
-  file.remove(c(file.list$tmp.files, tmpdir))
-  if (dryrun) cat(crayon::red(paste0("\n", pizzR::Systime(), ": Dryrun! No files have been changed!\n")))
+  
+  if (dryrun){
+    file.remove(file.list$tmp.files)
+    cat(crayon::red(paste0("\n", pizzR::Systime(), ": Dryrun! No files have been changed!\n")))
+  }
+  file.remove(tmpdir)
 }
