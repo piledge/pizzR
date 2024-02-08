@@ -15,8 +15,9 @@ L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,cr
   header_names  <- scan(traject_file, what = '', nlines = 1, sep='')
   roh           <- suppressWarnings(read.table(x, header = F, sep='', skip=2))
   colnames(roh) <- header_names[-1]
-  roh$Latitude  <- roh$Latitude * (180/pi)
-  roh$Longitude <- roh$Longitude * (180/pi)
+  fact <- 180 / pi
+  roh$Latitude  <- roh$Latitude * fact
+  roh$Longitude <- roh$Longitude * fact
 
   if (is.logical(reduce) | is.numeric(reduce))  cat(paste0('\n', pizzR::Systime(), ': Subsetting ...'))
   if (reduce){
