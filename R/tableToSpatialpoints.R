@@ -41,5 +41,5 @@ tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,at
 
   do.call(terra::writeVector, fparameters)
 
-  cat(paste0("\n", pizzR::Systime(), ": '",filename, "' written to '", getwd(), "'\n\n"))
+  cat(paste0("\n", pizzR::Systime(), ": '",filename, "' written to '", getwd(), "'\n"))
 }
