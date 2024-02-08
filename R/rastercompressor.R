@@ -1,9 +1,9 @@
-raster.compressor <- function(x, tmpdir=NA, recursive=T, dryrun=T){
+raster.compressor <- function(x, tmpdir=NULL, recursive=T, dryrun=T){
 
   if (!is.character(x))       return(warning("'x' has to be of type character!"))
-  if (is.na(tmpdir))          tmpdir <- file.path(tempdir(), 'tmp_compression')
+  if (is.null(tmpdir))        tmpdir <- file.path(tempdir(), 'tmp_compression')
   if (!is.character(tmpdir))  return(warning("'tmpdir' has to be of type character!"))
-  if (!is.logical(recursive))    return(warning("'recursive' has to be of type logical!"))
+  if (!is.logical(recursive)) return(warning("'recursive' has to be of type logical!"))
   if (!is.logical(dryrun))    return(warning("'dryrun' has to be of type logical!"))
 
   cat(paste0("\n\n", pizzR::Systime(), ": Searching for '.tif'- or '.tiff'-files"))

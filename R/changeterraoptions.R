@@ -1,8 +1,8 @@
-change.terraOptions <- function (tempdir=NA,progress=3,verbose=F,...)
+change.terraOptions <- function (tempdir=NULL,progress=3,verbose=F,...)
 {
   if (!is.logical(verbose))         return(warning("'verbose' has to be of class logical!\n"))
   if (!is.numeric(progress))        return(warning("'progress' has to be of class integer!\n"))
-  if (is.na(tempdir)){
+  if (is.null(tempdir)){
     if (Sys.info()[1] == 'Windows') tempdir <- 'C:/temp/Rtmp'
     if (Sys.info()[1] == 'Linux')   tempdir <- '/tmp/Rtmp'
   }
@@ -19,7 +19,7 @@ change.terraOptions <- function (tempdir=NA,progress=3,verbose=F,...)
   }
 
   fparameters <- list(...)
-  if (!is.na(tempdir)){
+  if (!is.null(tempdir)){
     pizzR::setcreatewd(tempdir)
     fparameters$tempdir <- tempdir
     Sys.setenv(TMP = tempdir, TEMP = tempdir)
