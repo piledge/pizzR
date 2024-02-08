@@ -1,4 +1,4 @@
-rfFeatsel <- function(x, y, fs_seq = NULL, keep.models = TRUE, savename='D:/', savedir = NULL, best_thr = .975, ...){
+rfFeatsel <- function(x,y,fs_seq=NULL,keep.models=FALSE,savename='rfFeatsel',savedir=getwd(),best_thr=.975,ntree=1000 ...){
 
   pizzR::package.install(c("randomForest"), verbose = 1)
   
