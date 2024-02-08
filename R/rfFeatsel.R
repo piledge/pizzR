@@ -1,5 +1,5 @@
-rfFeatsel <- function(x,y,fs_seq=NULL,keep.models=FALSE,savename='rfFeatsel',savedir=getwd(),best_thr=.975,ntree=1000 ...){
-
+rfFeatsel <- function(x,y,fs_seq=NULL,keep.models=FALSE,savename='rfFeatsel',savedir=getwd(),best_thr=.975,ntree=1000, ...){
+  
   pizzR::package.install(c("randomForest"), verbose = 1)
   
   OOB_OA <- function(x){
@@ -13,6 +13,7 @@ rfFeatsel <- function(x,y,fs_seq=NULL,keep.models=FALSE,savename='rfFeatsel',sav
   dots$importance <- TRUE
   dots$keep.inbag <- TRUE
   dots$na.action  <- na.omit
+  dots$ntree  <- ntree
   
   rf_mod          <- do.call(randomForest::randomForest, dots)
   
@@ -41,11 +42,11 @@ rfFeatsel <- function(x,y,fs_seq=NULL,keep.models=FALSE,savename='rfFeatsel',sav
     
     dots$x    <- dots$x[, names(imp)[seq_len(i)], drop = FALSE]
     rf_submod <- do.call(randomForest::randomForest, dots)
-      
+    
     save(rf_submod,
          file = sprintf(paste0("%s/%s_fs_%s_bw_%0", N, "d.Rdata"),
                         savedir, savename, rf_type, i))
-      
+    
     
     if (rf_submod$type == "classification"){
       imp       <- sort(randomForest:::importance(rf_submod)[, 'MeanDecreaseAccuracy'], decreasing = TRUE)
@@ -81,8 +82,8 @@ rfFeatsel <- function(x,y,fs_seq=NULL,keep.models=FALSE,savename='rfFeatsel',sav
     file.remove(list.files(savedir, pattern = sprintf("_fs_%s_bw_[0-9]+[.]Rdata$", rf_type), full.names = TRUE))
   }  
   if (rf_submod$type == "classification"){
-    return(list(OOB_OA = out, rf_fs_best = rf_fs_best))
+    invisible(list(OOB_OA = out, rf_fs_best = rf_fs_best))
   } else {
-    return(list(mrsq = out, rf_fs_best = rf_fs_best))
+    invisible(list(mrsq = out, rf_fs_best = rf_fs_best))
   }
 }
