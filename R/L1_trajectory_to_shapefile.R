@@ -11,33 +11,34 @@ L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,cr
   pizzR::package.install(c('feather', 'terra'), verbose = 1)
 
   cat(paste0('\n', pizzR::Systime(), ": Loading data ..."))
-  traject_file  <- file(x)
-  header_names  <- scan(traject_file, what = '', nlines = 1, sep='')
-  roh           <- suppressWarnings(read.table(x, header = F, sep='', skip=2))
-  colnames(roh) <- header_names[-1]
-  fact <- 180 / pi
-  roh$Latitude  <- roh$Latitude * fact
-  roh$Longitude <- roh$Longitude * fact
+  traject_file   <- file(x)
+  header_names   <- scan(traject_file, what = '', nlines = 1, sep='')
+  data           <- suppressWarnings(read.table(x, header = F, sep='', skip=2))
+  colnames(data) <- header_names[-1]
 
   if (is.logical(reduce) | is.numeric(reduce))  cat(paste0('\n', pizzR::Systime(), ': Subsetting ...'))
   if (reduce){
-    reduce <- sqrt(nrow(roh))
-    roh <- roh[sample(nrow(roh), reduce),]
+    reduce <- sqrt(nrow(data))
+    data <- data[sample(nrow(data), reduce),]
   }
-  if (is.numeric(reduce)) roh <- roh[sample(nrow(roh), reduce),]
+  if (is.numeric(reduce)) data <- data[sample(nrow(data), reduce),]
+
+  fact <- 180 / pi
+  data$Latitude  <- data$Latitude  * fact
+  data$Longitude <- data$Longitude * fact
 
   fname <- basename(x)
-  fname <- sub('Zenmuse-L1-mission_sbet.txt', 'trajectory', fname)
+  fname <- file.path(y, sub('Zenmuse-L1-mission_sbet.txt', 'trajectory', fname))
 
   pizzR::setcreate.wd(y)
   cat(paste0('\n', pizzR::Systime(), ": Write data to disk '", y, "'"))
-  if (wfeather) feather::write_feather(roh, file.path(y, paste0(fname, '.feather')))
-  if (wcsv)     write.csv2(roh, file.path(y, paste0(fname, '.csv')))
+  if (wfeather) feather::write_feather(data, paste0(fname, '.feather'))
+  if (wcsv)     write.csv2(data, paste0(fname, '.csv'))
 
   fparameters             <- list(...)
-  fparameters$northing    <- roh$Longitude
-  fparameters$easting     <- roh$Latitude
-  fparameters$filename    <- file.path(y, paste0(fname, '.shp'))
+  fparameters$northing    <- data$Longitude
+  fparameters$easting     <- data$Latitude
+  fparameters$filename    <- paste0(fname, '.shp')
   fparameters$crs.origin  <- crs.origin
   fparameters$crs.project <- crs.project
 
