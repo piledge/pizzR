@@ -31,7 +31,7 @@ If \code{ext(filename)} is used without a \code{value} argument, it returns the 
 
 
 \examples{
-fn <- "c:/temp folder/filename.exten sion"
+fn <- "c:/temp folder/filename.extension"
 extension(fn)
 extension(fn) <- ".txt"
 extension(fn)
