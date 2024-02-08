@@ -56,7 +56,7 @@ rfFeatsel <- function(x,y,fs_seq=NULL,keep.models=FALSE,savename='rfFeatsel',sav
       imp       <- sort(randomForest:::importance(rf_submod)[, '%IncMSE'], decreasing = TRUE)
       out[ind]  <- mean(rf_submod$rsq)
     }
-    cat("               \r", i)
+    cat("               \r", i, "          ")
   }
   
   write.table(data.frame(names(out), out),
