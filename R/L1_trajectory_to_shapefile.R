@@ -15,13 +15,14 @@ L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,cr
   header_names   <- scan(traject_file, what = '', nlines = 1, sep='')
   data           <- suppressWarnings(read.table(x, header = F, sep='', skip=2))
   colnames(data) <- header_names[-1]
+  data.points <- nrow(data)
 
   if (is.logical(reduce) | is.numeric(reduce))  cat(paste0('\n', pizzR::Systime(), ': Subsetting ...'))
   if (reduce){
-    reduce <- sqrt(nrow(data))
-    data <- data[sample(nrow(data), reduce),]
+    reduce <- trunc(sqrt(data.points))
+    data <- data[sample(data.points, reduce),]
   }
-  if (is.numeric(reduce)) data <- data[sample(nrow(data), reduce),]
+  if (is.numeric(reduce)) data <- data[sample(data.points, reduce),]
 
   fact <- 180 / pi
 
