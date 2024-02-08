@@ -1,7 +1,7 @@
 L1_trajectory_to_shapefile <- function(x, reduce=T, crs.origin=4326, crs.project=NULL, outpath=NULL, wfeather=F, wcsv=F){
   if (!is.character(x))                           return(warning("'x' has to be of type character!"))
   if (!pizzR::extension(x) %in% c('.txt'))        return(warning("Input has to be a DJI L1 output trajectory '.txt'-file "))
-  if (!is.logical(reduce) | !is.numeric(reduce))  return(warning("'reduce' has to be of type character or logical!"))
+  if (!is.logical(reduce) & !is.numeric(reduce))  return(warning("'reduce' has to be of type character or logical!"))
   if (!is.character(crs.origin))                  return(warning("'crs.origin' has to be of type numeric!"))
   if (!is.character(crs.project))                 return(warning("'crs.project' has to be of type numeric!"))
   if (is.null(outpath))                           outpath <- file.path(dirname(x), 'Trajectory')
