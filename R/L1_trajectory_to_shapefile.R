@@ -8,7 +8,7 @@ L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,cr
   if (!is.numeric(crs.origin))                    return(warning("'crs.origin' has to be of type numeric!"))
   if (!is.numeric(crs.project))                   return(warning("'crs.project' has to be of type numeric!"))
 
-  pizzR::package.install(c('feather'), verbose = 1)
+  pizzR::package.install(c('feather', 'terra'), verbose = 1)
 
   cat(paste0('\n', pizzR::Systime(), ": Loading data ..."))
   traject_file  <- file(x)
