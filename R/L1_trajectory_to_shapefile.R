@@ -2,36 +2,33 @@ L1_trajectory_to_shapefile <- function(x, reduce=T, crs.origin=4326, crs.project
   if (!is.character(x))                           return(warning("'x' has to be of type character!"))
   if (!pizzR::extension(x) %in% c('.txt'))        return(warning("Input has to be a DJI L1 output trajectory '.txt'-file "))
   if (!is.logical(reduce) & !is.numeric(reduce))  return(warning("'reduce' has to be of type character or logical!"))
-  if (!is.numeric(crs.origin))                  return(warning("'crs.origin' has to be of type numeric!"))
-  if (!is.numeric(crs.project))                 return(warning("'crs.project' has to be of type numeric!"))
+  if (!is.numeric(crs.origin))                    return(warning("'crs.origin' has to be of type numeric!"))
+  if (!is.numeric(crs.project))                   return(warning("'crs.project' has to be of type numeric!"))
 
   if (is.null(outpath))                           outpath <- file.path(dirname(x), 'Trajectory')
   if (!is.character(outpath))                     return(warning("'outpath' has to be of type character!"))
 
   pizzR::setcreate.wd(outpath)
 
-  cat(paste0("\n", pizzR::Systime(), ": Loading data ...\n"))
-  traject_file <- file(x)
-  header_names <- scan(traject_file, what = "", nlines = 1, sep="")
-  roh <- suppressWarnings(read.table(x, header = F, sep='', skip=2))
+  cat(paste0("\n", pizzR::Systime(), ": Loading data ..."))
+  traject_file  <- file(x)
+  header_names  <- scan(traject_file, what = "", nlines = 1, sep="")
+  roh           <- suppressWarnings(read.table(x, header = F, sep='', skip=2))
   colnames(roh) <- header_names[-1]
-  roh$Latitude  <- (roh$Latitude * (180/pi))
-  roh$Longitude <- (roh$Longitude * (180/pi))
+  roh$Latitude  <- roh$Latitude * (180/pi)
+  roh$Longitude <- roh$Longitude * (180/pi)
 
+  if (is.logical(reduce) | is.numeric(reduce))  cat(paste0("\n", pizzR::Systime(), ": Make subset ..."))
   if (reduce){
-    cat(paste0("\n", pizzR::Systime(), ": Make subset ...\n"))
     reduce <- sqrt(nrow(roh))
     roh <- roh[sample(nrow(roh), reduce),]
   }
-  if (is.numeric(reduce)){
-    cat(paste0("\n", pizzR::Systime(), ": Make subset ...\n"))
-    roh <- roh[sample(nrow(roh), reduce),]
-  }
+  if (is.numeric(reduce)) roh <- roh[sample(nrow(roh), reduce),]
 
   fname <- basename(x)
   fname <- sub('Zenmuse-L1-mission_sbet.txt', 'trajectory', fname)
 
-  cat(paste0("\n", pizzR::Systime(), ": Write data to disk ...\n"))
+  cat(paste0("\n", pizzR::Systime(), ": Write data to disk ..."))
   if (wfeather) feather::write_feather(roh, file.path(outpath, paste0(fname, '.feather')))
   if (wcsv)     write.csv2(roh, file.path(outpath, paste0(fname, '.csv')))
   pizzR::tableToSpatialpoints(northing = roh$Longitude, easting = roh$Latitude,
@@ -39,3 +36,4 @@ L1_trajectory_to_shapefile <- function(x, reduce=T, crs.origin=4326, crs.project
                               crs.origin = crs.origin, crs.project = crs.project)
   cat(paste0("\n", pizzR::Systime(), ": Done ...\n"))
 }
+
