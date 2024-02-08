@@ -24,8 +24,6 @@ L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,cr
   if (is.numeric(reduce)) data <- data[sample(nrow(data), reduce),]
 
   fact <- 180 / pi
-  data$Latitude  <- data$Latitude  * fact
-  data$Longitude <- data$Longitude * fact
 
   fname <- basename(x)
   fname <- file.path(y, sub('Zenmuse-L1-mission_sbet.txt', 'trajectory', fname))
@@ -36,8 +34,8 @@ L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,cr
   if (wcsv)     write.csv2(data, paste0(fname, '.csv'))
 
   fparameters             <- list(...)
-  fparameters$northing    <- data$Longitude
-  fparameters$easting     <- data$Latitude
+  fparameters$northing    <- data$Longitude * fact
+  fparameters$easting     <- data$Latitude  * fact
   fparameters$filename    <- paste0(fname, '.shp')
   fparameters$crs.origin  <- crs.origin
   fparameters$crs.project <- crs.project
