@@ -1,7 +1,7 @@
 raster.compressor <- function(x, tmpdir=NA, dryrun = T){
 
   if (!is.character(x))       return(warning("'x' has to be of type character!"))
-  if (is.na(tmpdir))          tmpdir <- file.path(x, 'tmp_compression')
+  if (is.na(tmpdir))          tmpdir <- file.path(tempdir(), 'tmp_compression')
   if (!is.character(tmpdir))  return(warning("'tmpdir' has to be of type character!"))
   if (!is.logical(dryrun))    return(warning("'dryrun' has to be of type logical!"))
 
