@@ -1,4 +1,4 @@
-L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,crs.project=NULL,wfeather=F,wcsv=F){
+L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,crs.project=NULL,wfeather=F,wcsv=F, ...){
   if (is.null(x))                                 return(warning("Input file missing!"))
   if (!is.character(x))                           return(warning("'x' has to be of type character!"))
   if (is.null(y))                                 y <- file.path(dirname(x), 'Trajectory')
@@ -33,10 +33,16 @@ L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,cr
   cat(paste0('\n', pizzR::Systime(), ": Write data to disk '", y, "'"))
   if (wfeather) feather::write_feather(roh, file.path(y, paste0(fname, '.feather')))
   if (wcsv)     write.csv2(roh, file.path(y, paste0(fname, '.csv')))
-  pizzR::tableToSpatialpoints(northing = roh$Longitude, easting = roh$Latitude,
-                              filename = file.path(y, paste0(fname, '.shp')),
-                              crs.origin = crs.origin, crs.project = crs.project)
-  
+
+  fparameters             <- list(...)
+  fparameters$northing    <- roh$Longitude
+  fparameters$easting     <- roh$Latitude
+  fparameters$filename    <- file.path(y, paste0(fname, '.shp'))
+  fparameters$crs.origin  <- crs.origin
+  fparameters$crs.project <- crs.project
+
+  do.call(pizzR::tableToSpatialpoints, fparameters)
+
   cat(paste0('\n', pizzR::Systime(), ': Done ...\n'))
   invisible(terra::vect(file.path(y, paste0(fname, '.shp'))))
 }
