@@ -16,7 +16,7 @@ raster.compressor <- function(x, tmpdir=NA, dryrun = T){
 
   names.tmpfiles <- paste(indices, basename(files), sep = '_')
 
-  file.list <- data.frame(id=indices, old.files=files, tmp.files=file.path(tmpdir, names.tmpfiles),
+  file.list <- data.frame(id=indices, old.files=files, tmp.files=file.path(tmpdir, names.tmpfiles), compressed=F,
                           filesize.old.MiB=file.info(files)$size/(1048576), filesize.new.MiB=NA,
                           filesize.diff=NA, percent.new=NA)
 
@@ -35,6 +35,7 @@ raster.compressor <- function(x, tmpdir=NA, dryrun = T){
     file.list$filesize.new.MiB[i] <- file.info(file.list$tmp.files[i])$size/(1048576)
     file.list$diff[i] <- file.list$filesize.old.MiB[i] - file.list$filesize.new.MiB[i]
     file.list$percent.new[i] <- file.list$filesize.new.MiB[i] / file.list$filesize.old.MiB[i] * 100
+    file.list$compressed[i] <- T
 
     if (!dryrun){
       file.remove(file.list$old.files)
@@ -47,15 +48,15 @@ raster.compressor <- function(x, tmpdir=NA, dryrun = T){
   }
 
   if (nfiles > 1){
-    all.diff <- sum(file.list$filesize.old.MiB) - sum(file.list$filesize.new.MiB)
-    all.percent <- sum(file.list$filesize.new.MiB) / sum(file.list$filesize.old.MiB) * 100
+    all.diff <- sum(file.list$filesize.old.MiB)[file.list$compressed] - sum(file.list$filesize.new.MiB)[file.list$compressed]
+    all.percent <- sum(file.list$filesize.new.MiB)[file.list$compressed] / sum(file.list$filesize.old.MiB)[file.list$compressed] * 100
     if (all.percent < 100)   cat(paste0("\n\n", pizzR::Systime(), ": New files are ",  round(all.diff, 2) , ' MiB (', round(100 - all.percent, 2), ' %) smaller.\n'))
     if (all.percent > 100)   cat(paste0("\n\n", pizzR::Systime(), ": New files are ",  abs(round(all.diff, 2)) , ' MiB (', abs(round(all.percent - 100, 2)), ' %) bigger.\n'))
     if (all.percent == 100)  cat(paste0("\n\n", pizzR::Systime(), ": No change in filesize\n"))
   }
-  
+
   if (dryrun){
-    file.remove(file.list$tmp.files)
+    file.remove(file.list$tmp.files[file.list$compressed])
     cat(crayon::red(paste0("\n", pizzR::Systime(), ": Dryrun! No files have been changed!\n")))
   }
   file.remove(tmpdir)
