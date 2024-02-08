@@ -35,5 +35,7 @@ L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,cr
   pizzR::tableToSpatialpoints(northing = roh$Longitude, easting = roh$Latitude,
                               filename = file.path(y, paste0(fname, '.shp')),
                               crs.origin = crs.origin, crs.project = crs.project)
+  
   cat(paste0('\n', pizzR::Systime(), ': Done ...\n'))
+  invisible(terra::vect(file.path(y, paste0(fname, '.shp'))))
 }
