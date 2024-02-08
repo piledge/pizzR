@@ -1,4 +1,4 @@
-L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,crs.project=NULL,wfeather=F,wcsv=F, ...){
+L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,crs.project=NULL,feather=F,csv=F, ...){
   if (is.null(x))                                 return(warning("Input file missing!"))
   if (!is.character(x))                           return(warning("'x' has to be of type character!"))
   if (is.null(y))                                 y <- file.path(dirname(x), 'Trajectory')
@@ -7,6 +7,8 @@ L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,cr
   if (!is.logical(reduce) & !is.numeric(reduce))  return(warning("'reduce' has to be of type character or logical!"))
   if (!is.numeric(crs.origin))                    return(warning("'crs.origin' has to be of type numeric!"))
   if (!is.numeric(crs.project))                   return(warning("'crs.project' has to be of type numeric!"))
+  if (!is.logical(feather))                       return(warning("'feather' has to be of type logical!"))
+  if (!is.logical(csv))                           return(warning("'csv' has to be of type logical!"))
 
   pizzR::package.install(c('feather', 'terra'), verbose = 1)
 
@@ -30,8 +32,8 @@ L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,cr
 
   pizzR::setcreate.wd(y)
   cat(paste0('\n', pizzR::Systime(), ": Write data to disk '", y, "'"))
-  if (wfeather) feather::write_feather(data, paste0(fname, '.feather'))
-  if (wcsv)     write.csv2(data, paste0(fname, '.csv'))
+  if (feather) feather::write_feather(data, paste0(fname, '.feather'))
+  if (csv)     write.csv2(data, paste0(fname, '.csv'))
 
   fparameters             <- list(...)
   fparameters$northing    <- data$Longitude * fact
