@@ -2,13 +2,13 @@
 \alias{setcreate.wd}
 \title{A useful combination of setwd() and dir.create().}
 \usage{
-setcreate.wd(x)
+setcreate.wd(path)
 }
 \arguments{
-\item{x}{path}
+\item{path}{Path.}
 }
 \description{
-Can be used instead of setwd(). Creates recursive path prior to change of working directory.
+Can be used instead of setwd(). Creates recursive directories prior to change of working directory.
 }
 \examples{
 library(pizzR)

@@ -20,7 +20,7 @@ change.terraOptions <- function (tempdir=NULL,progress=3,verbose=F,...)
 
   fparameters <- list(...)
   if (!is.null(tempdir)){
-    pizzR::setcreatewd(tempdir)
+    pizzR::setcreate.wd(tempdir)
     fparameters$tempdir <- tempdir
     Sys.setenv(TMP = tempdir, TEMP = tempdir)
   }

@@ -6,7 +6,7 @@ translate()
 }
 \arguments{
 \item{x}{dataframe's column.}
-\item{y}{dataframe including column named 'old' and 'new'.}
+\item{dictionary}{dataframe including column named 'old' and 'new'.}
 \item{verbose}{logical. console output.}
 }
 \description{
