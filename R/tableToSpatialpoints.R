@@ -1,6 +1,6 @@
 tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,attributes=NULL,filename=NULL,overwrite=T,plot=FALSE,filetype=NULL,layer=NULL,options="ENCODING=UTF-8",...){
 
-  pizzR::package.install(c("sp", "raster", "terra", "rvest", "xml2"), verbose = 1)
+  pizzR::package.install(c("sp", "raster", "terra"), verbose = 1)
 
   table_xy <- data.frame(longitude=suppressWarnings(as.numeric(northing)), latitude=suppressWarnings(as.numeric(easting)))
 
@@ -10,8 +10,7 @@ tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,at
 
   if (!is.null(attributes)) data <- cbind(table_xy, attributes) else data <- table_xy
 
-  crs.origin.link <- paste0("https://spatialreference.org/ref/epsg/", crs.origin, "/proj4.txt")
-  crs.origin.param <- rvest::html_text(xml2::read_html(crs.origin.link))
+  crs.origin.param <- pizzR::get.crsparams(crs.origin)
 
   xySPoints <- sp::SpatialPointsDataFrame(coords = c(data[,c("longitude", "latitude")]),
                                           proj4string = sp::CRS(crs.origin.param),
@@ -21,9 +20,7 @@ tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,at
   crs.export <- crs.origin
 
   if (!is.null(crs.project)){
-    crs.project.link <- paste0("https://spatialreference.org/ref/epsg/", crs.project, "/proj4.txt")
-    crs.project.param <- rvest::html_text(xml2::read_html(crs.project.link))
-
+    crs.project.param <- pizzR::get.crsparams(crs.project)
     shp <- terra::project(shp, crs.project.param)
     crs.export <- crs.project
   }
