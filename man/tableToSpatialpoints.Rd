@@ -23,7 +23,7 @@ Writes a vector file of a given table.
 library(pizzR)
 
 # create some data for the example
-data <- data.frame(northing=c(673333, 673383, 673363),
+data <- data.frame(northing=c(673336, 673343, 673353),
                    easting=c(5534512, 5534532, 5534513),
                    height=c(721, 722, 723),
                    attr1=c(1, 2, 3),

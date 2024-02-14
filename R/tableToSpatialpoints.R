@@ -1,8 +1,8 @@
-tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,attributes=NULL,filename=NULL,overwrite=T,plot=FALSE,filetype=NULL,layer=NULL,options="ENCODING=UTF-8",...){
+tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,attributes=NULL,filename=NULL,overwrite=T,plot=FALSE,filetype=NULL,layer=NULL,opath=NULL,options="ENCODING=UTF-8",...){
 
   pizzR::package.install(c("sp", "raster", "terra"), verbose = 1)
 
-  table_xy <- data.frame(longitude=suppressWarnings(as.numeric(northing)), latitude=suppressWarnings(as.numeric(easting)))
+  table_xy <- data.frame(latitude=suppressWarnings(as.numeric(northing)), longitude=suppressWarnings(as.numeric(easting)))
 
   if (any(is.na(table_xy$longitude)) && any(is.na(table_xy$latitude))) return(warning("Northing- and Easting contain non-numeric values"))
   if (any(is.na(table_xy$longitude)))                                  return(warning("Northing contains non-numeric values"))
@@ -37,6 +37,6 @@ tableToSpatialpoints <- function(northing,easting,crs.origin,crs.project=NULL,at
   fparameters$options     <- options
 
   do.call(terra::writeVector, fparameters)
-
+  if (is.null(opath)) pizzR::setcreate.wd(tempdir())
   cat(paste0("\n", pizzR::Systime(), ": '",filename, "' written to '", getwd(), "'\n"))
 }
