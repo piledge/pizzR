@@ -1,5 +1,7 @@
 semiparallel.extract <- function(SpatRaster=NULL, SpatVector=NULL, core=1, ncores=2, opath=NULL){
 
+  pizzR::package.install(c("feather", "raster", "terra"), verbose = 1)
+
   if (class(SpatRaster)[1] != "SpatRaster") return(warning("Not a suitable rasterfile!\n"))
   if (class(SpatVector)[1] != "SpatVector") return(warning("Not a suitable vectorfile!\n"))
 
