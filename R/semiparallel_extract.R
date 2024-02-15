@@ -18,7 +18,7 @@ semiparallel.extract <- function(SpatRaster=NULL, SpatVector=NULL, core=1, ncore
   extr$ID <- extr$ID + newid[core]
 
   filename <- paste0(sprintf(paste0('extract_%0', nchar(ncores), '.f'), core), '.feather')
-  if (is.null(opath)) pizzR::setcreate.wd(file.path(getwd(), 'parallel_extract')) else pizzR::setcreate.wd(opath)
+  if (is.null(opath)) pizzR::setcreate.wd(file.path(getwd(), 'semiparallel_extract')) else pizzR::setcreate.wd(opath)
 
   feather::write_feather(extr, filename)
   cat(paste0("\n", pizzR::Systime(), ": '",filename, "' written to '", getwd(), "'/n"))
