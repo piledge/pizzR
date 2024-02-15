@@ -4,7 +4,7 @@ semiparallel.extract <- function(SpatRaster=NULL, SpatVector=NULL, core=1, ncore
   if (class(SpatVector)[1] != "SpatVector") return(warning("Not a suitable vectorfile!\n"))
 
   chunks.id <- pizzR::split.vector(seq(shp), groups = ncores)
-  chunks <- list()
+  chunks <- vector('list', ncores)
   for (i in seq(ncores)) chunks[[i]] <- shp[chunks.id == i]
 
   extr <- terra::extract(rst, chunks[[core]])
