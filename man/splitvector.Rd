@@ -5,8 +5,8 @@
   split.vector()
 }
 \arguments{
-  \item{x}{numeric. Vector to split.}
-  \item{qu}{Number of parts to split.}
+  \item{vector}{numeric. Vector to split.}
+  \item{ngroups}{Number of parts to split.}
 }
 \description{
   Split a vector into parts to create subsets. Remaining size will be handled at the last part.
