@@ -1,12 +1,14 @@
-setcreate.wd <- function(path){
+setcreate.wd <- function(path, verbose=T){
+  if (!is.logical(verbose)) return(warning("'verbose' has to be of type logical!"))
+
   if (!dir.exists(path)){
-    base::dir.create(path, recursive = T)
-    base::cat(paste0("\n", pizzR::Systime(),": '", path, "' created and set as working directory"))
-    base::setwd(path)
+    dir.create(path, recursive = T)
+    if (verbose)  cat(paste0("\n", pizzR::Systime(),": '", path, "' created and set as working directory"))
+    setwd(path)
   } else{
-    if (base::getwd() != path){
-      base::cat(paste0("\n", pizzR::Systime(),": '", path, "' set as working directory"))
-      base::setwd(path)
+    if (getwd() != path){
+      if (verbose)  cat(paste0("\n", pizzR::Systime(),": '", path, "' set as working directory"))
+      setwd(path)
     }
   }
 }
