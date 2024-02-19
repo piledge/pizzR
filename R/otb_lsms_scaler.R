@@ -1,9 +1,11 @@
-LSMS.scaler <- function(rasterobject=NULL, maxval=255){
+OTB_lsms_scaler <- function(rasterobject=NULL, maxval=255, truncate=F){
 
   pizzR::package.install(c("raster", "terra"), verbose = 1)
 
   rsttype <- class(rasterobject)[1]
   if (rsttype != "SpatRaster") return(warning("Only Objects of class 'Spatraster' are allowed!\n"))
+  if (!is.logical(truncate))         return(warning("'truncate' has to be of class logical!\n"))
+  if (!is.numeric(maxval))         return(warning("'maxval' has to be of class integer!\n"))
 
   terra::setMinMax(rasterobject, force=T)
 
@@ -16,11 +18,12 @@ LSMS.scaler <- function(rasterobject=NULL, maxval=255){
 
     minval <- rst.minmax[1,i]
     maxval <- rst.minmax[2,i]
+    fact <- 1/((maxval - minval))*255
 
-    fact <- (maxval - minval) / maxval
+    rasterobject[[i]] <- (rasterobject[[i]]-minval)*fact
+    if (truncate)  rasterobject[[i]] <- trunc(rasterobject[[i]])
 
     cat(paste0("\n", pizzR::Systime(), ": Scale band ",sprintf(paste0("%0", n.bands.chars, ".f"), i), " of ", n.bands))
-    rasterobject[[i]] <- (rasterobject[[i]]-minval)/fact
   }
 
   terra::setMinMax(rasterobject, force=T)
