@@ -7,10 +7,11 @@ OTB_lsms_scaler <- function(rasterobject=NULL, maxval=255, truncate=F){
   if (!is.logical(truncate))         return(warning("'truncate' has to be of class logical!\n"))
   if (!is.numeric(maxval))         return(warning("'maxval' has to be of class integer!\n"))
 
-  terra::setMinMax(rasterobject, force=T)
-
   n.bands <- terra::nlyr(rasterobject)
   n.bands.chars <- nchar(n.bands)
+
+  cat(paste0("\n\n", pizzR::Systime(), ": Scale ", n.bands, " bands ...\n"))
+  terra::setMinMax(rasterobject, force=T)
 
   rst.minmax <- terra::minmax(rasterobject)
 
