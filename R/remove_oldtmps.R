@@ -1,4 +1,4 @@
-remove.oldtmps <- function(recursive = T, force = F){
+remove.oldtmps <- function(recursive = T, force = F, expand = T){
   tmp.dir.current <- tempdir()
   tmp.folder <- dirname(tmp.dir.current)
 
@@ -12,7 +12,7 @@ remove.oldtmps <- function(recursive = T, force = F){
     cat(paste0("\n", pizzR::Systime(), ": no old folders have been removed\n"))
 
   }else{
-    unlink(tmp.folders.old, recursive = recursive, force = force)
+    unlink(tmp.folders.old, recursive = recursive, force = force, expand = expand)
     cat(paste0("\n", pizzR::Systime(), ": ",n.folders.old, " old folders have been removed\n"))
   }
 }
