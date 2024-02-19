@@ -7,6 +7,7 @@
 \arguments{
   \item{rasterobject}{SpatRaster. Object of type SpatialRaster.}
   \item{maxval}{Integer. Default is 255 (Values will be scaled from 0 to 255).}
+  \item{truncate}{logical. Should values be truncated?}
 }
 \description{
   Scale SpatRaster-Object for LSMS-Segmentation
