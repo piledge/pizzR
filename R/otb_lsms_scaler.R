@@ -21,7 +21,7 @@ OTB_lsms_scaler <- function(rasterobject=NULL, maxval=255, truncate=F){
     fact <- 1/((maxval - minval))*255
 
     rasterobject[[i]] <- (rasterobject[[i]]-minval)*fact
-    if (truncate)  rasterobject[[i]] <- trunc(rasterobject[[i]])
+    if (truncate)  rasterobject[[i]] <- round(rasterobject[[i]], 0)
 
     cat(paste0("\n", pizzR::Systime(), ": Scale band ",sprintf(paste0("%0", n.bands.chars, ".f"), i), " of ", n.bands))
   }
