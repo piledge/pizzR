@@ -18,7 +18,7 @@ raster.compressor <- function(x, tmpdir=NULL, recursive=T, dryrun=T){
   names.tmpfiles <- paste(indices, basename(files), sep = '_')
 
   file.list <- data.frame(id=indices, old.files=files, tmp.files=file.path(tmpdir, names.tmpfiles), compressed=F,
-                          filesize.old.MiB=file.info(files)$size/(1048576), filesize.new.MiB=NA,
+                          filesize.old.MiB=file.size(files)/1048576, filesize.new.MiB=NA,
                           filesize.diff=NA, percent.new=NA)
 
   pizzR::setcreate.wd(tmpdir)
@@ -35,7 +35,7 @@ raster.compressor <- function(x, tmpdir=NULL, recursive=T, dryrun=T){
     cat(paste0("\n", pizzR::Systime(), ": File '",  file.list$old.files[i], "'"))
     cat(paste0("\n", pizzR::Systime(), ": Original filesize ",  round(file.list$filesize.old.MiB[i], 2), " MiB"))
     pizzR::writeslimRaster(rst, file.list$tmp.files[i], compression = T)
-    file.list$filesize.new.MiB[i] <- file.info(file.list$tmp.files[i])$size/(1048576)
+    file.list$filesize.new.MiB[i] <- file.size(file.list$tmp.files[i])/1048576
     file.list$filesize.diff[i] <- file.list$filesize.old.MiB[i] - file.list$filesize.new.MiB[i]
     file.list$percent.new[i] <- file.list$filesize.new.MiB[i] / file.list$filesize.old.MiB[i] * 100
     file.list$compressed[i] <- T
