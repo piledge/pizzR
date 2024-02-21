@@ -1,7 +1,6 @@
 \name{extension}
 
 \alias{extension}
-\alias{extension<-}
 
 \title{Filename extensions}
 
