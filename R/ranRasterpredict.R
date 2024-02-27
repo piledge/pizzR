@@ -1,4 +1,4 @@
-ranRasterpredict <- function(rasterobject, ranger, na.rm = F, visualize=F, ...){
+ranRasterpredict <- function(rasterobject, ranger, na.rm = F, plot=F, ...){
   pizzR::package.install(c("ranger", "raster", "terra"), verbose = 1)
 
   if (class(rasterobject)[1] != "SpatRaster") return(warning("Not a suitable rasterfile!\n"))
@@ -14,7 +14,7 @@ ranRasterpredict <- function(rasterobject, ranger, na.rm = F, visualize=F, ...){
 
   pred <- do.call(terra::predict, dots)
 
-  if (visualize) terra::plot(pred)
+  if (plot) terra::plot(pred)
 
   return(pred)
 }
