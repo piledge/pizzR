@@ -14,6 +14,9 @@ ranRasterpredict <- function(rasterobject, ranger, na.rm = F, plot=F, ...){
 
   pred <- do.call(terra::predict, dots)
 
+  mtx   <- matrix(c(NaN, NA), ncol=2, byrow=T)
+  pred  <- terra::classify(pred, mtx)
+
   if (plot) terra::plot(pred)
 
   return(pred)
