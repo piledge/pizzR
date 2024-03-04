@@ -5,8 +5,6 @@ L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,cr
   if (!is.character(y))                           return(warning("'y' has to be of type character!"))
   if (!pizzR::extension(x) %in% c('.txt'))        return(warning("Input has to be a DJI L1 output trajectory '.txt'-file "))
   if (!is.logical(reduce) & !is.numeric(reduce))  return(warning("'reduce' has to be of type character or logical!"))
-  if (!is.numeric(crs.origin))                    return(warning("'crs.origin' has to be of type numeric!"))
-  if (!is.numeric(crs.project))                   return(warning("'crs.project' has to be of type numeric!"))
   if (!is.logical(feather))                       return(warning("'feather' has to be of type logical!"))
   if (!is.logical(csv))                           return(warning("'csv' has to be of type logical!"))
 
@@ -27,7 +25,7 @@ L1_trajectory_to_shapefile <- function(x=NULL,y=NULL,reduce=T,crs.origin=4326,cr
   if (is.numeric(reduce)) data <- data[sample(data.points, reduce),]
 
   fact <- 180 / pi
-  
+
   fname <- file.path(y, sub('Zenmuse-L1-mission_sbet.txt', 'trajectory', basename(x)))
 
   pizzR::setcreate.wd(y)
