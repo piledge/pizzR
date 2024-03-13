@@ -8,8 +8,3 @@ rgdal.install <- function(url=NULL, quiet = T){
   if (successful)   warning('Depreciated rgdal-package successfully installed! Use alternatives sf and terra instead!')
   if (!successful)  warning('Error during installation occured')
 }
-
-rgdal.install()
-
-
-
