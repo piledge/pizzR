@@ -12,10 +12,11 @@ writeslimRaster <- function(rasterobject, filename, compression=T, overwrite=T, 
   fparameters             <- list(...)
   fparameters$filename    <- filename
   fparameters$overwrite   <- overwrite
+  fparameters$datatype    <- datatype
+  fparameters$filetype    <- filetype
 
   if (rsttype == "SpatRaster"){
 
-    fparameters$filetype                                                        <- filetype
     if (compression == TRUE && datatype == "ESTIMATE"){
       cat(paste0("\n", pizzR::Systime(), ": Estimate datatype ..."))
       fparameters$datatype                                                      <- pizzR::opt.datatype(rasterobject)
@@ -32,7 +33,6 @@ writeslimRaster <- function(rasterobject, filename, compression=T, overwrite=T, 
 
   if (rsttype == "RasterLayer" || rsttype == "RasterBrick" || rsttype == "RasterStack"){
 
-    fparameters$format                                                          <- filetype
     if (compression == TRUE && datatype == "ESTIMATE"){
       cat(paste0("\n", pizzR::Systime(), ": Estimate datatype ..."))
       fparameters$datatype                                                      <- pizzR::opt.datatype(x, samplesize)
