@@ -5,7 +5,7 @@ remove.oldtmps <- function(recursive = T, force = F, expand = T){
   tmp.folders <- dir(tmp.folder, pattern = 'Rtmp', full.names = T)
   tmp.folders.old <- tmp.folders[-grep(basename(tmp.dir.current), tmp.folders)]
   tmp.files <- list.files(tmp.folders.old, recursive = T, full.names = T)
-  filesum.mib <- sum(file.size(tmp.files))/1048576
+  filesum.mib <- round(sum(file.size(tmp.files))/1048576, 2)
 
   n.folders.old <- length(tmp.folders.old)
 
