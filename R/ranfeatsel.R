@@ -4,6 +4,9 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
 {
   pizzR::package.install(c("crayon", "parallel", "ranger", "vip"), verbose = 1)
 
+  classes_col <- which(colnames(data) == classes)
+  if (length(classes_col) != 1) return(warning("Invalid argument 'classes'. Please check if column is available once in data"))
+
   if (is.null(seed)){
     seed <- sample(seq(1000000000), 1, replace=TRUE)
     cat(crayon::red(paste0("\n ", pizzR::Systime(), ': Using random seed of ', seed, ". Specify 'seed' if required static.", "\n")))
@@ -20,9 +23,10 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
   if ((nthreads > parallel::detectCores() - 1)) {
     nthreads <- parallel::detectCores() - 1
   }
+
   dots <- list(...)
-  dots$x <- data[, -grep(classes, colnames(data))]
-  dots$y <- as.factor(data[, grep(classes, colnames(data))])
+  dots$x <- data[, -classes_col]
+  dots$y <- as.factor(data[, classes_col])
   dots$num.trees <- ntree
   dots$num.threads <- nthreads
   dots$importance <- "permutation"
