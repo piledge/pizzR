@@ -17,6 +17,6 @@ LAStoLAZ <- function(x,y=NULL,verbose=T){
     if (verbose)              cat('compressing: ', i, '/', nfiles,  '   \r')
 
     las                       <- lidR::readLAS(lasfiles[i])
-    lidR::writeLAS(las, basename(sub('las', 'laz', basename(lasfiles[i])))
+    lidR::writeLAS(las, basename(sub('las', 'laz', basename(lasfiles[i]))))
   }
 }
