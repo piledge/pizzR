@@ -6,7 +6,7 @@ LAStoLAZ <- function(x,y=NULL,verbose=T){
 
   if(!is.logical(verbose))    return(warning('Verbose has to be logical!'))
   if(!dir.exists(x))          return(warning('Input-folder does not exist!'))
-  if(!dir.exists(y))          dir.create(y, recursive = T)
+  if(!dir.exists(y))          pizzR::setcreate.wd(y)
 
   lasfiles                    <- list.files(x, pattern = '.las$', full.names = T)
   nfiles                      <- length(lasfiles)
