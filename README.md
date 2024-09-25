@@ -18,7 +18,7 @@ This package is constantly being expanded and improved. Any ideas for new functi
 
 ```
 # install.packages("devtools")
-devtools::install_github("pi-ledge/pizzR")
+devtools::install_github("piledge/pizzR")
 ```
 
 
