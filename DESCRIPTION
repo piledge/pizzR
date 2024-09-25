@@ -2,8 +2,8 @@ Package: pizzR
 Type: Package
 Title: Small but useful collection of R-Functions
 Version: 0.2.10
-Author: pi-ledge
-Maintainer: pi-ledge <thechiefhimself@gmx.at>
+Author: piledge
+Maintainer: piledge <thechiefhimself@gmx.at>
 Description: pizzR is a small collection of R-Functions created
     by a Pizza-enthusiast. Although there is no specific topic,
     most of the functions have a background in forestry, raster
