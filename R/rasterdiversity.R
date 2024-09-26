@@ -40,9 +40,9 @@ rasterdiversity <- function(x, index='shannon', win_xy=3, method=NULL, ...){
 
     fun <- function(x) sum(as.matrix(dist(na.omit(x), method=method))/div)
 
-    for (i in seq(terra::nlyr(x))) x[[i]] <- trunc((x[[i]] / terra::minmax(x)[2,i]) * 255)
     terra::setMinMax(x)
-
+    for (i in seq(terra::nlyr(x))) x[[i]] <- trunc((x[[i]] / terra::minmax(x)[2,i]) * 255)
+    
     if (n_layer %% 2 == 0){
       x.na <- terra::rast(ext=terra::ext(x), res = terra::res(x), crs=terra::crs(x))
       names(x.na) <- 'na_band'
@@ -80,6 +80,7 @@ rasterdiversity <- function(x, index='shannon', win_xy=3, method=NULL, ...){
 
   if (n_layer > 1)   result <- do.call(terra::focal3D, fparameters) else result <- do.call(terra::focal, fparameters)
   names(result) <- index
-
+  
+  terra::setMinMax(result)
   return(result)
 }
