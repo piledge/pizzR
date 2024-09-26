@@ -1,6 +1,6 @@
 # pizzR
 
-> *Copyright 2024 [Michael Lechner]. Licensed under the MIT license.*
+> *Copyright 2024 [piledge]. Licensed under the MIT license.*
 
 `pizzR` is a small collection of R-Functions created by a Pizza-enthusiast. Although there is no specific topic, most of the functions have a background in forestry, raster data as well as tree species classification.
 
@@ -18,7 +18,7 @@ This package is constantly being expanded and improved. Any ideas for new functi
 
 ```
 # install.packages("devtools")
-devtools::install_github("pi-ledge/pizzR")
+devtools::install_github("piledge/pizzR")
 ```
 
 
