@@ -38,7 +38,7 @@
   par(mfrow = c(2, 2))
   terra::plot(shannon, main = "Shannon H'")
   terra::plot(raosq.mono, main = "RaosQ mono")
-  terra::plot(raosq.selected, main = "RaosQ selected")
+  terra::plot(raosq.selected, main = "RaosQ multi selected")
   terra::plot(raosq.multi, main = "RaosQ multi")
 
 }
