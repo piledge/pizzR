@@ -41,6 +41,7 @@ rasterdiversity <- function(x, index='shannon', win_xy=3, method=NULL, ...){
     fun <- function(x) sum(as.matrix(dist(na.omit(x), method=method))/div)
 
     for (i in seq(terra::nlyr(x))) x[[i]] <- trunc((x[[i]] / terra::minmax(x)[2,i]) * 255)
+    terra::setMinMax(x)
 
     if (n_layer %% 2 == 0){
       x.na <- terra::rast(ext=terra::ext(x), res = terra::res(x), crs=terra::crs(x))
