@@ -22,10 +22,10 @@
   r <- rast(i.path)
   plot(r[[1:4]])
 
-  ### calculate shannon-index (only monospektral)
+  ### calculate shannon-index (only monospectral)
   shannon <- rasterdiversity(r[[1]], index = 'shannon', win_xy = 3)
 
-  ### calculate raosq-index (multispectral)
+  ### calculate raosq-index (monospectral)
   raosq.mono <- rasterdiversity(r[[1]], index = 'raosq', win_xy = 3)
 
   ### calculate raosq-index (multispectral)
