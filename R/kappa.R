@@ -1,10 +1,11 @@
-cohens.kappa <- function(pred,ref) {
+cohens.kappa <- function(pred, ref) {
 
-  if (!length(pred) == length(ref)) return(warning("Length of prediction and reference is not equal!"))
+  stopifnot(length(pred) == length(ref), msg = "Length of prediction and reference is not equal!")
 
   accmat <- table("pred" = pred, "ref" = ref)
   N <- sum(accmat)
   No <- sum(diag(accmat))
-  Ne <- 1 / N * sum(colSums(accmat) * rowSums(accmat))
-  return( (No - Ne) / (N - Ne) )
+  Ne <- sum(colSums(accmat) * rowSums(accmat)) / N
+
+  return((No - Ne) / (N - Ne))
 }
