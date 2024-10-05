@@ -1,22 +1,26 @@
-LAStoLAZ <- function(x,y=NULL,verbose=T){
-
+LAStoLAZ <- function(x, y = NULL, verbose = TRUE) {
   pizzR::package.install('lidR', verbose = 1)
 
-  if(is.null(y))              y <- paste0(dirname(x), 'output_LAStoLAZ')
+  if (is.null(y)) y <- file.path(dirname(x), 'output_LAStoLAZ')
+  if (!dir.exists(y)) pizzR::setcreate.wd(y)
 
-  if(!is.logical(verbose))    return(warning('Verbose has to be logical!'))
-  if(!dir.exists(x))          return(warning('Input-folder does not exist!'))
-  if(!dir.exists(y))          pizzR::setcreate.wd(y)
+  stopifnot(is.logical(verbose))
+  stopifnot(dir.exists(x), msg = 'Input-folder does not exist!')
+  
+  lasfiles <- list.files(x, pattern = '\\.las$', full.names = TRUE)
+  nfiles <- length(lasfiles)
 
-  lasfiles                    <- list.files(x, pattern = '.las$', full.names = T)
-  nfiles                      <- length(lasfiles)
-  if (nfiles == 0)            return(warning('Input-folder empty!'))
-  if (verbose)                cat(paste0('\nWriting LAZ-files to "', y, '"\n\n'))
+  stopifnot(nfiles > 0, msg = 'Input-folder empty!')
 
-  for (i in seq(lasfiles)){
-    if (verbose)              cat('compressing: ', i, '/', nfiles,  '   \r')
+  if (verbose) cat(paste0('\nWriting LAZ-files to "', y, '"\n\n'))
 
-    las                       <- lidR::readLAS(lasfiles[i])
-    lidR::writeLAS(las, basename(sub('las', 'laz', basename(lasfiles[i]))))
+  for (i in seq_along(lasfiles)) {
+    if (verbose) cat('Compressing: ', i, '/', nfiles, '   \r')
+
+    las <- lidR::readLAS(lasfiles[i])
+    output_file <- file.path(y, sub('\\.las$', '.laz', basename(lasfiles[i])))
+    lidR::writeLAS(las, output_file)
   }
+  
+  if (verbose) cat('\nCompression complete!\n')
 }
