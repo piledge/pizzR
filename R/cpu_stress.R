@@ -1,30 +1,31 @@
-stress_cpu <- function(n_cores=NULL,dur_s=NULL){
-
-  pizzR::package.install(c("foreach", "parallel"), verbose = 1)
-
+stress_cpu <- function(n_cores = NULL, dur_s = NULL) {
+  pizzR::package.install(c("foreach", "parallel", "doParallel"), verbose = 1)
+  
   library(foreach)
-  if (is.null(n_cores)) n_cores <- (parallel::detectCores() - 1)
-  if (!is.numeric(n_cores)) return(warning('n_cores has to be integer!'))
-
-  if (!is.null(dur_s)){
-    if (!is.numeric(dur_s)) return(warning('dur_s has to be integer!'))
+  
+  if (is.null(n_cores)) n_cores <- parallel::detectCores() - 1
+  stopifnot(is.numeric(n_cores), n_cores > 0)
+  
+  if (!is.null(dur_s)) {
+    stopifnot(is.numeric(dur_s), dur_s > 0)
     dur_s <- as.integer(dur_s)
   }
-
+  
   clust <- parallel::makeCluster(n_cores)
   doParallel::registerDoParallel(clust)
-
-  if (is.null(dur_s)){
-    foreach(i=1:n_cores) %dopar% {
-      while(T) 0.7/0.3
+  
+  if (is.null(dur_s)) {
+    foreach(i = 1:n_cores) %dopar% {
+      while(TRUE) 0.7 / 0.3
     }
   }
 
-  if (!is.null(dur_s)){
-    st <- Sys.time() + dur_s
-    foreach(i=1:n_cores) %dopar% {
-      while(Sys.time() < st) 0.7/0.3
+  if (!is.null(dur_s)) {
+    end_time <- Sys.time() + dur_s
+    foreach(i = 1:n_cores) %dopar% {
+      while(Sys.time() < end_time) 0.7 / 0.3
     }
   }
+
   parallel::stopCluster(clust)
 }
