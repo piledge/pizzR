@@ -3,8 +3,7 @@ rst.pca <- function(x,scale=T){
   pizzR::package.install(c("raster", "terra"), verbose = 1)
   suppressMessages(pizzR::change.terraOptions())
 
-  rsttype <- class(x)[1]
-  if (!inherits(rsttype, "SpatRaster")) return(warning("Only Objects of class 'SpatRaster' are allowed!\n"))
+  stopifnot(inherits(x, "SpatRaster"))
 
   band.nr <- terra::nlyr(rst)
 

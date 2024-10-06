@@ -16,8 +16,8 @@ NOTE: raster-package was not fully tested!
 library(pizzR)
 change.terraOptions()
 
-r1 <- rast(nrows=5, ncols=5, vals=sample(25, 25))
-r2 <- rast(nrows=5, ncols=5, vals=sqrt(sample(25, 25)))
+r1 <- rast(nrows=5, ncols=5, vals=sample(255, 10000))
+r2 <- rast(nrows=5, ncols=5, vals=sqrt(sample(255, 10000)))
 
 # returns optimal datatype
 opt.datatype(r1)

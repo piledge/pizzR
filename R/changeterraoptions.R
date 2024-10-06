@@ -1,31 +1,23 @@
-change.terraOptions <- function (tempdir=NULL,progress=3,verbose=F,...)
+change.terraOptions <- function (tempdir=NULL, progress=3, verbose=FALSE,...)
 {
-  if (!is.logical(verbose))         return(warning("'verbose' has to be of class logical!\n"))
-  if (!is.numeric(progress))        return(warning("'progress' has to be of class integer!\n"))
-  if (is.null(tempdir)){
-    if (Sys.info()[1] == 'Windows') tempdir <- 'C:/temp/Rtmp'
-    if (Sys.info()[1] == 'Linux')   tempdir <- '/tmp/Rtmp'
-  }
+  stopifnot(is.logical(verbose),
+            is.numeric(progress))
+  if (is.null(tempdir)) tempdir <- if (Sys.info()[1] == 'Windows') 'C:/temp/Rtmp' else '/tmp/Rtmp'
 
   pizzR::package.install(c("memuse", "raster", "terra"), verbose = 1)
   require(terra)
 
-  memmax <- memuse::Sys.meminfo()$totalram@size
-  if (((memmax - 3)/memmax) > 0.9) {
-    memfrac <- 0.9
-  }
-  else {
-    memfrac <- ((memmax - 3)/memmax)
-  }
+  memmax                        <- memuse::Sys.meminfo()$totalram@size
+  memfrac                       <- min(0.9, (memmax - 3) / memmax)
 
-  fparameters <- list(...)
+  fparameters                   <- list(...)
   if (!is.null(tempdir)){
     pizzR::setcreate.wd(tempdir)
     fparameters$tempdir <- tempdir
     Sys.setenv(TMP = tempdir, TEMP = tempdir)
   }
-  fparameters$memfrac  <- memfrac
-  fparameters$progress <- progress
+  fparameters$memfrac           <- memfrac
+  fparameters$progress          <- progress
 
   do.call(terra::terraOptions, fparameters)
   if (verbose) terra::terraOptions()

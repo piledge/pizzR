@@ -1,32 +1,25 @@
-change.rasterOptions <- function(changetmpdir=F, tmpdir="", OSRAM.remaining=3, progress='', verbose=F, ...){
+change.rasterOptions <- function(tmpdir=NULL, OSRAM_remaining=3, progress='', verbose=FALSE, ...)
+{
+  stopifnot(is.logical(verbose),
+            is.numeric(OSRAM_remaining))
+  if (is.null(tempdir)) tempdir <- if (Sys.info()[1] == 'Windows') 'C:/temp/Rtmp' else '/tmp/Rtmp'
 
-  pizzR::package.install(c("memuse", "raster", "Rcpp", "terra"), verbose = 1)
-  
-  if (!is.logical(changetmpdir)) return(warning("'changetmpdir' has to be of class logical!\n"))
-  if (!is.logical(verbose)) return(warning("'verbose' has to be of class logical!\n"))
-  if (!is.numeric(OSRAM.remaining)) return(warning("'OSRAM.remaining' has to be of class numeric!\n"))
-
+  pizzR::package.install(c("memuse", "raster", "terra"), verbose = 1)
   require(raster)
 
-  if (changetmpdir && dir.exists(tmpdir) == F) {
-    base::dir.create(tmpdir, recursive = T)
-    base::cat(paste("\n", pizzR::Systime(), tmpdir, "created"))
-  }
+  maxmemory                     <- memuse::Sys.meminfo()$totalram@size
+  memfrac                       <- min(0.9, (maxmemory - OSRAM_remaining) / maxmemory)
 
-  maxmemory <- memuse::Sys.meminfo()$totalram@size
-  if (((maxmemory-OSRAM.remaining) / maxmemory) > 0.9){
-    memfrac <-  0.9
-  }else{
-    memfrac <- ((maxmemory - OSRAM.remaining) / maxmemory)
+  fparameters                   <- list(...)
+  if (!is.null(tmpdir)){
+    pizzR::setcreate.wd(tmpdir)
+    fparameters$tmpdir <- tmpdir
+    Sys.setenv(TMP = tmpdir, TEMP = tmpdir)
   }
-
-  fparameters                  <- list(...)
-  if (changetmpdir) fparameters$tmpdir           <- tmpdir
-  fparameters$memfrac          <- memfrac
-  fparameters$maxmemory        <- maxmemory * 1024^3
-  fparameters$progress         <- progress
+  fparameters$memfrac           <- memfrac
+  fparameters$maxmemory         <- maxmemory * 1024^3
+  fparameters$progress          <- progress
 
   do.call(raster::rasterOptions, fparameters)
   if (verbose) raster::rasterOptions()
-  if (changetmpdir) Sys.setenv(TMP = tmpdir, TEMP = tmpdir)
 }

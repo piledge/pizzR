@@ -9,6 +9,6 @@ format_file_size <- function(size_in_bytes) {
     size <- size_in_bytes / (2^10)
     return(sprintf("%.2f KiB", size))
   } else {
-    return(paste(size_in_bytes, "Bytes"))
+    return(sprintf("%d Bytes", size_in_bytes))
   }
 }

@@ -2,55 +2,42 @@ opt.datatype <- function (x)
 {
   pizzR::package.install(c("memuse", "raster", "terra"), verbose = 1)
   rsttype <- class(x)[1]
-  if (rsttype != "SpatRaster" && rsttype != "RasterLayer" &&
-      rsttype != "RasterBrick" && rsttype != "RasterStack")
-    return(warning("Not a suitable rasterfile!\n"))
+  stopifnot(rsttype %in% c("SpatRaster", "RasterLayer", "RasterBrick", "RasterStack"))
+
   if (rsttype == "SpatRaster") {
     terra::setMinMax(x, force = T)
     minmaxvals <- terra::minmax(x)
-    vals.sample <- terra::spatSample(x, size=100, na.rm=T)
-  }
-  if (rsttype == "RasterLayer" || rsttype == "RasterBrick" || rsttype == "RasterStack"){
+    vals_sample <- as.matrix(terra::spatSample(x, size=100, na.rm=T))
+  }else{
     minmaxvals <- raster::minValue(x)
-    vals.sample <- raster::sampleRandom(x, size=100, na.rm=T)
+    vals_sample <- as.matrix(raster::sampleRandom(x, size=100, na.rm=T))
   }
-  rst_min <- min(minmaxvals)
-  rst_max <- max(minmaxvals)
-  rst_significant_value <- max(abs(c(rst_min, rst_max)))
+
+  if (any(is.logical(vals_sample))) return("LOG1S")
+
+  rst_min <- min(minmaxvals, na.rm = TRUE)
+  rst_max <- max(minmaxvals, na.rm = TRUE)
+  rst_significant_value <- max(abs(c(rst_min, rst_max)), na.rm = TRUE)
   rst_signed <- rst_min < 0
-  rst_float <- TRUE
-  if (all((floor(vals.sample)/vals.sample) == 1, na.rm = T))
-    rst_float <- FALSE
-  if (all(is.logical(minmaxvals)))
-    return("LOG1S")
-  if (rst_float == T) {
-    if (rst_significant_value < 3.4e+38) {
-      return("FLT4S")
+  rst_float <- !all((floor(vals_sample) / vals_sample) == 1, na.rm = TRUE)
+
+  if (rst_float) return(ifelse(rst_significant_value < 3.4e+38, "FLT4S", "FLT8S"))
+
+  if (rst_signed) {
+    if (rst_significant_value <= 127) {
+      return("INT2S")
+    } else if (rst_significant_value <= 32767) {
+      return("INT2S")
+    } else if (rst_significant_value <= 2147483647) {
+      return("INT4S")
     }
-    else return("FLT8S")
-  }
-  if (rst_float == FALSE) {
-    if (rst_signed == TRUE) {
-      if (rst_significant_value <= 127) {
-        return("INT2S")
-      }
-      if (rst_significant_value <= 32767) {
-        return("INT2S")
-      }
-      if (rst_significant_value <= 2147483647) {
-        return("INT4S")
-      }
-    }
-    if (rst_signed == FALSE) {
-      if (rst_significant_value <= 254) {
-        return("INT2U")
-      }
-      if (rst_significant_value <= 65534) {
-        return("INT2U")
-      }
-      if (rst_significant_value <= 4294967294) {
-        return("INT4U")
-      }
+  } else {
+    if (rst_significant_value <= 254) {
+      return("INT2U")
+    } else if (rst_significant_value <= 65534) {
+      return("INT2U")
+    } else if (rst_significant_value <= 4294967294) {
+      return("INT4U")
     }
   }
 }
