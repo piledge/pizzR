@@ -1,7 +1,7 @@
 Package: pizzR
 Type: Package
 Title: Small but useful collection of R-Functions
-Version: 0.2.11
+Version: 0.3.0
 Author: piledge
 Maintainer: piledge <thechiefhimself@gmx.at>
 Description: pizzR is a small collection of R-Functions created
