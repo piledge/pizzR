@@ -15,6 +15,6 @@ remove.oldtmps <- function(recursive=T, force=F, expand=T){
     unlink(tmp.folders.old, recursive = recursive, force = force, expand = expand)
 
     cat(sprintf("\n%s: %d old folders have been removed!", pizzR::Systime(), n.folders.old))
-    cat(sprintf("%s: %s of storage have been freed!\n", pizzR::Systime(), filesum))
+    cat(sprintf("\n%s: %s of storage have been freed!\n", pizzR::Systime(), filesum))
       }
 }
