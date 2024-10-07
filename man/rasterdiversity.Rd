@@ -12,7 +12,8 @@
 }
 \description{
   Calculate common biodiversity indices of a Rasterfile. For Raos Q also multispectral rasterfiles can be used.
-}
+  To efficiently process a large raster file, use pizzR::rastertiler() to split the raster into smaller tiles and process them in parallel. If you encounter memory limitations, opting for smaller chunks can help maximize CPU usage
+  }
 \examples{
   library(pizzR)
   library(terra)
