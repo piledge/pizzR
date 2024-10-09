@@ -19,7 +19,7 @@ opt.datatype <- function (x)
   rst_max <- max(minmaxvals, na.rm = TRUE)
   rst_significant_value <- max(abs(c(rst_min, rst_max)), na.rm = TRUE)
   rst_signed <- rst_min < 0
-  rst_float <- !all((floor(vals_sample) / vals_sample) == 1, na.rm = TRUE)
+  rst_float <- !all((floor(vals_sample) == vals_sample), na.rm = TRUE)
 
   if (rst_float) return(ifelse(rst_significant_value < 3.4e+38, "FLT4S", "FLT8S"))
 
