@@ -17,7 +17,7 @@ library(pizzR)
 change.terraOptions()
 
 r1 <- rast(nrows=100, ncols=100, vals=sample(255, 10000, replace = T))
-r2 <- rast(nrows=100, ncols=100, vals=sqrt(sample(255, 10000, replace = T)))
+r2 <- sqrt(r1)
 
 # returns optimal datatype
 opt.datatype(r1)
