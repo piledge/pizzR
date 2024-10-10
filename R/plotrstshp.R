@@ -1,8 +1,8 @@
 plot.rstshp <- function(x, y){
+  rsttype <- class(x)[1]
+  stopifnot(inherits(rsttype, c("SpatRaster", "SpatVector", "RasterLayer", "RasterBrick", "RasterStack")))
   
   pizzR::package.install(c("raster", "terra"), verbose = 1)
-  
-  rsttype <- class(x)[1]
   
   if(rsttype == "SpatRaster" || rsttype == "SpatVector"){
     terra::plot(x)
@@ -12,5 +12,4 @@ plot.rstshp <- function(x, y){
     raster::plot(x)
     raster::plot(y, add = TRUE)
   }
-  if(rsttype != "SpatRaster" && rsttype != "SpatVector" && rsttype != "RasterLayer" && rsttype != "RasterBrick" && rsttype != "RasterStack") return(warning("Not a suitable rasterfile!\n"))
 }
