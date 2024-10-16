@@ -14,9 +14,9 @@ writeslimRaster <- function(rasterobject, filename, compression=T, overwrite=T, 
   fparameters             <- list(...)
   fparameters$filename    <- filename
   fparameters$overwrite   <- overwrite
-  fparameters$datatype    <- datatype
   fparameters$filetype    <- filetype
-
+  if (datatype != "ESTIMATE") fparameters$datatype <- datatype
+  
   if (rsttype == "SpatRaster"){
 
     if (compression && datatype == "ESTIMATE"){
