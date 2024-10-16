@@ -20,14 +20,14 @@ By default, compression-level is set to maximum loss-free compression.
 library(pizzR)
 change.terraOptions()
 
-rasterobject <- rast(nrows=5, ncols=5, vals=1:25)
+r <- rast(nrows=10, ncols=10, vals=sample(100))
 
 # create a temporary filename for the example
 filename <- file.path(tempdir(), "example.tif")
 
 # export a compressed raster
-writeslimRaster(rasterobject, filename)
+writeslimRaster(r, filename)
 
 # export a uncompressed raster
-writeslimRaster(rasterobject, filename, compression=FALSE)
+writeslimRaster(r, filename, compression=FALSE)
 }
