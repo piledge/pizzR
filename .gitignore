@@ -2,6 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-test.R
 *.zip
 *.rar
+test_[0-9].R
