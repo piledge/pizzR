@@ -9,7 +9,7 @@ rfFeatsel <- function(x,y,fs_seq=NULL,keep.models=FALSE,savename='rfFeatsel',sav
   
   dots            <- list(...)
   dots$x          <- x
-  dots$y          <- as.factor(y) 
+  dots$y          <- y
   dots$importance <- TRUE
   dots$keep.inbag <- TRUE
   dots$na.action  <- na.omit
