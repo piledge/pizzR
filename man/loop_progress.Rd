@@ -7,8 +7,8 @@ Sneaky formatted console output of the current loop progress.
 loop_progress(i, total_digits=3)
 }
 \arguments{
-  \numeric{i}{A numeric to foward the current loop index to the function.}
-  \numeric{total_digits}{A numeric value specifying the number of characters for the counter.}
+  \item{i}{A numeric to foward the current loop index to the function.}
+  \item{total_digits}{A numeric value specifying the number of characters for the counter.}
 }
 \description{
 Sneaky formatted console output of the current loop progress. Can be used to viszualize the progress of the loop.

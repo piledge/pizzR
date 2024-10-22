@@ -7,10 +7,10 @@ Group Numeric Values into Classes Based on a Specified Range.
 classmaker(x, class_range = 50, include.lowest = TRUE, right = FALSE)
 }
 \arguments{
-  \numeric{x}{A numeric vector of values to be classified.}
-  \numeric{class_range}{A numeric value specifying the size of each class interval. The default value is 50.}
-  \boolean{include.lowest}{A logical value indicating whether the lowest (first) interval should be closed on the left (and open on the right) or not. The default is \code{TRUE}.}
-  \boolean{right}{A logical value indicating whether intervals should be closed on the right (and open on the left) or not. The default is \code{FALSE}.}
+  \item{x}{A numeric vector of values to be classified.}
+  \item{class_range}{A numeric value specifying the size of each class interval. The default value is 50.}
+  \item{include.lowest}{A logical value indicating whether the lowest (first) interval should be closed on the left (and open on the right) or not. The default is \code{TRUE}.}
+  \item{right}{A logical value indicating whether intervals should be closed on the right (and open on the left) or not. The default is \code{FALSE}.}
 }
 \description{
 This function categorizes numeric values into integer classes based on a specified class range.
