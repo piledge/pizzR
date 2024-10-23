@@ -4,8 +4,8 @@ LAStoLAZ <- function(x, y = NULL, verbose = TRUE){
 
   if (is.null(y)) y <- file.path(dirname(x), 'output_LAStoLAZ')
   if (!dir.exists(y)) pizzR::setcreate.wd(y)
-  stopifnot(is.logical(verbose))
-  stopifnot(dir.exists(x), msg = 'Input-folder does not exist!')
+  stopifnot(is.logical(verbose), dir.exists(x))
+  
   lasfiles <- list.files(x, pattern = '\\.las$', full.names = TRUE)
   nfiles <- length(lasfiles)
   stopifnot(nfiles > 0, msg = 'Input-folder empty!')
