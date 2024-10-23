@@ -70,3 +70,44 @@ uc_OTB_haralick <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
     if (!file.exists(filename)) pizzR::OTB_run(cmd1, ...)
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+files <- list.files('~/R/Github-Repos/WAMO/', pattern = 'metrics', full.names = T)
+
+data <- as.data.frame(feather::read_feather(files))
+data <- data[1:50, 1:50]
+
+classes <- names(data)[10]
+#test <- pizzR::ranFeatsel(data, names(data)[length(data)])
+#ranger::ranger(x=x, y=y)
+
+classes_col <- which(colnames(data) == classes)
+
+type = 'r'
+dots <- list()
+dots$x <- data[, -classes_col]
+if (type == 'c') dots$y <- as.factor(data[, classes_col]) else dots$y <- data[, classes_col]
+
+
+ranger_submod <- do.call(ranger::ranger, dots)
+ranger_submod
+
+
+
+rf_submod <- do.call(randomForest::randomForest, dots)
+rf_submod
+
