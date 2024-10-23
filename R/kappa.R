@@ -1,6 +1,6 @@
 cohens.kappa <- function(pred, ref) {
 
-  stopifnot(length(pred) == length(ref), msg = "Length of prediction and reference is not equal!")
+  stopifnot(length(pred) == length(ref))
 
   accmat <- table("pred" = pred, "ref" = ref)
   N <- sum(accmat)
