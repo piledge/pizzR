@@ -1,4 +1,4 @@
-function (x)
+opt.datatype <- function(x)
 {
   pizzR::package.install(c("memuse", "raster", "terra"), verbose = 1)
   rsttype <- class(x)[1]
