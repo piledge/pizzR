@@ -19,7 +19,7 @@ opt.datatype <- function (x)
     return("LOG1S")
 
   if (inherits(vals_sample, c('matrix', 'array'))){
-    n_classes <- length(unique(test))
+    n_classes <- length(unique(vals_sample))
     if (n_classes < 65534){
       return("INT2U") 
     }
