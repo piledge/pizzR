@@ -2,11 +2,12 @@
 \alias{calc_metrics}
 \title{Fast and easy metric-calculation of sample plots.}
 \usage{
-function (data, id = "ID")
+function (data, id = "ID", verbose = TRUE)
 }
 \arguments{
 \item{data}{data.frame. Tidy data.frame() including the data.}
 \item{id}{character. Plot-ID of the data.}
+\item{verbose}{logical. Console output.}
 }
 \description{
 Fast and easy metric-calculation of sample plots. Can be used to process metrics of raster-extracts done with the terra-Package.
