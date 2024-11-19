@@ -21,8 +21,8 @@ n_plots <- 20
 
 # Create a sample dataset
 data <- data.frame(ID = pizzR::split.vector(seq(n_samples), n_plots),
-                   feat_1 = sample(1000, replace = T), feat_2 = sample(1000, replace = T),
-                   feat_3 = sample(1000, replace = T),feat_4 = sample(1000, replace = T))
+                   feat_1 = sample(n_samples, replace = T), feat_2 = sample(n_samples, replace = T),
+                   feat_3 = sample(n_samples, replace = T),feat_4 = sample(n_samples, replace = T))
 head(data)
 
 
