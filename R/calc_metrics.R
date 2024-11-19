@@ -1,4 +1,4 @@
-calc_metrics <- function (data, id = "ID", verbose = TRUE)
+calc_metrics <- function (data, id = "ID", verbose = FALSE)
 {
   id_col <- which(names(data) == id)
   unique_ids <- unique(data[[id]])

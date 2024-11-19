@@ -2,7 +2,7 @@
 \alias{calc_metrics}
 \title{Fast and easy metric-calculation of sample plots.}
 \usage{
-function (data, id = "ID", verbose = TRUE)
+function (data, id = "ID", verbose = FALSE)
 }
 \arguments{
 \item{data}{data.frame. Tidy data.frame() including the data.}
