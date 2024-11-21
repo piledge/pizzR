@@ -11,4 +11,5 @@ setcreate.wd <- function(path, verbose=T){
       setwd(path)
     }
   }
+  invisible(NULL)
 }
