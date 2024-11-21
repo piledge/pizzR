@@ -21,4 +21,5 @@ change.terraOptions <- function (tempdir=NULL, progress=3, verbose=FALSE,...)
 
   do.call(terra::terraOptions, fparameters)
   if (verbose) terra::terraOptions()
+  invisible(NULL)
 }
