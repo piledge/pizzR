@@ -22,4 +22,5 @@ change.rasterOptions <- function(tmpdir=NULL, OSRAM_remaining=3, progress='', ve
 
   do.call(raster::rasterOptions, fparameters)
   if (verbose) raster::rasterOptions()
+  invisible(NULL)
 }
