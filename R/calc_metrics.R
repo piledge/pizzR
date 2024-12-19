@@ -16,28 +16,28 @@ calc_metrics <- function (data, id = "ID", verbose = FALSE)
   for (i in seq_along(unique_ids)) {
     if (verbose) pizzR::loop_progress(i, total_digits = nchar_n_samples)
     data_subs <- na.omit(data[data$ID == i, -id_col])
-    metrics <- matrix(rbind(pizzR::quapply(data_subs, 0.05),
-                            pizzR::quapply(data_subs, 0.1),
-                            pizzR::quapply(data_subs, 0.15),
-                            pizzR::quapply(data_subs, 0.2),
-                            pizzR::quapply(data_subs, 0.25),
-                            pizzR::quapply(data_subs, 0.3),
-                            pizzR::quapply(data_subs, 0.35),
-                            pizzR::quapply(data_subs, 0.4),
-                            pizzR::quapply(data_subs, 0.45),
-                            pizzR::quapply(data_subs, 0.5),
-                            pizzR::quapply(data_subs, 0.55),
-                            pizzR::quapply(data_subs, 0.6),
-                            pizzR::quapply(data_subs, 0.65),
-                            pizzR::quapply(data_subs, 0.7),
-                            pizzR::quapply(data_subs, 0.75),
-                            pizzR::quapply(data_subs, 0.8),
-                            pizzR::quapply(data_subs, 0.85),
-                            pizzR::quapply(data_subs, 0.9),
-                            pizzR::quapply(data_subs, 0.95),
-                            colMeans(data_subs),
-                            apply(data_subs, 2, sd)),
-                            nrow = length(metric_names))
+    metrics <- c(pizzR::quapply(data_subs, 0.05),
+                 pizzR::quapply(data_subs, 0.10),
+                 pizzR::quapply(data_subs, 0.15),
+                 pizzR::quapply(data_subs, 0.20),
+                 pizzR::quapply(data_subs, 0.25),
+                 pizzR::quapply(data_subs, 0.30),
+                 pizzR::quapply(data_subs, 0.35),
+                 pizzR::quapply(data_subs, 0.40),
+                 pizzR::quapply(data_subs, 0.45),
+                 pizzR::quapply(data_subs, 0.50),
+                 pizzR::quapply(data_subs, 0.55),
+                 pizzR::quapply(data_subs, 0.60),
+                 pizzR::quapply(data_subs, 0.65),
+                 pizzR::quapply(data_subs, 0.70),
+                 pizzR::quapply(data_subs, 0.75),
+                 pizzR::quapply(data_subs, 0.80),
+                 pizzR::quapply(data_subs, 0.85),
+                 pizzR::quapply(data_subs, 0.90),
+                 pizzR::quapply(data_subs, 0.95),
+                 colMeans(data_subs),
+                 apply(data_subs, 2, sd))
+
     res[i, ] <- c(metrics)
   }
   return(res)
