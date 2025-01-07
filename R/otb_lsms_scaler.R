@@ -1,4 +1,4 @@
-pizzR::OTB_lsms_scaler <- function (rasterobject = NULL, maxval = 255, truncate = F)
+OTB_lsms_scaler <- function (rasterobject = NULL, maxval = 255, truncate = F)
 {
   pizzR::package.install(c("raster", "terra"), verbose = 1)
 
