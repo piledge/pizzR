@@ -14,16 +14,16 @@ OTB_init <- function (path = NULL)
   }
 
   if (Sys.info()["sysname"] == "Windows" && length(grep('otbenv.bat', list.files(path))) == 0)   stop(paste0("\n", pizzR::Systime(), " '", path, "' not containing OTB-files!"))
-  if (Sys.info()["sysname"] == "Linux" && length(grep('monteverdi.sh', list.files(path))) == 0)  stop(paste0("\n", pizzR::Systime(), " '", path, "' not containing OTB-files!"))
+  #if (Sys.info()["sysname"] == "Linux" && length(grep('monteverdi.sh', list.files(path))) == 0)  stop(paste0("\n", pizzR::Systime(), " '", path, "' not containing OTB-files!"))
   options(OTB_PATH = path)
   cat(paste0("\n", pizzR::Systime(), ": 'OTB_PATH' set to ", path))
 }
 
 
 OTB_run   <- function(cmd, Ncore = NULL, DefaultRAM = NULL, ...){
-  
+
   pizzR::package.install(c("parallel"), verbose = 1)
-  
+
   if (is.null(getOption("OTB_PATH"))){
     stop("OTB_PATH not found! Use 'OTB_init()' to set it...")
   }
