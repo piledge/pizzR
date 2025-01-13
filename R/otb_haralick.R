@@ -38,7 +38,8 @@ OTB_haralick <- function(filename_in=NULL, dir_out=NULL, xrad=3, yrad=3, nbbin=8
   pizzR::otb_setpath(otb_path)
 
   cmd <- sprintf('otbcli_HaralickTextureExtraction%s%s%s%s%s%s%s', in_file_cmd, out_file_cmd, xrad_cmd, yrad_cmd, nbbin_cmd, texture_cmd, ram_cmd)
-  pizzR::OTB_run(cmd)
+  if (Sys.info()["sysname"] == "Windows") pizzR::OTB_run(cmd) else system(cmd)
+
 }
 
 
