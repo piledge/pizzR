@@ -57,3 +57,17 @@ OTB_run   <- function(cmd, Ncore = NULL, DefaultRAM = NULL, ...){
     system(cmd, ...)
   })
 }
+
+
+otb_setpath <- function(path){
+  if (Sys.info()["sysname"] == "Windows"){
+    if (is.null(path)) path <- 'C:/'
+
+    files <- list.files(path, full.names = T)
+    otb.instances <- files[grep("OTB", files)]
+
+    if (length(otb.instances) == 0) stop(paste0("\n", pizzR::Systime(), ": Unable to access ", path, "'!"))
+    path <- otb.instances[length(otb.instances)]
+    options(OTB_PATH = path)
+  }
+}
