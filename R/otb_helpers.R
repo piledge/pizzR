@@ -66,8 +66,12 @@ otb_setpath <- function(path){
     files <- list.files(path, full.names = T)
     otb.instances <- files[grep("OTB", files)]
 
-    if (length(otb.instances) == 0) stop(paste0("\n", pizzR::Systime(), ": Unable to access ", path, "'!"))
+    if (length(otb.instances) == 0) stop(sprintf("\n%s: Unable to access '%s'", pizzR::Systime(), path))
     path <- otb.instances[length(otb.instances)]
     options(OTB_PATH = path)
   }
 }
+
+
+
+
