@@ -69,7 +69,7 @@ otb_setpath <- function(path){
     if (length(otb.instances) == 0) stop(sprintf("\n%s: Unable to access '%s'", pizzR::Systime(), path))
     path <- otb.instances[length(otb.instances)]
     options(OTB_PATH = path)
-  }
+  }else options(OTB_PATH = '~')
 }
 
 
