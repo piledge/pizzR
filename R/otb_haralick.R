@@ -1,4 +1,4 @@
-OTB_haralick <- function(filename_in=NULL, dir_out=NULL, xrad=3, yrad=3, nbbin=8, texture="simple", channel=NULL, n_core=NULL, ram=NULL, otb_path = NULL){
+OTB_haralick <- function(filename_in=NULL, dir_out=NULL, xrad=3, yrad=3, nbbin=8, texture="advanced", channel=NULL, n_core=NULL, ram=NULL, otb_path = NULL){
 
   pizzR::package.install(c("memuse", "terra", "tools"), verbose = 1)
   in_file_cmd <- sprintf(' -in %s', filename_in)
@@ -38,6 +38,7 @@ OTB_haralick <- function(filename_in=NULL, dir_out=NULL, xrad=3, yrad=3, nbbin=8
   pizzR::otb_setpath(otb_path)
 
   cmd <- sprintf('otbcli_HaralickTextureExtraction%s%s%s%s%s%s%s', in_file_cmd, out_file_cmd, xrad_cmd, yrad_cmd, nbbin_cmd, texture_cmd, ram_cmd)
+  cat(sprintf('\n%s\n', cmd))
   if (Sys.info()["sysname"] == "Windows") pizzR::OTB_run(cmd) else system(cmd)
 
 }
