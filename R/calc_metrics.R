@@ -7,9 +7,11 @@ calc_metrics <- function (data, id = "ID", verbose = FALSE)
   metric_names <- c("005q", "010q", "015q", "020q", "025q",
                     "030q", "035q", "040q", "045q", "050q",
                     "055q", "060q", "065q", "070q", "075q",
-                    "080q", "085q", "090q", "095q", "mean", "sd")
+                    "080q", "085q", "090q", "095q", "iqr", "mean", "sd")
   metrics_names_rep <- paste(rep(colnames(data)[-id_col], length(metric_names)),
                              rep(metric_names, each = ncol(data) - 1), sep = "_")
+
+  iqr_apply <- function(x)  return(matrix(unlist(lapply(x, IQR))))
 
   res <- data.frame((matrix(NA, nrow = n_samples, ncol = length(metrics_names_rep))))
   colnames(res) <- metrics_names_rep
@@ -35,6 +37,7 @@ calc_metrics <- function (data, id = "ID", verbose = FALSE)
                  pizzR::quapply(data_subs, 0.85),
                  pizzR::quapply(data_subs, 0.90),
                  pizzR::quapply(data_subs, 0.95),
+                 iqr_apply(data_subs),
                  colMeans(data_subs),
                  apply(data_subs, 2, sd))
 
