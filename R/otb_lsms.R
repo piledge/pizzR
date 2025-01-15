@@ -113,8 +113,10 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
                               "-tilesizex", tilesizex,
                               "-tilesizey", tilesizey, collapse=" ")
 
-              if (!file.exists(vecnam) || !isTRUE(resume)) pizzR::OTB_run(cmd = vecExe, Ncore = Ncore)
-
+              if (!file.exists(vecnam) || !isTRUE(resume)){
+                pizzR::OTB_run(cmd = vecExe, Ncore = Ncore)
+                cat(vecExe)
+              }
             }
           }
         }
