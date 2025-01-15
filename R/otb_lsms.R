@@ -115,7 +115,7 @@ OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
 
               if (!file.exists(vecnam) || !isTRUE(resume)){
                 pizzR::OTB_run(cmd = vecExe, Ncore = Ncore)
-                cat(vecExe)
+                cat(sprintf('%s\n', vecExe))
               }
             }
           }
