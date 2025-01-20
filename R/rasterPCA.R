@@ -5,7 +5,7 @@ rst.pca <- function(x,scale=T){
 
   stopifnot(inherits(x, "SpatRaster"))
 
-  band.nr <- terra::nlyr(rst)
+  band.nr <- terra::nlyr(x)
 
   rst.mask <- is.na(terra::values(x[[1]]))
   rst.numbered <- seq(rst.mask)
