@@ -50,5 +50,6 @@ writeslimRaster <- function(rasterobject, filename, compression=T, overwrite=T, 
     fparameters$x                                                               <- rasterobject
     do.call(raster::writeRaster, fparameters)
   }
+  gc(reset = T, full = T)
   cat(sprintf("%s: Done ...\n", pizzR::Systime()))
 }
