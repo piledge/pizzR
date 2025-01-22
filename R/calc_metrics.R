@@ -43,5 +43,6 @@ calc_metrics <- function (data, id = "ID", verbose = FALSE)
 
     res[i, ] <- c(metrics)
   }
+  gc(reset = T, full = T)
   return(res)
 }
