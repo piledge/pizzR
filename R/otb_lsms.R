@@ -1,9 +1,60 @@
-OTB_lsms <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
+OTB_lsms <- function(filename_in=NULL, dir_out=NULL, spatialr=5, ranger=15, minsize = 50, tilesizex=500, tilesizey = 500, mode="vector", n_core=NULL, ram=NULL, otb_path = NULL){
+
+  pizzR::package.install(c("memuse", "tools"), verbose = 1)
+  stopifnot(any(c('tif', 'tiff') %in% tools::file_ext(filename_in)))
+  in_file_cmd <- sprintf(' -in %s', filename_in)
+
+  stopifnot(is.numeric(spatialr) || is.numeric(ranger) || is.numeric(minsize) || is.numeric(tilesizex) || is.numeric(tilesizey))
+  spatialr_cmd      <- sprintf(' -spatialr %s', spatialr)
+  ranger_cmd      <- sprintf(' -ranger %s', ranger)
+  minsize_cmd      <- sprintf(' -minsize %s', minsize)
+  tilesizex_cmd     <- sprintf(' -tilesizex %s', tilesizex)
+  tilesizey_cmd     <- sprintf(' -tilesizey %s', tilesizey)
+
+  stopifnot(mode %in% c("vector","raster") && length(mode) == 1)
+  mode_cmd  <- sprintf(' -mode.%s.out', mode)
+
+  n_core_phys <- parallel::detectCores() - 1
+  stopifnot(is.null(n_core) || is.numeric(n_core))
+  if (is.null(n_core) || n_core >= n_core_phys) n_core <- parallel::detectCores() - 1
+  Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = n_core)
+
+  stopifnot(is.null(ram) || is.numeric(ram))
+  if (is.null(ram)) {
+    avail.ram <- floor(memuse::Sys.meminfo()$totalram@size*1024)
+    ram <- avail.ram - 3072
+    if (ram < 4096) ram <- 4096
+  }
+  Sys.setenv(OTB_MAX_RAM_HINT = ram)
+  ram_cmd <- sprintf(' -ram %s', ram)
+
+  if (is.null(dir_out))  dir_out <- sprintf('%s/lsms/', dirname(filename_in))
+  pizzR::setcreate.wd(dir_out)
+  out_file <- sub('.tif', sprintf("_LSMS_sr%s_rr%s_ms%s_tx%s_ty%s.tif", spatialr, ranger, minsize, tilesizex, tilesizey), file.path(dir_out, basename(filename_in)))
+  out_file_cmd  <- sprintf(' %s', out_file)
+  out_file_cmd <- gsub('\\.', 'o', out_file_cmd)
+  if (mode == 'vector') out_file_cmd <- gsub('otif', '.shp', out_file_cmd)
+  if (mode == 'raster') out_file_cmd <- gsub('otif', '.tif', out_file_cmd)
+  out_cmd <- sprintf('%s%s', mode_cmd, out_file_cmd)
+  out_cmd
+
+  pizzR::otb_setpath(otb_path)
+
+  cmd <- sprintf('otbcli_LargeScaleMeanShift%s%s%s%s%s%s%s%s', in_file_cmd, out_cmd, spatialr_cmd, ranger_cmd, minsize_cmd, tilesizex_cmd, tilesizey_cmd, ram_cmd)
+  cat(sprintf('\n%s\n', cmd))
+  if (Sys.info()["sysname"] == "Windows") pizzR::OTB_run(cmd) else system(cmd)
+
+}
+
+
+
+
+OTB_lsms2 <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
                      spatrad=5,rangerad=15,minsize=100,
                      maxiter=100,thres=.001,fact=.5,
                      tilesizex=4096,tilesizey=4096,vectorize=TRUE,resume=TRUE,
                      Ncore=parallel::detectCores()-1,ram=NULL){
-
+  warning('Deprecated. Please use OTB_haralick()')
   pizzR::package.install(c("memuse", "tools"), verbose = 1)
 
   if (is.null(ram)){
