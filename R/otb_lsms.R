@@ -41,7 +41,7 @@ OTB_lsms <- function(filename_in=NULL, dir_out=NULL, spatialr=5, ranger=15, mins
   pizzR::otb_setpath(otb_path)
 
   cmd <- sprintf('otbcli_LargeScaleMeanShift%s%s%s%s%s%s%s%s', in_file_cmd, out_cmd, spatialr_cmd, ranger_cmd, minsize_cmd, tilesizex_cmd, tilesizey_cmd, ram_cmd)
-  cat(sprintf('\n%s\n', cmd))
+  #cat(sprintf('\n%s\n', cmd))
   if (Sys.info()["sysname"] == "Windows") pizzR::OTB_run(cmd) else system(cmd)
 
 }
