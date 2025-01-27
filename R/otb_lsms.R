@@ -1,4 +1,4 @@
-OTB_lsms <- function(filename_in=NULL, dir_out=NULL, spatialr=5, ranger=15, minsize = 50, tilesizex=500, tilesizey = 500, mode="vector", n_core=NULL, ram=NULL, otb_path = NULL){
+OTB_lsms <- function(filename_in=NULL, dir_out=NULL, spatialr=5, ranger=15, minsize=50, tilesizex=1024, tilesizey=1024, mode="vector", n_core=NULL, ram=NULL, otb_path=NULL){
 
   pizzR::package.install(c("memuse", "tools"), verbose = 1)
   stopifnot(any(c('tif', 'tiff') %in% tools::file_ext(filename_in)))
