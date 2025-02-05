@@ -32,6 +32,7 @@ opt.datatype <- function (x)
   rst_max <- max(minmaxvals, na.rm = TRUE)
   rst_significant_value <- max(abs(c(rst_min, rst_max)), na.rm = TRUE)
   rst_signed <- rst_min < 0
+  vals_sample <- as.numeric(vals_sample)
   rst_float <- !all((floor(vals_sample) == vals_sample), na.rm = TRUE)
 
   gc(reset = T, full = T)
