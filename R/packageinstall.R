@@ -5,9 +5,9 @@ package.install <- function(packages = pizzR::dependencies, verbose = 1) {
   installed <- rownames(installed.packages())
   to_install <- setdiff(packages, installed)
   
-  if (length(to_install) > 0) {  # Korrigiert: Länge prüfen statt any()
+  if (length(to_install) > 0) {
     
-    missing_packages <- to_install  # direkt die Namen verwenden
+    missing_packages <- to_install
     repo_packages <- rownames(available.packages())
     available_packages <- missing_packages[missing_packages %in% repo_packages]
     unavailable_packages <- setdiff(missing_packages, available_packages)
