@@ -47,9 +47,9 @@ aws_S2_get_metadata <- function(metadata_path){
   
   lst <- list(
     EPSG=list(epsg=epsg_numeric, crs_param=crs_param),
-    R10=list(ulx_10=ulx_10, uly_10=uly_10, xdim_10=xdim_10, ydim_10=ydim_10, res_param_10=res_param_10, nrows_10=nrows_10, nrows_10=ncols_10, ext_param_10=ext_param_10),
-    R20=list(ulx_20=ulx_20, uly_20=uly_20, xdim_20=xdim_20, ydim_20=ydim_20, res_param_20=res_param_20, nrows_20=nrows_20, nrows_20=ncols_20, ext_param_20=ext_param_20),
-    R60=list(ulx_60=ulx_60, uly_60=uly_60, xdim_60=xdim_60, ydim_60=ydim_60, res_param_60=res_param_60, nrows_60=nrows_60, nrows_60=ncols_60, ext_param_60=ext_param_60)
+    R10=list(ulx_10=ulx_10, uly_10=uly_10, xdim_10=xdim_10, ydim_10=ydim_10, res_param_10=res_param_10, nrows_10=nrows_10, ncols_10=ncols_10, ext_param_10=ext_param_10),
+    R20=list(ulx_20=ulx_20, uly_20=uly_20, xdim_20=xdim_20, ydim_20=ydim_20, res_param_20=res_param_20, nrows_20=nrows_20, ncols_20=ncols_20, ext_param_20=ext_param_20),
+    R60=list(ulx_60=ulx_60, uly_60=uly_60, xdim_60=xdim_60, ydim_60=ydim_60, res_param_60=res_param_60, nrows_60=nrows_60, ncols_60=ncols_60, ext_param_60=ext_param_60)
   )
   return(lst)
 }
