@@ -20,8 +20,7 @@ aws_S2_download_tile <- function(tile, year, month, day, cloud_cover, d_path='C:
   system(metadata_aws_cp)
   doc <- xml2::read_xml(file.path(d_path, tile, tile_folder, 'metadata.xml'))
   cc <- xml2::xml_text(xml2::xml_find_first(doc, "//CLOUDY_PIXEL_PERCENTAGE"))
-  #orbit <- xml2::xml_text(xml2::xml_find_first(doc, "//CLOUDY_PIXEL_PERCENTAGE"))
-  
+
   if (cc < cloud_cover){
     system(aws_cp)
     cat('Done ...\n')
