@@ -8,8 +8,9 @@ aws_S2_process_tile_scl <- function(path, tile, shp_path, crop_ext_buffer = NULL
   tile_dirs <- list.dirs(file.path(path, tile))
   downloaded_dirs <- tile_dirs[grep('downloaded$', tile_dirs)]
   scene_folders <- list.files(downloaded_dirs, full.names = T)
-  
+  total_digits <- nchar(length(scene_folders))
   for (i in seq(scene_folders)){
+    pizzR::loop_progress(3, total_digits = total_digits)
     scene_img_paths <- list.files(scene_folders[i], pattern = '.jp2$', recursive = T, full.names = T)
     
     metadata_path <- list.files(scene_folders[i], pattern = 'metadata.xml', recursive = T, full.names = T)
