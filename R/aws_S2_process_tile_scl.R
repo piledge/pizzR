@@ -10,23 +10,23 @@ aws_S2_process_tile_scl <- function(path, tile, shp_path, crop_ext_buffer = NULL
   scene_folders <- list.files(downloaded_dirs, full.names = T)
   total_digits <- nchar(length(scene_folders))
   for (i in seq(scene_folders)){
-    pizzR::loop_progress(3, total_digits = total_digits)
+    pizzR::loop_progress(i, total_digits = total_digits)
     scene_img_paths <- list.files(scene_folders[i], pattern = '.jp2$', recursive = T, full.names = T)
-    
+
     metadata_path <- list.files(scene_folders[i], pattern = 'metadata.xml', recursive = T, full.names = T)
     metadata <- pizzR::aws_S2_get_metadata(metadata_path)
-    
+
     rst_scl <- terra::rast(scene_img_paths[grep('/R20m/SCL.jp2', scene_img_paths)])
     terra::crs(rst_scl) <- metadata$EPSG$crs_param
     terra::ext(rst_scl) <- metadata$R20$ext_param_20
-    
+
     scl_cropped <- terra::crop(rst_scl, crop_ext)
     if(!is.null(mask)) scl_cropped <- terra::mask(scl_cropped, area_buffered)
     if (preview) terra::plot(scl_cropped, main = basename(scene_folders[i]))
-    
+
     scl_values <- terra::values(scl_cropped)
     if (!any(c(0 %in% scl_values, 3 %in% scl_values, 8 %in% scl_values, 9 %in% scl_values, 10 %in% scl_values))){
-      
+  
       rst_B01 <- terra::rast(scene_img_paths[grep('/R60m/B01.jp2', scene_img_paths)])
       rst_B02 <- terra::rast(scene_img_paths[grep('/R10m/B02.jp2', scene_img_paths)])
       rst_B03 <- terra::rast(scene_img_paths[grep('/R10m/B03.jp2', scene_img_paths)])
