@@ -31,6 +31,7 @@ aws_S2_process_tile_scl <- function(path, tile, shp_path, crop_ext_buffer = NULL
     scl_values <- terra::values(scl_cropped)
     if (!any(c(0 %in% scl_values, 3 %in% scl_values, 8 %in% scl_values, 9 %in% scl_values, 10 %in% scl_values))){
 
+      cat(sprintf('%s: Processing file ...\n', pizzR::Systime()))
       rst_B01 <- terra::rast(scene_img_paths[grep('/R60m/B01.jp2', scene_img_paths)])
       rst_B02 <- terra::rast(scene_img_paths[grep('/R10m/B02.jp2', scene_img_paths)])
       rst_B03 <- terra::rast(scene_img_paths[grep('/R10m/B03.jp2', scene_img_paths)])
