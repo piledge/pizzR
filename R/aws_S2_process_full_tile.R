@@ -2,7 +2,7 @@ aws_S2_process_full_tile <- function(path, prefix = 's2', export_path=NULL, n_co
   if (is.null(export_path)) export_path <- file.path(path, 'export')
 
   tile_folders <- list.dirs(file.path(path), full.names = T, recursive = F)
-  tile_folders <- tile_folders[-grep('export', tile_folders)]
+  tile_folders <- tile_folders[!grepl('export', tile_folders)]
 
   for (i in seq(tile_folders))  {
 
