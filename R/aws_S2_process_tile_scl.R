@@ -1,5 +1,5 @@
 aws_S2_process_tile_scl <- function(path, tile, shp_path, crop_ext_buffer = NULL, prefix = 's2', mask = F, preview = F){
-  pizzR::change
+  terra::terraOptions(verbose=F)
   area <- terra::vect(shp_path)
   area_buffered <- terra::buffer(area, 10)
   crop_ext <- terra::ext(area_buffered)
