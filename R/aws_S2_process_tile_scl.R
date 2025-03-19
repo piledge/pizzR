@@ -65,7 +65,7 @@ aws_S2_process_tile_scl <- function(path, tile, shp_path, crop_ext_buffer = NULL
       stacked_crop <- terra::crop(stacked, crop_region)
 
       pizzR::setcreate.wd(file.path(path, tile, 'export'), verbose = F)
-      pizzR::writeslimRaster(stacked_crop, sprintf('%s_%s_%s.tif', prefix, tile, (basename(scene_folders[i]))), datatype = 'INT2U')
+      pizzR::writeslimRaster(stacked_crop, sprintf('%s_%s_%s.tif', prefix, tile, (basename(scene_folders[i]))), datatype = 'INT2U', verbose = F)
       cat('\n')
       setwd(path)
     }
