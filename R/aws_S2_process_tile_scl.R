@@ -1,5 +1,7 @@
-aws_S2_process_tile_scl <- function(path, tile, shp_path, crop_ext_buffer = NULL, prefix = 's2', mask = F, preview = F){
+aws_S2_process_tile_scl <- function(path, tile, shp_path, crop_ext_buffer=NULL, export_path=NULL, prefix = 's2', mask=F, preview=F){
+  if (is.null(export_path)) export_path <- file.path(path, 'export')
   terra::terraOptions(verbose=F)
+
   area <- terra::vect(shp_path)
   area_buffered <- terra::buffer(area, 10)
   crop_ext <- terra::ext(area_buffered)
@@ -66,7 +68,7 @@ aws_S2_process_tile_scl <- function(path, tile, shp_path, crop_ext_buffer = NULL
       stacked_crop <- terra::crop(stacked, crop_region)
 
       cat(sprintf('%s: Writing file ...\n', pizzR::Systime()))
-      pizzR::setcreate.wd(file.path(path, tile, 'export'), verbose = F)
+      pizzR::setcreate.wd(export_path, verbose = F)
       pizzR::writeslimRaster(stacked_crop, sprintf('%s_%s_%s.tif', prefix, tile, (basename(scene_folders[i]))), datatype = 'INT2U', verbose = F)
       setwd(path)
     }
