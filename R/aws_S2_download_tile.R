@@ -1,4 +1,4 @@
-aws_S2_download_tile <- function(tile, year, month, day, cloud_cover, d_path='C:/temp/'){
+aws_S2_download_tile <- function(tile, year, month, day, cloud_cover=100, d_path='C:/temp/'){
   aws_cli <- Sys.which("aws")
   if (aws_cli == "") stop("AWS-CLI not found. Please install it from 'https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html'")
 
