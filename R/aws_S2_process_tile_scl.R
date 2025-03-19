@@ -69,5 +69,5 @@ aws_S2_process_tile_scl <- function(path, tile, shp_path, crop_ext_buffer = NULL
       setwd(path)
     }
   }
-  cat('\n\nDone ...\n')
+  cat('\n\nProcessing Done ...\n')
 }
