@@ -1,4 +1,4 @@
-writeslimRaster <- function(rasterobject, filename, compression=T, overwrite=T, BIGTIFF="YES", filetype="GTiff", datatype="ESTIMATE", ...){
+writeslimRaster <- function(rasterobject, filename, compression=T, overwrite=T, BIGTIFF="YES", filetype="GTiff", datatype="ESTIMATE", verbose = T, ...){
 
   pizzR::package.install(c("raster", "terra"), verbose = 1)
 
@@ -16,19 +16,19 @@ writeslimRaster <- function(rasterobject, filename, compression=T, overwrite=T, 
   fparameters$overwrite   <- overwrite
   fparameters$filetype    <- filetype
   if (datatype != "ESTIMATE") fparameters$datatype <- datatype
-  
+
   if (rsttype == "SpatRaster"){
 
     if (compression && datatype == "ESTIMATE"){
-      cat(sprintf("\n%s: Estimate datatype ...", pizzR::Systime()))
+      if (verbose) cat(sprintf("\n%s: Estimate datatype ...", pizzR::Systime()))
       fparameters$datatype                                                      <- pizzR::opt.datatype(rasterobject)
     }
     if (compression){
       fparameters$gdal <- c(sprintf("BIGTIFF = %s", BIGTIFF), "COMPRESS = DEFLATE", "ZLEVEL = 9", "PREDICTOR = 2")
-      cat(sprintf("\n%s: Write slim rasterfile as '%s' ...\n", pizzR::Systime(), fparameters$datatype))
+      if (verbose) cat(sprintf("\n%s: Write slim rasterfile as '%s' ...\n", pizzR::Systime(), fparameters$datatype))
     }else{
       fparameters$gdal <- c(sprintf("BIGTIFF = %s", BIGTIFF))
-      cat(sprintf("\n%s: Write rasterfile ...\n", pizzR::Systime()))
+      if (verbose) cat(sprintf("\n%s: Write rasterfile ...\n", pizzR::Systime()))
     }
 
     terra::setMinMax(rasterobject, force = T)
@@ -39,17 +39,17 @@ writeslimRaster <- function(rasterobject, filename, compression=T, overwrite=T, 
   if (rsttype == "RasterLayer" || rsttype == "RasterBrick" || rsttype == "RasterStack"){
 
     if (compression && datatype == "ESTIMATE"){
-      cat(sprintf("\n%s: Estimate datatype ...", pizzR::Systime()))
+      if (verbose) cat(sprintf("\n%s: Estimate datatype ...", pizzR::Systime()))
       fparameters$datatype                                                      <- pizzR::opt.datatype(x, samplesize)
     }
     if (compression && datatype != "ESTIMATE") fparameters$datatype     <- datatype
     if (compression) fparameters$options                                <- c("COMPRESS=DEFLATE", "PREDICTOR=2", "ZLEVEL=9")
 
-    if (compression) cat(sprintf("\n%s: Write slim rasterfile as '%s' ...\n", pizzR::Systime(), fparameters$datatype)) else cat(sprintf("\n%s: Write rasterfile ...\n", pizzR::Systime()))
+    if (compression && verbose) cat(sprintf("\n%s: Write slim rasterfile as '%s' ...\n", pizzR::Systime(), fparameters$datatype)) else cat(sprintf("\n%s: Write rasterfile ...\n", pizzR::Systime()))
 
     fparameters$x                                                               <- rasterobject
     do.call(raster::writeRaster, fparameters)
   }
   gc(reset = T, full = T)
-  cat(sprintf("%s: Done ...\n", pizzR::Systime()))
+  if (verbose) cat(sprintf("%s: Done ...\n", pizzR::Systime()))
 }
