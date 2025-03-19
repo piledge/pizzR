@@ -1,4 +1,7 @@
 aws_S2_check <- function(tile, years, months, days){
+  aws_cli <- Sys.which("aws")
+  if (aws_cli == "") stop("AWS-CLI not found. Please install it from 'https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html'")
+  
   scene_dates <- function(years, months, days) {
     days_of_month <- function(year, month) {
       start <- as.Date(sprintf("%04d-%02d-01", year, month))
