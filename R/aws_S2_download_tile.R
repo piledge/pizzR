@@ -26,12 +26,13 @@ aws_S2_download_tile <- function(tile, year, month, day, cloud_cover=100, d_path
                     tile_1, tile_2, tile_3, year, month, day, folder_id, local_folder)
 
   cat(sprintf("\n%s: Files will be downloaded to '%s' ...", pizzR::Systime(), d_path))
-  cat(sprintf('\n%s: Starting to download tile %s ...\n', pizzR::Systime(), tile_folder))
+  cat(sprintf('\n%s: Check Metadata ...\n', pizzR::Systime()))
   system(metadata_aws_cp)
   doc <- xml2::read_xml(file.path(local_folder, 'metadata.xml'))
   cc <- xml2::xml_text(xml2::xml_find_first(doc, "//CLOUDY_PIXEL_PERCENTAGE"))
 
   if(as.numeric(cc) < cloud_cover){
+    cat(sprintf('\n%s: Starting to download tile %s ...\n', pizzR::Systime(), tile_folder))
     system(aws_cp)
     cat(sprintf('%s: Done ...\n', pizzR::Systime()))
     status <- "downloaded"
@@ -50,5 +51,7 @@ aws_S2_download_tile <- function(tile, year, month, day, cloud_cover=100, d_path
   if(!dir.exists(dest_dir_skipped)) dir.create(dest_dir_skipped, recursive = TRUE)
 
   dest_dir <- if(status == "downloaded") dest_dir_downloaded else dest_dir_skipped
-  invisible(file.rename(final_folder, file.path(dest_dir, basename(final_folder))))
+  dest_folder <- file.path(dest_dir, basename(final_folder))
+  if(dir.exists(dest_folder)) unlink(dest_folder, recursive = TRUE)
+  invisible(file.rename(final_folder, dest_folder))
 }
