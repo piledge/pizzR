@@ -1,4 +1,4 @@
-aws_S2_lookup <- function(tile, years, months, days){
+aws_S2_lookup <- function(tile, years, months, days, verbose = T){
   aws_cli <- Sys.which("aws")
   if (aws_cli == "") stop("AWS-CLI not found. Please install it from 'https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html'")
 
@@ -65,6 +65,8 @@ aws_S2_lookup <- function(tile, years, months, days){
 
     return(res)
   }
+
+  if (verbose) cat(sprintf('%s: Searching AWS for available scenes ...\n', pizzR::Systime()))
 
   search_dates <- scene_dates(years=years, months = months, days = days)
   available_dates <- s2_checktiles(tile, years)

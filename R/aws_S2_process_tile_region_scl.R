@@ -14,24 +14,25 @@ aws_S2_process_tile_region_scl <- function(path, tile, shp_path, crop_ext_buffer
   n_scenes <- length(scene_folders)
   total_digits <- nchar(n_scenes)
 
-  cat(sprintf('%s: %s scenes found. Start processing ...\n', pizzR::Systime(), n_scenes))
+  cat(sprintf("\n%s: Files will written to '%s' ...", pizzR::Systime(), export_path))
+  cat(sprintf('\n%s: %s scenes found. Start processing ...\n', pizzR::Systime(), n_scenes))
   for (i in seq(scene_folders)){
     pizzR::loop_progress(i, total_digits = total_digits)
     scene_img_paths <- list.files(scene_folders[i], pattern = '.jp2$', recursive = T, full.names = T)
 
     metadata_path <- list.files(scene_folders[i], pattern = 'metadata.xml', recursive = T, full.names = T)
-    metadata <- pizzR::aws_S2_get_metadata(metadata_path)
+    metadata <- .aws_S2_get_metadata(metadata_path)
 
-    rst_scl <- terra::rast(scene_img_paths[grep('/R20m/SCL.jp2', scene_img_paths)])
-    terra::crs(rst_scl) <- metadata$EPSG$crs_param
-    terra::ext(rst_scl) <- metadata$R20$ext_param_20
+    rst_SCL <- terra::rast(scene_img_paths[grep('/R20m/SCL.jp2', scene_img_paths)])
+    terra::crs(rst_SCL) <- metadata$EPSG$crs_param
+    terra::ext(rst_SCL) <- metadata$R20$ext_param_20
 
-    scl_cropped <- terra::crop(rst_scl, crop_ext)
-    if(!is.null(mask)) scl_cropped <- terra::mask(scl_cropped, area_buffered)
-    if (preview) terra::plot(scl_cropped, main = basename(scene_folders[i]))
+    SCL_cropped <- terra::crop(rst_SCL, crop_ext)
+    if(mask) SCL_cropped <- terra::mask(SCL_cropped, area_buffered)
+    if (preview) terra::plot(SCL_cropped, main = basename(scene_folders[i]))
 
-    scl_values <- terra::values(scl_cropped)
-    if (!any(c(0 %in% scl_values, 3 %in% scl_values, 8 %in% scl_values, 9 %in% scl_values, 10 %in% scl_values))){
+    SCL_values <- terra::values(SCL_cropped)
+    if (!any(c(0 %in% SCL_values, 3 %in% SCL_values, 8 %in% SCL_values, 9 %in% SCL_values, 10 %in% SCL_values))){
 
       cat(sprintf('%s: Processing file ...\n', pizzR::Systime()))
       rst_B01 <- terra::rast(scene_img_paths[grep('/R60m/B01.jp2', scene_img_paths)])
@@ -60,11 +61,11 @@ aws_S2_process_tile_region_scl <- function(path, tile, shp_path, crop_ext_buffer
       rst_B8A <- terra::disagg(rst_B8A, 2)
       rst_B11 <- terra::disagg(rst_B11, 2)
       rst_B12 <- terra::disagg(rst_B12, 2)
-      rst_scl <- terra::disagg(rst_scl, 2)
+      rst_SCL <- terra::disagg(rst_SCL, 2)
       rst_B01 <- terra::disagg(rst_B01, 6)
       rst_B09 <- terra::disagg(rst_B09, 6)
 
-      stacked <- c(rst_B01, rst_B02, rst_B03, rst_B04, rst_B05, rst_B06, rst_B07, rst_B08, rst_B8A, rst_B09, rst_B11, rst_B12, rst_scl)
+      stacked <- c(rst_B01, rst_B02, rst_B03, rst_B04, rst_B05, rst_B06, rst_B07, rst_B08, rst_B8A, rst_B09, rst_B11, rst_B12, rst_SCL)
       stacked_crop <- terra::crop(stacked, crop_region)
 
       cat(sprintf('%s: Writing file ...\n', pizzR::Systime()))

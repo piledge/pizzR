@@ -2,7 +2,7 @@
 \alias{writeslimRaster}
 \title{Wrapper-function for optimized export of spatialraster.}
 \usage{
-writeslimRaster(rasterobject, filename, compression=TRUE, overwrite=TRUE, ...)
+writeslimRaster(rasterobject, filename, compression=TRUE, overwrite=TRUE, verbose=T, ...)
 }
 \arguments{
 \item{rasterobject}{SpatRaster, RasterLayer, RasterBrick, RasterStack}
@@ -11,6 +11,7 @@ writeslimRaster(rasterobject, filename, compression=TRUE, overwrite=TRUE, ...)
 \item{overwrite}{logical. If \code{TRUE}, \code{filename} is overwritten.}
 \item{datatype}{Could be either ESTIMATE do appreciate the optimal datatype for a given \code{x} or one of the following options: LOG1S/INT1S/INT1U/INT2S/INT2U/INT4S/INT4U/FLT4S/FLT8S!}
 \item{...}{additional arguments for writing files. See writeRaster() of raster- or terra-package.}
+\item{verbose}{logical. Console output.}
 }
 \description{
 Writes a raster object of both, terra- and raster-package, to a file. \code{datatype} and \code{NAflag} will be estimated by using the \code{pizzR:opt.datatype()}-function.
