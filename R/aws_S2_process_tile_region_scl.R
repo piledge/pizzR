@@ -1,4 +1,4 @@
-aws_S2_process_tile_scl <- function(path, tile, shp_path, crop_ext_buffer=NULL, export_path=NULL, prefix = 's2', mask=F, preview=F){
+aws_S2_process_tile_region_scl <- function(path, tile, shp_path, crop_ext_buffer=NULL, export_path=NULL, prefix = 's2', mask=F, preview=F){
   if (is.null(export_path)) export_path <- file.path(path, 'export')
   terra::terraOptions(verbose=F)
 
