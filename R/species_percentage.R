@@ -1,4 +1,4 @@
-species_percentage <- function(rst, shp, classnames = NULL) {
+species_percentage <- function(rst, shp, classnames = NULL, digits = NULL) {
 
   extr <- terra::extract(rst, shp)
   extr <- extr[complete.cases(extr), ]
@@ -17,6 +17,7 @@ species_percentage <- function(rst, shp, classnames = NULL) {
   res <- as.data.frame.matrix(percent_tbl)
   colnames(res) <- paste0("class_", 1:n_classes)
 
+  if (!is.null(digits))     res <- round(res, digits)
   if (!is.null(classnames)) colnames(res) <- classnames
 
   return(res)
