@@ -1,6 +1,6 @@
 \name{package.install}
 \alias{package.install}
-\title{Check if packages are installed. If not, do so.}
+\title{Check if packages/Github-Repositories are installed. If not, do so.}
 \usage{
 package.install(x)
 }
@@ -8,14 +8,14 @@ package.install(x)
 \item{x}{Package}
 }
 \description{
-Check if packages are installed. If not, do so.
+Check if packages/Github-Repositories are installed. If not, do so.
 }
 \examples{
 library(pizzR)
 
 # check/install one package
-package.install("pizzR")
+package.install("ggplot2")
 
-# check/install multiple packages
-package.install(c("pizzR","pizzR"))
+# check/install multiple packages and Github-Repositories
+package.install(c("piledge/pizzR","ggplot2"))
 }
