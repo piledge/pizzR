@@ -1,10 +1,18 @@
 ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detectCores() - 1,
                         savename = "ranFeatsel", savedir = getwd(), keep.files = FALSE,
-                        best_thr = 0.975, nimpplot = 20, seed = NULL, ...)
+                        best_thr = 0.975, nimpplot = 20, seed = NULL, corr_reduce = NULL, ...)
 {
-  pizzR::package.install(c("crayon", "parallel", "ranger", "vip"), verbose = 1)
+  pizzR::package.install(c("caret", "crayon", "parallel", "ranger", "vip"), verbose = 1)
 
   classes_col <- which(colnames(data) == classes)
+  id_cols <- which(colnames(data) == 'ID')
+  n_id_cols <- length(id_cols)
+
+  if (length(id_cols) > 0){
+    data <- data[-id_cols]
+    warning(sprintf('%s: %s ID-Colums have been removed from data', pizzR::Systime(), n_id_cols))
+  }
+
   if (length(classes_col) != 1) return(warning("Invalid argument 'classes'. Please check if column is available once in data"))
 
   if (is.null(seed)){
@@ -22,6 +30,16 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
 
   if ((nthreads > parallel::detectCores() - 1)) {
     nthreads <- parallel::detectCores() - 1
+  }
+
+  if (!is.null(corr_reduce)){
+    stopifnot(corr_reduce >= 0, corr_reduce <= 1)
+    cor_data <- data[-classes_col]
+    cor_matrix <- cor(cor_data)
+    high_corr_idx <- caret::findCorrelation(cor_matrix, cutoff = cutoff)
+    low_cor <- cor_data[-high_corr_idx]
+    data <- cbind(data[classes_col], cor_data[-high_corr])
+    classes_col <- 1
   }
 
   dots <- list(...)
