@@ -1,6 +1,6 @@
 ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detectCores() - 1,
                         savename = "ranFeatsel", savedir = getwd(), keep.files = FALSE,
-                        best_thr = 0.975, nimpplot = 20, seed = NULL, corr_reduce = NULL, ...)
+                        best_thr = 0.975, nimpplot = 20, seed = NULL, corr_reduce = NULL, cutoff = 0.8, ...)
 {
   pizzR::package.install(c("caret", "crayon", "parallel", "ranger", "vip"), verbose = 1)
 
