@@ -1,5 +1,5 @@
 corr_red <- function (data, classes = 'class', cutoff = 0.8){
-  pizzR::package_install('caret')
+  pizzR::package.install('caret')
   classes_col <- which(colnames(data) %in% classes)
   id_col <- which(colnames(data) %in% 'ID')
 
