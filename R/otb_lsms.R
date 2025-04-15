@@ -54,7 +54,7 @@ OTB_lsms2 <- function(IMGpath=NULL,savedir=NULL,OTBpath=NULL,
                      maxiter=100,thres=.001,fact=.5,
                      tilesizex=4096,tilesizey=4096,vectorize=TRUE,resume=TRUE,
                      Ncore=parallel::detectCores()-1,ram=NULL){
-  warning('Deprecated. Please use OTB_haralick()')
+  warning('Deprecated. Please use OTB_lsms()')
   pizzR::package.install(c("memuse", "tools"), verbose = 1)
 
   if (is.null(ram)){
