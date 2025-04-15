@@ -27,7 +27,7 @@ OTB_lsms_scaler <- function (rasterobject = NULL, maxval = 255, truncate = F, re
 
   if (reclass_mask){
     mtx <- matrix(c(NA, -254), ncol = 2)
-    cat(sprintf("\n%s: Reclassify mask from 'NA' to '-255' ...\n", pizzR::Systime()))
+    cat(sprintf("\n%s: Reclassify mask from 'NA' to '-254' ...\n", pizzR::Systime()))
     rasterobject <- terra::classify(rst, mtx)
   }
 
