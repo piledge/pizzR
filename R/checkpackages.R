@@ -3,7 +3,7 @@ dependencies <- c("caret", "crayon", "dbscan", "doParallel", "e1071",
                   "magrittr", "memuse", "parallelly", "randomForest",
                   "ranger", "raster", "Rcpp", "remotes", "rvest",
                   "RMariaDB", "s2", "sf", "snow", "terra", "tidyverse",
-                  "xml2", "piledge/pizzR", "MrFlywheel/kaiserschmRn")
+                  "xml2", "MrFlywheel/kaiserschmRn")
 
 
 to_install <- !dependencies %in% rownames(installed.packages())
