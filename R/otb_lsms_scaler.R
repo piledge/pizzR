@@ -1,4 +1,4 @@
-OTB_lsms_scaler <- function (rasterobject = NULL, maxval = 255, truncate = F)
+OTB_lsms_scaler <- function (rasterobject = NULL, maxval = 255, truncate = F, reclass_mask = T)
 {
   pizzR::package.install(c("raster", "terra"), verbose = 1)
   
@@ -24,6 +24,13 @@ OTB_lsms_scaler <- function (rasterobject = NULL, maxval = 255, truncate = F)
       rasterobject[[i]] <- round(rasterobject[[i]], 0)
     gc(reset = T, full = T)
   }
+
+  if (reclass_mask){
+    mtx <- matrix(c(NA, -254), ncol = 2)
+    cat(sprintf("\n%s: Reclassify mask from 'NA' to '-255' ...\n", pizzR::Systime()))
+    rasterobject <- terra::classify(rst, mtx)
+  }
+
   terra::setMinMax(rasterobject, force = T)
   cat(sprintf("\n\n%s: Done ...\n\n", pizzR::Systime()))
   return(rasterobject)
