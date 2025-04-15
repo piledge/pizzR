@@ -21,11 +21,6 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
   }
   set.seed(seed)
 
-  st.featsel <- as.integer(format(Sys.time(), "%s"))
-  cat("\n")
-  cat("               \r", paste0(pizzR::Systime(), ": starting recursive MDA-feature selection",
-                                  "\n"))
-
   pizzR::setcreate.wd(savedir)
 
   if ((nthreads > parallel::detectCores() - 1)) {
@@ -33,10 +28,20 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
   }
 
   if (!is.null(corr_reduce)){
+    cat(sprintf('\n %s: Eliminate high correlated features', pizzR::Systime()))
     stopifnot(corr_reduce >= 0, corr_reduce <= 1)
-    pizzR::corr_red(data, classes, corr_reduce)
+    nfeatures_old <- ncol(data) - 1
+    data <- pizzR::corr_red(data, classes, corr_reduce)
+    nfeatures_new <- ncol(data)
+    nfeatures_diff <- nfeatures_old - nfeatures_new
+    feature_perc <- round(100 / nfeatures_old * nfeatures_diff, 1)
     classes_col <- 1
+    cat(sprintf('\n %s: %s features (%s%%) have been removed from data\n', pizzR::Systime(), nfeatures_diff, feature_perc))
   }
+
+  st.featsel <- as.integer(format(Sys.time(), "%s"))
+  cat("\n")
+  cat("               \r", paste0(pizzR::Systime(), ": starting recursive MDA-feature selection", "\n"))
 
   dots <- list(...)
   dots$x <- data[, -classes_col]
