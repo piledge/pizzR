@@ -1,6 +1,6 @@
 ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detectCores() - 1,
                         savename = "ranFeatsel", savedir = getwd(), keep.files = FALSE,
-                        best_thr = 0.975, nimpplot = 20, seed = NULL, corr_reduce = NULL, cutoff = 0.8, ...)
+                        best_thr = 0.975, nimpplot = 20, seed = NULL, corr_reduce = NULL, ...)
 {
   pizzR::package.install(c("caret", "crayon", "parallel", "ranger", "vip"), verbose = 1)
 
@@ -34,11 +34,7 @@ ranFeatsel <- function (data, classes, ntree = 1000, nthreads = parallel::detect
 
   if (!is.null(corr_reduce)){
     stopifnot(corr_reduce >= 0, corr_reduce <= 1)
-    cor_data <- data[-classes_col]
-    cor_matrix <- cor(cor_data)
-    high_corr_idx <- caret::findCorrelation(cor_matrix, cutoff = cutoff)
-    low_cor <- cor_data[-high_corr_idx]
-    data <- cbind(data[classes_col], cor_data[-high_corr])
+    pizzR::corr_red(data, classes, corr_reduce)
     classes_col <- 1
   }
 
