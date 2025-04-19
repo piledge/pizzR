@@ -1,5 +1,4 @@
 .onAttach <- function(libname, pkgname) {
-  packageStartupMessage(
-    pizzRtime('red'))
-  library("magrittr")
+  packageStartupMessage(pizzRtime('red'))
+  #library("magrittr")
 }

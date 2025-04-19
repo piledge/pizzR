@@ -24,10 +24,5 @@ pizzRtime <- function(color = "reset"){
   (' / .___/_/ /___/___/ / |_|\\__/_/_/ /_/ /_/\\___/\n'),
   ('/_/\n'))
 
-  cat(
-    color_codes[color],
-    art,
-    color_codes["reset"],
-    sep = ""
-  )
+  sprintf("%s%s%s", color_codes[color], art, color_codes["reset"])
 }

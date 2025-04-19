@@ -11,3 +11,8 @@ Description: pizzR is a small collection of R-Functions created
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports:
+    magrittr (>= 2.0.3)
+    terra (>= 1.8-42)
+    randomForest (>= 4.7-1.2)
+    ranger (>= 0.17.0)
