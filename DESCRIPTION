@@ -1,18 +1,20 @@
 Package: pizzR
 Type: Package
 Title: Small but useful collection of R-Functions
-Version: 0.3.8
-Author: piledge
-Maintainer: piledge <thechiefhimself@gmx.at>
+Version: 0.3.9
+Authors@R: person("piledge", email = "thechiefhimself@gmx.at",
+                  role = c("aut", "cre"))
 Description: pizzR is a small collection of R-Functions created
     by a Pizza-enthusiast. Although there is no specific topic,
     most of the functions have a background in forestry, raster
     data as well as tree species classification
 License: MIT + file LICENSE
+BugReports: https://github.com/piledge/pizzR/issues
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 4.4)
 Imports:
-    magrittr (>= 2.0.3)
-    terra (>= 1.8-42)
-    randomForest (>= 4.7-1.2)
+    magrittr (>= 2.0.3),
+    terra (>= 1.8-42),
+    randomForest (>= 4.7-1.2),
     ranger (>= 0.17.0)
