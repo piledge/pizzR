@@ -6,12 +6,12 @@ dependencies <- c("caret", "crayon", "dbscan", "doParallel", "e1071",
                   "xml2", "MrFlywheel/kaiserschmRn")
 
 
-to_install <- !dependencies %in% rownames(installed.packages())
+#to_install <- !dependencies %in% rownames(installed.packages())
 
-if (any(to_install)) {
-  missing_dependencies <- as.character(dependencies[to_install])
-  cat("\n\nMissing dependencies:", paste(missing_dependencies, collapse = ", "), "\n")
-  cat("Use 'pizzR::package.install(pizzR::dependencies)' to add missing packages.\n\n")
-} else {
-  cat("All dependencies are installed.\n")
-}
+#if (any(to_install)) {
+#  missing_dependencies <- as.character(dependencies[to_install])
+#  cat("\n\nMissing dependencies:", paste(missing_dependencies, collapse = ", "), "\n")
+#  cat("Use 'pizzR::package.install(pizzR::dependencies)' to add missing packages.\n\n")
+#} else {
+#  cat("All dependencies are installed.\n")
+#}
