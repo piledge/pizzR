@@ -17,7 +17,7 @@ calc_metrics <- function (data, id = "ID", verbose = FALSE)
   colnames(res) <- metrics_names_rep
   for (i in seq_along(unique_ids)) {
     if (verbose) pizzR::loop_progress(i, total_digits = nchar_n_samples)
-    data_subs <- na.omit(data[ data$ID == i, -id_col, drop = FALSE])
+    data_subs <- na.omit(data[ data[[id]] == i, -id_col, drop = FALSE])
     metrics <- c(pizzR::quapply(data_subs, 0.05),
                  pizzR::quapply(data_subs, 0.10),
                  pizzR::quapply(data_subs, 0.15),
