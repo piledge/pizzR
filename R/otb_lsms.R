@@ -43,7 +43,7 @@ OTB_lsms <- function(filename_in=NULL, dir_out=NULL, spatialr=5, ranger=15, mins
   cmd <- sprintf('otbcli_LargeScaleMeanShift%s%s%s%s%s%s%s%s', in_file_cmd, out_cmd, spatialr_cmd, ranger_cmd, minsize_cmd, tilesizex_cmd, tilesizey_cmd, ram_cmd)
   #cat(sprintf('\n%s\n', cmd))
   if (Sys.info()["sysname"] == "Windows") pizzR::OTB_run(cmd) else system(cmd)
-  if (cleanup) file.remove(list.files(dir_out, pattern = '.tif', full.names = T))
+  if (cleanup) file.remove(list.files(dir_out, pattern = '.tif', full.names = T), showWarnings = F)
 
 }
 
