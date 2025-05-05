@@ -1,6 +1,6 @@
 dependencies <- c("caret", "crayon", "dbscan", "doParallel", "e1071",
                   "feather", "foreach", "gdata", "ggplot2", "lidR",
-                  "magrittr", "memuse", "parallelly", "randomForest",
+                  "lwgeom", "magrittr", "memuse", "parallelly", "randomForest",
                   "ranger", "raster", "Rcpp", "remotes", "rvest",
                   "RMariaDB", "s2", "sf", "snow", "terra", "tidyverse",
                   "xml2", "MrFlywheel/kaiserschmRn")
@@ -15,7 +15,7 @@ if (length(missing_deps) > 0) {
   bold_off <- "\033[22m"
 
   cat(sprintf("%s%s%s%s%s", col_start, "\nMissing dependencies: ", paste(missing_deps, collapse = ", "), "\n", col_end))
-  cat(sprintf("%s%s%s%s%s%s%s", col_start, "Use '", bold_on, "pizzR::package.install(pizzR::dependencies)", bold_off, "' to add missing packages.\n\n", col_end))
+  cat(sprintf("%s%s%s%s%s%s%s", col_start, "Use '", bold_on, "pizzR::package.install(pizzR::dependencies)", bold_off, "' to install.\n\n", col_end))
 } else {
   cat("All dependencies are installed.\n")
 }
