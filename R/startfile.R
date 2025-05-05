@@ -1,3 +1,3 @@
 .onAttach <- function(libname, pkgname) {
-  packageStartupMessage(pizzRtime('red'))
+  packageStartupMessage(pizzRtime('red', cat = F))
 }
