@@ -1,7 +1,7 @@
 Package: pizzR
 Type: Package
 Title: Small but useful collection of R-Functions
-Version: 0.3.9
+Version: 0.3.10
 Authors@R: person("piledge", email = "thechiefhimself@gmx.at",
                   role = c("aut", "cre"))
 Description: pizzR is a small collection of R-Functions created
