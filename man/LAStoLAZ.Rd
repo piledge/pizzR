@@ -2,11 +2,11 @@
 \alias{LAStoLAZ}
 \title{Easy compress a folder full of .LAS-Files.}
 \usage{
-LAStoLAZ(x,y,verbose=F)
+LAStoLAZ(in_path,out_path,verbose=F)
 }
 \arguments{
-\item{x}{character. Input-path of a Folder containing LAS-files.}
-\item{y}{character. Optional Output-path for LAS-Files. Will be created if not specified.}
+\item{in_path}{character. Input-path of a Folder containing LAS-files.}
+\item{out_path}{character. Optional Output-path for LAS-Files. Will be created if not specified.}
 \item{verbose}{logical. Console output.}
 }
 \description{
