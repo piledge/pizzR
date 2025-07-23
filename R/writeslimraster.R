@@ -24,7 +24,7 @@ writeslimRaster <- function(rasterobject, filename, compression=T, overwrite=T, 
       fparameters$datatype                                                      <- pizzR::opt.datatype(rasterobject)
     }
     if (compression){
-      fparameters$gdal <- c(sprintf("BIGTIFF = %s", BIGTIFF), "COMPRESS = DEFLATE", "ZLEVEL = 9", "PREDICTOR = 2")
+      fparameters$gdal <- c(sprintf("BIGTIFF = %s", BIGTIFF), "TILED = YES", "COMPRESS = DEFLATE", "ZLEVEL = 9", "PREDICTOR = 2")
       if (verbose) cat(sprintf("\n%s: Write slim rasterfile as '%s' ...\n", pizzR::Systime(), fparameters$datatype))
     }else{
       fparameters$gdal <- c(sprintf("BIGTIFF = %s", BIGTIFF))
